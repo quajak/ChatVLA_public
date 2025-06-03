@@ -1,0 +1,119 @@
+{
+    "0107_bread_to_empty_plate_spoon_480_640": [
+        "Pick up the bread from the table and put it onto the plate."
+    ],
+    "0108_hang_cup_480_640": [
+        "Pick up the cup and hang it on the shelf."
+    ],
+    "0108_put_tennis_ball_480_640": [
+        "Pick up the tennis ball and put it into the tennis can."
+    ],
+    "0109_green_cube_to_pink_cube_480_640": [
+        "Pick up the green cube and stack it onto the pink cube carefully."
+    ],
+    "0110_open_the_box_480_640": [
+        "Pick up the lid of the box and then put it on the table."
+    ],
+    "0111_breakfast_pick_banana_to_white_plate_480_640": [
+        "Pick up the banana and move it onto the plate."
+    ],
+    "0114_yellow_pink_building_block_to_basket_480_640": [
+        [
+          "Pick up the yellow building-block and put it into the basket."
+        ],
+        [
+          "Pick up the pink building-block and put it into the basket."
+        ],
+        [
+          "Wait for next task."
+        ]
+    ],
+    "0114_open_drawer_put_spider_man_480_640": [
+        [
+          "Rotate to grab the handler and move right to open the drawer."
+        ],
+        [
+          "The drawer is now open. Grab the toy spider man from the table and put it into the drawer."
+        ],
+        [
+          "Close the gripper. Rotate and move left to close the drawer."
+        ],
+        [
+          "Wait for next task."
+        ]
+    ],
+    "0114_stack_building_block_480_640": [
+        [
+          "Pick up the orange building-block on the right. Rotate and stack it onto the yellow one."
+        ],
+        [
+          "Pick up the pink building-block on the right. Stack it onto the orange one."
+        ],
+        [
+          "Wait for next task."
+        ]
+    ],
+    "0115_bussing_table_two_animals_two_cubes_480_640": [
+        [
+          "Pick up an animal and put it to the left box."
+        ],
+        [
+          "Pick up an animal and put it to the left box."
+        ],
+        [
+          "Pick up a building-block and put it into the basket on the right."
+        ],
+        [
+          "Pick up a building-block and put it into the basket on the right."
+        ],
+        [
+          "Wait for next task."
+        ]
+    ],
+    "0116_soap_to_soap_box_480_640": [
+      "Put the soap to the soap box."
+    ],
+    "0116_bathroom_hang_cup_480_640": [
+      "Pick up the cup from the sink and hook it on the shelf."
+    ],
+    "0116_bathroom_pick_tooth_paste_480_640": [
+      "Pick up the tooth paste and put it to the table."
+    ],
+    "0116_bathroom_take_towel_480_640": [
+      "Take away the towel from the shelf and put it down."
+    ],
+    "0116_kitchen_pick_bread_from_pot_480_640": [
+      "Pick up the bread and put it to the plate."
+    ],
+    "0116_kitchen_pick_bread_from_refrigerator_480_640": [
+      "Pick up the bread on the right."
+    ],
+    "0116_breakfast_take_plate_480_640": [
+      "Pick up the plate from the top of the shelf and put it onto the tablecloth."
+    ],
+    "0117_breakfast_pick_bread_to_plate_480_640": [
+      "Pick up the bread and put it onto the plate."
+    ],
+    "0117_breakfast_flip_cup_480_640": [
+      "Rotate to get the cup and put it on the tablecloth."
+    ],
+    "0118_close_drawer_480_640": [
+      "Close the gripper. Rotate and move left to close the drawer."
+    ],
+    "0118_open_drawer_480_640": [
+	  "Rotate to grab the handler and move right to open the drawer."
+    ],
+    "0118_pick_orange_building_block_beside_toy_480_640": [
+      "Pick up the orange building-block and put it into the basket."
+    ],
+    "0118_put_toy_into_drawer_480_640": [
+      "Pick up the toy and put it into the drawer."
+    ],
+    "0118_pick_up_semicircle_building_block_to_right_basket_480_640": [
+      "Pick up the semicircle building-block and put it into the basket."
+    ],
+    "0118_pick_up_rectangle_building_block_to_right_basket_480_640": [
+      "Pick up the rectangle building-block and put it to the right basket."
+    ]
+
+}

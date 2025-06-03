@@ -1,0 +1,9 @@
+{
+  "one_step": [
+      "On the whiteboard is <A><op><B>. <A><op><B>=<C>. There are: <ans1> (left), <ans2> (middle), and <ans3> (right). I should pick <num1> from <pos1>."
+  ],
+  "two_steps": [
+    "On the whiteboard is <A><op><B>. <A><op><B>=<C>. There are: <ans1> (left), <ans2> (middle), and <ans3> (right). I should pick <num1>(<pos1>) and <num2>(<pos2>). First, pick <num1> from <pos1>.",
+    "On the whiteboard is <A><op><B>. <A><op><B>=<C>. Already picked <num1> from <pos1>. I should pick <num2> from <pos2>"
+  ]
+}

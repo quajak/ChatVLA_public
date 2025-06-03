@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="cb6c1517-0750-4e08-9d07-295b5461dbdd" name="30844">
+        <fileTransfer rootFolder="/home/jovyan/tzb/zhouzy/code/moevla" accessType="SFTP" host="10.0.14.36" port="31838" sshConfigId="1cd7594d-ca4f-4ba3-816e-c880204edf5e" sshConfig="root@10.0.14.36:31838" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="355c6f63-6714-451f-bb80-e11825cf0490" name="30846">
+        <fileTransfer rootFolder="/home/jovyan/tzb/zhouzy/code/moevla" accessType="SFTP" host="10.0.14.36" port="30846" sshConfigId="44bea0ba-c924-4fd8-9fef-ff23fbc0a5d7" sshConfig="root@10.0.14.36:30846 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

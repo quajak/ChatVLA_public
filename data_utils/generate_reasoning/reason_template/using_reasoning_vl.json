@@ -1,0 +1,29 @@
+{
+  "math": [
+    [
+      "First, calculate the target value <C> by resolving the equation <A><op><B> identified on the gray foam pad.",
+      "Upon identifying the equation <A><op><B> on the gray foam pad, start by computing the mathematical operation to derive the target value <C>.",
+      "After detecting <A><op><B> on the gray foam surface, prioritize evaluating the equation to obtain the target value <C>.",
+      "The initial step involves processing the equation <A><op><B> found on the gray foam pad to generate the required value <C>.",
+      "Begin the procedure by mathematically analyzing the detected equation <A><op><B> to establish the target result <C>.",
+      "Upon detecting the equation <A><op><B> on the gray foam pad, first resolve the mathematical operation to compute the target value <C>."
+    ],
+    [
+      "Note the three horizontally aligned number cards beneath the equation: <ans1> appears on the left card, <ans2> is shown in the middle, and <ans3> is visible on the right card.",
+      "Below the equation, observe three number cards placed in a horizontal row: the left card displays <ans1>, the middle card shows <ans2>, and the right card exhibits <ans3>.",
+      "Check the three number cards arranged horizontally below the equation: leftmost (<ans1>), middle (<ans2>), and rightmost (<ans3>).",
+      "Inspect the trio of number cards positioned directly under the equation: left (<ans1>), middle (<ans2>), and right (<ans3>) positions.",
+      "Verify the horizontally arranged answer options beneath: starting with <ans1> on the left, followed by <ans2> on the middle, and ending with <ans3> on the right.",
+      "Scan the three-number display below: <ans1> (left), <ans2> (middle), and <ans3> (right) arranged in a straight line."
+    ],
+    [
+      "The correct solution <C> aligns with the value on the <pos> card.",
+      "The calculated value <C> corresponds to the <pos> card's displayed number.",
+      "The computed result <C> matches the value on the <pos> card.",
+      "<C> matches exactly with the <pos> card's numerical value."
+    ],
+    [
+      "The correct card is the <pos> card with <C> on it."
+    ]
+  ]
+}

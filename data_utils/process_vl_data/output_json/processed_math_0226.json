@@ -1,0 +1,3650 @@
+[
+    {
+        "id": "image_0_0_0",
+        "all_numbers": "12387",
+        "image": [
+            "real-world/math/image_0_0_left.jpg",
+            "real-world/math/image_0_0_right.jpg",
+            "real-world/math/image_0_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 3 by resolving the equation 1+2 identified on the gray foam pad. Check the three number cards arranged horizontally below the equation: leftmost (3), middle (8), and rightmost (7). 3 matches exactly with the left card's numerical value. The correct card is the left card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_0_1_0",
+        "all_numbers": "12387",
+        "image": [
+            "real-world/math/image_0_1_left.jpg",
+            "real-world/math/image_0_1_right.jpg",
+            "real-world/math/image_0_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 1+2 found on the gray foam pad to generate the required value 3. Scan the three-number display below: 3 (left), 7 (middle), and 8 (right) arranged in a straight line. The computed result 3 matches the value on the left card. The correct card is the left card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_0_2_0",
+        "all_numbers": "12387",
+        "image": [
+            "real-world/math/image_0_2_left.jpg",
+            "real-world/math/image_0_2_right.jpg",
+            "real-world/math/image_0_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 1+2 on the gray foam pad, first resolve the mathematical operation to compute the target value 3. Note the three horizontally aligned number cards beneath the equation: 8 appears on the left card, 3 is shown in the middle, and 7 is visible on the right card. The calculated value 3 corresponds to the middle card's displayed number. The correct card is the middle card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_0_3_0",
+        "all_numbers": "12387",
+        "image": [
+            "real-world/math/image_0_3_left.jpg",
+            "real-world/math/image_0_3_right.jpg",
+            "real-world/math/image_0_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 1+2 on the gray foam surface, prioritize evaluating the equation to obtain the target value 3. Note the three horizontally aligned number cards beneath the equation: 7 appears on the left card, 3 is shown in the middle, and 8 is visible on the right card. The correct solution 3 aligns with the value on the middle card. The correct card is the middle card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_0_4_0",
+        "all_numbers": "12387",
+        "image": [
+            "real-world/math/image_0_4_left.jpg",
+            "real-world/math/image_0_4_right.jpg",
+            "real-world/math/image_0_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 3 by resolving the equation 1+2 identified on the gray foam pad. Scan the three-number display below: 8 (left), 7 (middle), and 3 (right) arranged in a straight line. The computed result 3 matches the value on the right card. The correct card is the right card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_0_5_0",
+        "all_numbers": "12387",
+        "image": [
+            "real-world/math/image_0_5_left.jpg",
+            "real-world/math/image_0_5_right.jpg",
+            "real-world/math/image_0_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 1+2 found on the gray foam pad to generate the required value 3. Scan the three-number display below: 7 (left), 8 (middle), and 3 (right) arranged in a straight line. 3 matches exactly with the right card's numerical value. The correct card is the right card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_1_0_0",
+        "all_numbers": "21349",
+        "image": [
+            "real-world/math/image_1_0_left.jpg",
+            "real-world/math/image_1_0_right.jpg",
+            "real-world/math/image_1_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 2+1 to establish the target result 3. Check the three number cards arranged horizontally below the equation: leftmost (3), middle (4), and rightmost (9). The correct solution 3 aligns with the value on the left card. The correct card is the left card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_1_1_0",
+        "all_numbers": "21349",
+        "image": [
+            "real-world/math/image_1_1_left.jpg",
+            "real-world/math/image_1_1_right.jpg",
+            "real-world/math/image_1_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 2+1 on the gray foam pad, first resolve the mathematical operation to compute the target value 3. Scan the three-number display below: 3 (left), 9 (middle), and 4 (right) arranged in a straight line. The calculated value 3 corresponds to the left card's displayed number. The correct card is the left card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_1_2_0",
+        "all_numbers": "21349",
+        "image": [
+            "real-world/math/image_1_2_left.jpg",
+            "real-world/math/image_1_2_right.jpg",
+            "real-world/math/image_1_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 3 by resolving the equation 2+1 identified on the gray foam pad. Note the three horizontally aligned number cards beneath the equation: 4 appears on the left card, 3 is shown in the middle, and 9 is visible on the right card. The correct solution 3 aligns with the value on the middle card. The correct card is the middle card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_1_3_0",
+        "all_numbers": "21349",
+        "image": [
+            "real-world/math/image_1_3_left.jpg",
+            "real-world/math/image_1_3_right.jpg",
+            "real-world/math/image_1_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 2+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 3. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 3 is shown in the middle, and 4 is visible on the right card. The computed result 3 matches the value on the middle card. The correct card is the middle card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_1_4_0",
+        "all_numbers": "21349",
+        "image": [
+            "real-world/math/image_1_4_left.jpg",
+            "real-world/math/image_1_4_right.jpg",
+            "real-world/math/image_1_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 2+1 found on the gray foam pad to generate the required value 3. Verify the horizontally arranged answer options beneath: starting with 4 on the left, followed by 9 on the middle, and ending with 3 on the right. The calculated value 3 corresponds to the right card's displayed number. The correct card is the right card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_1_5_0",
+        "all_numbers": "21349",
+        "image": [
+            "real-world/math/image_1_5_left.jpg",
+            "real-world/math/image_1_5_right.jpg",
+            "real-world/math/image_1_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 2+1 on the gray foam surface, prioritize evaluating the equation to obtain the target value 3. Check the three number cards arranged horizontally below the equation: leftmost (9), middle (4), and rightmost (3). The computed result 3 matches the value on the right card. The correct card is the right card with 3 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_2_0_0",
+        "all_numbers": "13467",
+        "image": [
+            "real-world/math/image_2_0_left.jpg",
+            "real-world/math/image_2_0_right.jpg",
+            "real-world/math/image_2_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 1+3 found on the gray foam pad to generate the required value 4. Below the equation, observe three number cards placed in a horizontal row: the left card displays 4, the middle card shows 6, and the right card exhibits 7. The correct solution 4 aligns with the value on the left card. The correct card is the left card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_2_1_0",
+        "all_numbers": "13467",
+        "image": [
+            "real-world/math/image_2_1_left.jpg",
+            "real-world/math/image_2_1_right.jpg",
+            "real-world/math/image_2_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 1+3 to establish the target result 4. Scan the three-number display below: 4 (left), 7 (middle), and 6 (right) arranged in a straight line. The correct solution 4 aligns with the value on the left card. The correct card is the left card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_2_2_0",
+        "all_numbers": "13467",
+        "image": [
+            "real-world/math/image_2_2_left.jpg",
+            "real-world/math/image_2_2_right.jpg",
+            "real-world/math/image_2_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 1+3 to establish the target result 4. Verify the horizontally arranged answer options beneath: starting with 6 on the left, followed by 4 on the middle, and ending with 7 on the right. The computed result 4 matches the value on the middle card. The correct card is the middle card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_2_3_0",
+        "all_numbers": "13467",
+        "image": [
+            "real-world/math/image_2_3_left.jpg",
+            "real-world/math/image_2_3_right.jpg",
+            "real-world/math/image_2_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 1+3 found on the gray foam pad to generate the required value 4. Check the three number cards arranged horizontally below the equation: leftmost (7), middle (4), and rightmost (6). The calculated value 4 corresponds to the middle card's displayed number. The correct card is the middle card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_2_4_0",
+        "all_numbers": "13467",
+        "image": [
+            "real-world/math/image_2_4_left.jpg",
+            "real-world/math/image_2_4_right.jpg",
+            "real-world/math/image_2_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 4 by resolving the equation 1+3 identified on the gray foam pad. Note the three horizontally aligned number cards beneath the equation: 6 appears on the left card, 7 is shown in the middle, and 4 is visible on the right card. The calculated value 4 corresponds to the right card's displayed number. The correct card is the right card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_2_5_0",
+        "all_numbers": "13467",
+        "image": [
+            "real-world/math/image_2_5_left.jpg",
+            "real-world/math/image_2_5_right.jpg",
+            "real-world/math/image_2_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 1+3 on the gray foam pad, first resolve the mathematical operation to compute the target value 4. Check the three number cards arranged horizontally below the equation: leftmost (7), middle (6), and rightmost (4). 4 matches exactly with the right card's numerical value. The correct card is the right card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_3_0_0",
+        "all_numbers": "31428",
+        "image": [
+            "real-world/math/image_3_0_left.jpg",
+            "real-world/math/image_3_0_right.jpg",
+            "real-world/math/image_3_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 3+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 4. Inspect the trio of number cards positioned directly under the equation: left (4), middle (2), and right (8) positions. 4 matches exactly with the left card's numerical value. The correct card is the left card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_3_1_0",
+        "all_numbers": "31428",
+        "image": [
+            "real-world/math/image_3_1_left.jpg",
+            "real-world/math/image_3_1_right.jpg",
+            "real-world/math/image_3_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 3+1 found on the gray foam pad to generate the required value 4. Below the equation, observe three number cards placed in a horizontal row: the left card displays 4, the middle card shows 8, and the right card exhibits 2. The correct solution 4 aligns with the value on the left card. The correct card is the left card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_3_2_0",
+        "all_numbers": "31428",
+        "image": [
+            "real-world/math/image_3_2_left.jpg",
+            "real-world/math/image_3_2_right.jpg",
+            "real-world/math/image_3_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 3+1 found on the gray foam pad to generate the required value 4. Scan the three-number display below: 2 (left), 4 (middle), and 8 (right) arranged in a straight line. The calculated value 4 corresponds to the middle card's displayed number. The correct card is the middle card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_3_3_0",
+        "all_numbers": "31428",
+        "image": [
+            "real-world/math/image_3_3_left.jpg",
+            "real-world/math/image_3_3_right.jpg",
+            "real-world/math/image_3_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 3+1 on the gray foam surface, prioritize evaluating the equation to obtain the target value 4. Below the equation, observe three number cards placed in a horizontal row: the left card displays 8, the middle card shows 4, and the right card exhibits 2. The calculated value 4 corresponds to the middle card's displayed number. The correct card is the middle card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_3_4_0",
+        "all_numbers": "31428",
+        "image": [
+            "real-world/math/image_3_4_left.jpg",
+            "real-world/math/image_3_4_right.jpg",
+            "real-world/math/image_3_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 3+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 4. Below the equation, observe three number cards placed in a horizontal row: the left card displays 2, the middle card shows 8, and the right card exhibits 4. The computed result 4 matches the value on the right card. The correct card is the right card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_3_5_0",
+        "all_numbers": "31428",
+        "image": [
+            "real-world/math/image_3_5_left.jpg",
+            "real-world/math/image_3_5_right.jpg",
+            "real-world/math/image_3_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 3+1 found on the gray foam pad to generate the required value 4. Verify the horizontally arranged answer options beneath: starting with 8 on the left, followed by 2 on the middle, and ending with 4 on the right. The computed result 4 matches the value on the right card. The correct card is the right card with 4 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_4_0_0",
+        "all_numbers": "14537",
+        "image": [
+            "real-world/math/image_4_0_left.jpg",
+            "real-world/math/image_4_0_right.jpg",
+            "real-world/math/image_4_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 1+4 on the gray foam pad, start by computing the mathematical operation to derive the target value 5. Scan the three-number display below: 5 (left), 3 (middle), and 7 (right) arranged in a straight line. 5 matches exactly with the left card's numerical value. The correct card is the left card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_4_1_0",
+        "all_numbers": "14537",
+        "image": [
+            "real-world/math/image_4_1_left.jpg",
+            "real-world/math/image_4_1_right.jpg",
+            "real-world/math/image_4_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 1+4 on the gray foam surface, prioritize evaluating the equation to obtain the target value 5. Check the three number cards arranged horizontally below the equation: leftmost (5), middle (7), and rightmost (3). The calculated value 5 corresponds to the left card's displayed number. The correct card is the left card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_4_2_0",
+        "all_numbers": "14537",
+        "image": [
+            "real-world/math/image_4_2_left.jpg",
+            "real-world/math/image_4_2_right.jpg",
+            "real-world/math/image_4_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 1+4 on the gray foam surface, prioritize evaluating the equation to obtain the target value 5. Below the equation, observe three number cards placed in a horizontal row: the left card displays 3, the middle card shows 5, and the right card exhibits 7. The correct solution 5 aligns with the value on the middle card. The correct card is the middle card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_4_3_0",
+        "all_numbers": "14537",
+        "image": [
+            "real-world/math/image_4_3_left.jpg",
+            "real-world/math/image_4_3_right.jpg",
+            "real-world/math/image_4_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 1+4 found on the gray foam pad to generate the required value 5. Scan the three-number display below: 7 (left), 5 (middle), and 3 (right) arranged in a straight line. The calculated value 5 corresponds to the middle card's displayed number. The correct card is the middle card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_4_4_0",
+        "all_numbers": "14537",
+        "image": [
+            "real-world/math/image_4_4_left.jpg",
+            "real-world/math/image_4_4_right.jpg",
+            "real-world/math/image_4_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 1+4 to establish the target result 5. Note the three horizontally aligned number cards beneath the equation: 3 appears on the left card, 7 is shown in the middle, and 5 is visible on the right card. The computed result 5 matches the value on the right card. The correct card is the right card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_4_5_0",
+        "all_numbers": "14537",
+        "image": [
+            "real-world/math/image_4_5_left.jpg",
+            "real-world/math/image_4_5_right.jpg",
+            "real-world/math/image_4_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 1+4 to establish the target result 5. Below the equation, observe three number cards placed in a horizontal row: the left card displays 7, the middle card shows 3, and the right card exhibits 5. 5 matches exactly with the right card's numerical value. The correct card is the right card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_5_0_0",
+        "all_numbers": "41562",
+        "image": [
+            "real-world/math/image_5_0_left.jpg",
+            "real-world/math/image_5_0_right.jpg",
+            "real-world/math/image_5_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 4+1 on the gray foam surface, prioritize evaluating the equation to obtain the target value 5. Verify the horizontally arranged answer options beneath: starting with 5 on the left, followed by 6 on the middle, and ending with 2 on the right. The computed result 5 matches the value on the left card. The correct card is the left card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_5_1_0",
+        "all_numbers": "41562",
+        "image": [
+            "real-world/math/image_5_1_left.jpg",
+            "real-world/math/image_5_1_right.jpg",
+            "real-world/math/image_5_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 4+1 found on the gray foam pad to generate the required value 5. Scan the three-number display below: 5 (left), 2 (middle), and 6 (right) arranged in a straight line. The calculated value 5 corresponds to the left card's displayed number. The correct card is the left card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_5_2_0",
+        "all_numbers": "41562",
+        "image": [
+            "real-world/math/image_5_2_left.jpg",
+            "real-world/math/image_5_2_right.jpg",
+            "real-world/math/image_5_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 4+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 5. Below the equation, observe three number cards placed in a horizontal row: the left card displays 6, the middle card shows 5, and the right card exhibits 2. 5 matches exactly with the middle card's numerical value. The correct card is the middle card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_5_3_0",
+        "all_numbers": "41562",
+        "image": [
+            "real-world/math/image_5_3_left.jpg",
+            "real-world/math/image_5_3_right.jpg",
+            "real-world/math/image_5_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 4+1 to establish the target result 5. Scan the three-number display below: 2 (left), 5 (middle), and 6 (right) arranged in a straight line. The correct solution 5 aligns with the value on the middle card. The correct card is the middle card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_5_4_0",
+        "all_numbers": "41562",
+        "image": [
+            "real-world/math/image_5_4_left.jpg",
+            "real-world/math/image_5_4_right.jpg",
+            "real-world/math/image_5_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 5 by resolving the equation 4+1 identified on the gray foam pad. Inspect the trio of number cards positioned directly under the equation: left (6), middle (2), and right (5) positions. The correct solution 5 aligns with the value on the right card. The correct card is the right card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_5_5_0",
+        "all_numbers": "41562",
+        "image": [
+            "real-world/math/image_5_5_left.jpg",
+            "real-world/math/image_5_5_right.jpg",
+            "real-world/math/image_5_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 4+1 to establish the target result 5. Verify the horizontally arranged answer options beneath: starting with 2 on the left, followed by 6 on the middle, and ending with 5 on the right. 5 matches exactly with the right card's numerical value. The correct card is the right card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_6_0_0",
+        "all_numbers": "15679",
+        "image": [
+            "real-world/math/image_6_0_left.jpg",
+            "real-world/math/image_6_0_right.jpg",
+            "real-world/math/image_6_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 1+5 on the gray foam pad, start by computing the mathematical operation to derive the target value 6. Verify the horizontally arranged answer options beneath: starting with 6 on the left, followed by 7 on the middle, and ending with 9 on the right. The calculated value 6 corresponds to the left card's displayed number. The correct card is the left card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_6_1_0",
+        "all_numbers": "15679",
+        "image": [
+            "real-world/math/image_6_1_left.jpg",
+            "real-world/math/image_6_1_right.jpg",
+            "real-world/math/image_6_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 1+5 to establish the target result 6. Inspect the trio of number cards positioned directly under the equation: left (6), middle (9), and right (7) positions. The calculated value 6 corresponds to the left card's displayed number. The correct card is the left card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_6_2_0",
+        "all_numbers": "15679",
+        "image": [
+            "real-world/math/image_6_2_left.jpg",
+            "real-world/math/image_6_2_right.jpg",
+            "real-world/math/image_6_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 1+5 found on the gray foam pad to generate the required value 6. Scan the three-number display below: 7 (left), 6 (middle), and 9 (right) arranged in a straight line. 6 matches exactly with the middle card's numerical value. The correct card is the middle card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_6_3_0",
+        "all_numbers": "15679",
+        "image": [
+            "real-world/math/image_6_3_left.jpg",
+            "real-world/math/image_6_3_right.jpg",
+            "real-world/math/image_6_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 1+5 on the gray foam pad, start by computing the mathematical operation to derive the target value 6. Check the three number cards arranged horizontally below the equation: leftmost (9), middle (6), and rightmost (7). The calculated value 6 corresponds to the middle card's displayed number. The correct card is the middle card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_6_4_0",
+        "all_numbers": "15679",
+        "image": [
+            "real-world/math/image_6_4_left.jpg",
+            "real-world/math/image_6_4_right.jpg",
+            "real-world/math/image_6_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 1+5 on the gray foam pad, start by computing the mathematical operation to derive the target value 6. Check the three number cards arranged horizontally below the equation: leftmost (7), middle (9), and rightmost (6). The correct solution 6 aligns with the value on the right card. The correct card is the right card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_6_5_0",
+        "all_numbers": "15679",
+        "image": [
+            "real-world/math/image_6_5_left.jpg",
+            "real-world/math/image_6_5_right.jpg",
+            "real-world/math/image_6_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 1+5 found on the gray foam pad to generate the required value 6. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 7 is shown in the middle, and 6 is visible on the right card. The correct solution 6 aligns with the value on the right card. The correct card is the right card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_7_0_0",
+        "all_numbers": "51638",
+        "image": [
+            "real-world/math/image_7_0_left.jpg",
+            "real-world/math/image_7_0_right.jpg",
+            "real-world/math/image_7_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 5+1 on the gray foam pad, first resolve the mathematical operation to compute the target value 6. Verify the horizontally arranged answer options beneath: starting with 6 on the left, followed by 3 on the middle, and ending with 8 on the right. The calculated value 6 corresponds to the left card's displayed number. The correct card is the left card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_7_1_0",
+        "all_numbers": "51638",
+        "image": [
+            "real-world/math/image_7_1_left.jpg",
+            "real-world/math/image_7_1_right.jpg",
+            "real-world/math/image_7_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 6 by resolving the equation 5+1 identified on the gray foam pad. Scan the three-number display below: 6 (left), 8 (middle), and 3 (right) arranged in a straight line. 6 matches exactly with the left card's numerical value. The correct card is the left card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_7_2_0",
+        "all_numbers": "51638",
+        "image": [
+            "real-world/math/image_7_2_left.jpg",
+            "real-world/math/image_7_2_right.jpg",
+            "real-world/math/image_7_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 5+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 6. Verify the horizontally arranged answer options beneath: starting with 3 on the left, followed by 6 on the middle, and ending with 8 on the right. The computed result 6 matches the value on the middle card. The correct card is the middle card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_7_3_0",
+        "all_numbers": "51638",
+        "image": [
+            "real-world/math/image_7_3_left.jpg",
+            "real-world/math/image_7_3_right.jpg",
+            "real-world/math/image_7_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 5+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 6. Scan the three-number display below: 8 (left), 6 (middle), and 3 (right) arranged in a straight line. The computed result 6 matches the value on the middle card. The correct card is the middle card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_7_4_0",
+        "all_numbers": "51638",
+        "image": [
+            "real-world/math/image_7_4_left.jpg",
+            "real-world/math/image_7_4_right.jpg",
+            "real-world/math/image_7_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 5+1 on the gray foam pad, first resolve the mathematical operation to compute the target value 6. Below the equation, observe three number cards placed in a horizontal row: the left card displays 3, the middle card shows 8, and the right card exhibits 6. The correct solution 6 aligns with the value on the right card. The correct card is the right card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_7_5_0",
+        "all_numbers": "51638",
+        "image": [
+            "real-world/math/image_7_5_left.jpg",
+            "real-world/math/image_7_5_right.jpg",
+            "real-world/math/image_7_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 5+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 6. Below the equation, observe three number cards placed in a horizontal row: the left card displays 8, the middle card shows 3, and the right card exhibits 6. The computed result 6 matches the value on the right card. The correct card is the right card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_8_0_0",
+        "all_numbers": "16794",
+        "image": [
+            "real-world/math/image_8_0_left.jpg",
+            "real-world/math/image_8_0_right.jpg",
+            "real-world/math/image_8_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 1+6 on the gray foam pad, first resolve the mathematical operation to compute the target value 7. Note the three horizontally aligned number cards beneath the equation: 7 appears on the left card, 9 is shown in the middle, and 4 is visible on the right card. The calculated value 7 corresponds to the left card's displayed number. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_8_1_0",
+        "all_numbers": "16794",
+        "image": [
+            "real-world/math/image_8_1_left.jpg",
+            "real-world/math/image_8_1_right.jpg",
+            "real-world/math/image_8_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 1+6 on the gray foam surface, prioritize evaluating the equation to obtain the target value 7. Inspect the trio of number cards positioned directly under the equation: left (7), middle (4), and right (9) positions. The correct solution 7 aligns with the value on the left card. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_8_2_0",
+        "all_numbers": "16794",
+        "image": [
+            "real-world/math/image_8_2_left.jpg",
+            "real-world/math/image_8_2_right.jpg",
+            "real-world/math/image_8_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 1+6 on the gray foam surface, prioritize evaluating the equation to obtain the target value 7. Scan the three-number display below: 9 (left), 7 (middle), and 4 (right) arranged in a straight line. The correct solution 7 aligns with the value on the middle card. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_8_3_0",
+        "all_numbers": "16794",
+        "image": [
+            "real-world/math/image_8_3_left.jpg",
+            "real-world/math/image_8_3_right.jpg",
+            "real-world/math/image_8_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 1+6 on the gray foam pad, first resolve the mathematical operation to compute the target value 7. Verify the horizontally arranged answer options beneath: starting with 4 on the left, followed by 7 on the middle, and ending with 9 on the right. 7 matches exactly with the middle card's numerical value. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_8_4_0",
+        "all_numbers": "16794",
+        "image": [
+            "real-world/math/image_8_4_left.jpg",
+            "real-world/math/image_8_4_right.jpg",
+            "real-world/math/image_8_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 1+6 on the gray foam pad, first resolve the mathematical operation to compute the target value 7. Below the equation, observe three number cards placed in a horizontal row: the left card displays 9, the middle card shows 4, and the right card exhibits 7. The calculated value 7 corresponds to the right card's displayed number. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_8_5_0",
+        "all_numbers": "16794",
+        "image": [
+            "real-world/math/image_8_5_left.jpg",
+            "real-world/math/image_8_5_right.jpg",
+            "real-world/math/image_8_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 1+6 on the gray foam surface, prioritize evaluating the equation to obtain the target value 7. Verify the horizontally arranged answer options beneath: starting with 4 on the left, followed by 9 on the middle, and ending with 7 on the right. The correct solution 7 aligns with the value on the right card. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_9_0_0",
+        "all_numbers": "61752",
+        "image": [
+            "real-world/math/image_9_0_left.jpg",
+            "real-world/math/image_9_0_right.jpg",
+            "real-world/math/image_9_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 6+1 on the gray foam pad, first resolve the mathematical operation to compute the target value 7. Check the three number cards arranged horizontally below the equation: leftmost (7), middle (5), and rightmost (2). The calculated value 7 corresponds to the left card's displayed number. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_9_1_0",
+        "all_numbers": "61752",
+        "image": [
+            "real-world/math/image_9_1_left.jpg",
+            "real-world/math/image_9_1_right.jpg",
+            "real-world/math/image_9_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 7 by resolving the equation 6+1 identified on the gray foam pad. Note the three horizontally aligned number cards beneath the equation: 7 appears on the left card, 2 is shown in the middle, and 5 is visible on the right card. 7 matches exactly with the left card's numerical value. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_9_2_0",
+        "all_numbers": "61752",
+        "image": [
+            "real-world/math/image_9_2_left.jpg",
+            "real-world/math/image_9_2_right.jpg",
+            "real-world/math/image_9_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 6+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 7. Verify the horizontally arranged answer options beneath: starting with 5 on the left, followed by 7 on the middle, and ending with 2 on the right. The calculated value 7 corresponds to the middle card's displayed number. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_9_3_0",
+        "all_numbers": "61752",
+        "image": [
+            "real-world/math/image_9_3_left.jpg",
+            "real-world/math/image_9_3_right.jpg",
+            "real-world/math/image_9_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 6+1 to establish the target result 7. Verify the horizontally arranged answer options beneath: starting with 2 on the left, followed by 7 on the middle, and ending with 5 on the right. The computed result 7 matches the value on the middle card. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_9_4_0",
+        "all_numbers": "61752",
+        "image": [
+            "real-world/math/image_9_4_left.jpg",
+            "real-world/math/image_9_4_right.jpg",
+            "real-world/math/image_9_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 6+1 on the gray foam pad, first resolve the mathematical operation to compute the target value 7. Note the three horizontally aligned number cards beneath the equation: 5 appears on the left card, 2 is shown in the middle, and 7 is visible on the right card. 7 matches exactly with the right card's numerical value. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_9_5_0",
+        "all_numbers": "61752",
+        "image": [
+            "real-world/math/image_9_5_left.jpg",
+            "real-world/math/image_9_5_right.jpg",
+            "real-world/math/image_9_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 6+1 on the gray foam surface, prioritize evaluating the equation to obtain the target value 7. Verify the horizontally arranged answer options beneath: starting with 2 on the left, followed by 5 on the middle, and ending with 7 on the right. The computed result 7 matches the value on the right card. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_10_0_0",
+        "all_numbers": "17893",
+        "image": [
+            "real-world/math/image_10_0_left.jpg",
+            "real-world/math/image_10_0_right.jpg",
+            "real-world/math/image_10_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 1+7 on the gray foam pad, first resolve the mathematical operation to compute the target value 8. Verify the horizontally arranged answer options beneath: starting with 8 on the left, followed by 9 on the middle, and ending with 3 on the right. The computed result 8 matches the value on the left card. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_10_1_0",
+        "all_numbers": "17893",
+        "image": [
+            "real-world/math/image_10_1_left.jpg",
+            "real-world/math/image_10_1_right.jpg",
+            "real-world/math/image_10_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 1+7 on the gray foam pad, first resolve the mathematical operation to compute the target value 8. Scan the three-number display below: 8 (left), 3 (middle), and 9 (right) arranged in a straight line. The correct solution 8 aligns with the value on the left card. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_10_2_0",
+        "all_numbers": "17893",
+        "image": [
+            "real-world/math/image_10_2_left.jpg",
+            "real-world/math/image_10_2_right.jpg",
+            "real-world/math/image_10_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 1+7 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Verify the horizontally arranged answer options beneath: starting with 9 on the left, followed by 8 on the middle, and ending with 3 on the right. 8 matches exactly with the middle card's numerical value. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_10_3_0",
+        "all_numbers": "17893",
+        "image": [
+            "real-world/math/image_10_3_left.jpg",
+            "real-world/math/image_10_3_right.jpg",
+            "real-world/math/image_10_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 1+7 found on the gray foam pad to generate the required value 8. Scan the three-number display below: 3 (left), 8 (middle), and 9 (right) arranged in a straight line. The computed result 8 matches the value on the middle card. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_10_4_0",
+        "all_numbers": "17893",
+        "image": [
+            "real-world/math/image_10_4_left.jpg",
+            "real-world/math/image_10_4_right.jpg",
+            "real-world/math/image_10_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 1+7 to establish the target result 8. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 3 is shown in the middle, and 8 is visible on the right card. The correct solution 8 aligns with the value on the right card. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_10_5_0",
+        "all_numbers": "17893",
+        "image": [
+            "real-world/math/image_10_5_left.jpg",
+            "real-world/math/image_10_5_right.jpg",
+            "real-world/math/image_10_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 1+7 on the gray foam pad, first resolve the mathematical operation to compute the target value 8. Scan the three-number display below: 3 (left), 9 (middle), and 8 (right) arranged in a straight line. 8 matches exactly with the right card's numerical value. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_11_0_0",
+        "all_numbers": "71854",
+        "image": [
+            "real-world/math/image_11_0_left.jpg",
+            "real-world/math/image_11_0_right.jpg",
+            "real-world/math/image_11_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 7+1 on the gray foam pad, first resolve the mathematical operation to compute the target value 8. Note the three horizontally aligned number cards beneath the equation: 8 appears on the left card, 5 is shown in the middle, and 4 is visible on the right card. The correct solution 8 aligns with the value on the left card. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_11_1_0",
+        "all_numbers": "71854",
+        "image": [
+            "real-world/math/image_11_1_left.jpg",
+            "real-world/math/image_11_1_right.jpg",
+            "real-world/math/image_11_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 7+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 8. Inspect the trio of number cards positioned directly under the equation: left (8), middle (4), and right (5) positions. 8 matches exactly with the left card's numerical value. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_11_2_0",
+        "all_numbers": "71854",
+        "image": [
+            "real-world/math/image_11_2_left.jpg",
+            "real-world/math/image_11_2_right.jpg",
+            "real-world/math/image_11_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 7+1 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Inspect the trio of number cards positioned directly under the equation: left (5), middle (8), and right (4) positions. The computed result 8 matches the value on the middle card. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_11_3_0",
+        "all_numbers": "71854",
+        "image": [
+            "real-world/math/image_11_3_left.jpg",
+            "real-world/math/image_11_3_right.jpg",
+            "real-world/math/image_11_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 8 by resolving the equation 7+1 identified on the gray foam pad. Scan the three-number display below: 4 (left), 8 (middle), and 5 (right) arranged in a straight line. The calculated value 8 corresponds to the middle card's displayed number. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_11_4_0",
+        "all_numbers": "71854",
+        "image": [
+            "real-world/math/image_11_4_left.jpg",
+            "real-world/math/image_11_4_right.jpg",
+            "real-world/math/image_11_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 7+1 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Verify the horizontally arranged answer options beneath: starting with 5 on the left, followed by 4 on the middle, and ending with 8 on the right. 8 matches exactly with the right card's numerical value. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_11_5_0",
+        "all_numbers": "71854",
+        "image": [
+            "real-world/math/image_11_5_left.jpg",
+            "real-world/math/image_11_5_right.jpg",
+            "real-world/math/image_11_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 7+1 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Check the three number cards arranged horizontally below the equation: leftmost (4), middle (5), and rightmost (8). The computed result 8 matches the value on the right card. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_12_0_0",
+        "all_numbers": "18925",
+        "image": [
+            "real-world/math/image_12_0_left.jpg",
+            "real-world/math/image_12_0_right.jpg",
+            "real-world/math/image_12_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 1+8 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 2 is shown in the middle, and 5 is visible on the right card. The correct solution 9 aligns with the value on the left card. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_12_1_0",
+        "all_numbers": "18925",
+        "image": [
+            "real-world/math/image_12_1_left.jpg",
+            "real-world/math/image_12_1_right.jpg",
+            "real-world/math/image_12_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 1+8 to establish the target result 9. Inspect the trio of number cards positioned directly under the equation: left (9), middle (5), and right (2) positions. The computed result 9 matches the value on the left card. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_12_2_0",
+        "all_numbers": "18925",
+        "image": [
+            "real-world/math/image_12_2_left.jpg",
+            "real-world/math/image_12_2_right.jpg",
+            "real-world/math/image_12_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 1+8 to establish the target result 9. Note the three horizontally aligned number cards beneath the equation: 2 appears on the left card, 9 is shown in the middle, and 5 is visible on the right card. The calculated value 9 corresponds to the middle card's displayed number. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_12_3_0",
+        "all_numbers": "18925",
+        "image": [
+            "real-world/math/image_12_3_left.jpg",
+            "real-world/math/image_12_3_right.jpg",
+            "real-world/math/image_12_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 9 by resolving the equation 1+8 identified on the gray foam pad. Inspect the trio of number cards positioned directly under the equation: left (5), middle (9), and right (2) positions. The computed result 9 matches the value on the middle card. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_12_4_0",
+        "all_numbers": "18925",
+        "image": [
+            "real-world/math/image_12_4_left.jpg",
+            "real-world/math/image_12_4_right.jpg",
+            "real-world/math/image_12_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 1+8 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Below the equation, observe three number cards placed in a horizontal row: the left card displays 2, the middle card shows 5, and the right card exhibits 9. The computed result 9 matches the value on the right card. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_12_5_0",
+        "all_numbers": "18925",
+        "image": [
+            "real-world/math/image_12_5_left.jpg",
+            "real-world/math/image_12_5_right.jpg",
+            "real-world/math/image_12_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 1+8 on the gray foam surface, prioritize evaluating the equation to obtain the target value 9. Scan the three-number display below: 5 (left), 2 (middle), and 9 (right) arranged in a straight line. The calculated value 9 corresponds to the right card's displayed number. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_13_0_0",
+        "all_numbers": "81943",
+        "image": [
+            "real-world/math/image_13_0_left.jpg",
+            "real-world/math/image_13_0_right.jpg",
+            "real-world/math/image_13_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 8+1 on the gray foam surface, prioritize evaluating the equation to obtain the target value 9. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 4 is shown in the middle, and 3 is visible on the right card. The calculated value 9 corresponds to the left card's displayed number. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_13_1_0",
+        "all_numbers": "81943",
+        "image": [
+            "real-world/math/image_13_1_left.jpg",
+            "real-world/math/image_13_1_right.jpg",
+            "real-world/math/image_13_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 8+1 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 3 is shown in the middle, and 4 is visible on the right card. The computed result 9 matches the value on the left card. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_13_2_0",
+        "all_numbers": "81943",
+        "image": [
+            "real-world/math/image_13_2_left.jpg",
+            "real-world/math/image_13_2_right.jpg",
+            "real-world/math/image_13_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 8+1 found on the gray foam pad to generate the required value 9. Note the three horizontally aligned number cards beneath the equation: 4 appears on the left card, 9 is shown in the middle, and 3 is visible on the right card. The calculated value 9 corresponds to the middle card's displayed number. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_13_3_0",
+        "all_numbers": "81943",
+        "image": [
+            "real-world/math/image_13_3_left.jpg",
+            "real-world/math/image_13_3_right.jpg",
+            "real-world/math/image_13_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 8+1 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Inspect the trio of number cards positioned directly under the equation: left (3), middle (9), and right (4) positions. The computed result 9 matches the value on the middle card. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_13_4_0",
+        "all_numbers": "81943",
+        "image": [
+            "real-world/math/image_13_4_left.jpg",
+            "real-world/math/image_13_4_right.jpg",
+            "real-world/math/image_13_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 8+1 found on the gray foam pad to generate the required value 9. Check the three number cards arranged horizontally below the equation: leftmost (4), middle (3), and rightmost (9). The calculated value 9 corresponds to the right card's displayed number. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_13_5_0",
+        "all_numbers": "81943",
+        "image": [
+            "real-world/math/image_13_5_left.jpg",
+            "real-world/math/image_13_5_right.jpg",
+            "real-world/math/image_13_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 9 by resolving the equation 8+1 identified on the gray foam pad. Check the three number cards arranged horizontally below the equation: leftmost (3), middle (4), and rightmost (9). The computed result 9 matches the value on the right card. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_14_0_0",
+        "all_numbers": "23569",
+        "image": [
+            "real-world/math/image_14_0_left.jpg",
+            "real-world/math/image_14_0_right.jpg",
+            "real-world/math/image_14_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 2+3 to establish the target result 5. Inspect the trio of number cards positioned directly under the equation: left (5), middle (6), and right (9) positions. The computed result 5 matches the value on the left card. The correct card is the left card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_14_1_0",
+        "all_numbers": "23569",
+        "image": [
+            "real-world/math/image_14_1_left.jpg",
+            "real-world/math/image_14_1_right.jpg",
+            "real-world/math/image_14_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 2+3 found on the gray foam pad to generate the required value 5. Scan the three-number display below: 5 (left), 9 (middle), and 6 (right) arranged in a straight line. The calculated value 5 corresponds to the left card's displayed number. The correct card is the left card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_14_2_0",
+        "all_numbers": "23569",
+        "image": [
+            "real-world/math/image_14_2_left.jpg",
+            "real-world/math/image_14_2_right.jpg",
+            "real-world/math/image_14_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 2+3 on the gray foam surface, prioritize evaluating the equation to obtain the target value 5. Scan the three-number display below: 6 (left), 5 (middle), and 9 (right) arranged in a straight line. The computed result 5 matches the value on the middle card. The correct card is the middle card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_14_3_0",
+        "all_numbers": "23569",
+        "image": [
+            "real-world/math/image_14_3_left.jpg",
+            "real-world/math/image_14_3_right.jpg",
+            "real-world/math/image_14_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 2+3 on the gray foam pad, first resolve the mathematical operation to compute the target value 5. Inspect the trio of number cards positioned directly under the equation: left (9), middle (5), and right (6) positions. The correct solution 5 aligns with the value on the middle card. The correct card is the middle card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_14_4_0",
+        "all_numbers": "23569",
+        "image": [
+            "real-world/math/image_14_4_left.jpg",
+            "real-world/math/image_14_4_right.jpg",
+            "real-world/math/image_14_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 2+3 found on the gray foam pad to generate the required value 5. Note the three horizontally aligned number cards beneath the equation: 6 appears on the left card, 9 is shown in the middle, and 5 is visible on the right card. 5 matches exactly with the right card's numerical value. The correct card is the right card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_14_5_0",
+        "all_numbers": "23569",
+        "image": [
+            "real-world/math/image_14_5_left.jpg",
+            "real-world/math/image_14_5_right.jpg",
+            "real-world/math/image_14_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 2+3 on the gray foam pad, start by computing the mathematical operation to derive the target value 5. Inspect the trio of number cards positioned directly under the equation: left (9), middle (6), and right (5) positions. The correct solution 5 aligns with the value on the right card. The correct card is the right card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_15_0_0",
+        "all_numbers": "32578",
+        "image": [
+            "real-world/math/image_15_0_left.jpg",
+            "real-world/math/image_15_0_right.jpg",
+            "real-world/math/image_15_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 3+2 on the gray foam pad, start by computing the mathematical operation to derive the target value 5. Check the three number cards arranged horizontally below the equation: leftmost (5), middle (7), and rightmost (8). 5 matches exactly with the left card's numerical value. The correct card is the left card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_15_1_0",
+        "all_numbers": "32578",
+        "image": [
+            "real-world/math/image_15_1_left.jpg",
+            "real-world/math/image_15_1_right.jpg",
+            "real-world/math/image_15_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 5 by resolving the equation 3+2 identified on the gray foam pad. Inspect the trio of number cards positioned directly under the equation: left (5), middle (8), and right (7) positions. The correct solution 5 aligns with the value on the left card. The correct card is the left card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_15_2_0",
+        "all_numbers": "32578",
+        "image": [
+            "real-world/math/image_15_2_left.jpg",
+            "real-world/math/image_15_2_right.jpg",
+            "real-world/math/image_15_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 5 by resolving the equation 3+2 identified on the gray foam pad. Scan the three-number display below: 7 (left), 5 (middle), and 8 (right) arranged in a straight line. 5 matches exactly with the middle card's numerical value. The correct card is the middle card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_15_3_0",
+        "all_numbers": "32578",
+        "image": [
+            "real-world/math/image_15_3_left.jpg",
+            "real-world/math/image_15_3_right.jpg",
+            "real-world/math/image_15_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 3+2 on the gray foam pad, first resolve the mathematical operation to compute the target value 5. Scan the three-number display below: 8 (left), 5 (middle), and 7 (right) arranged in a straight line. The computed result 5 matches the value on the middle card. The correct card is the middle card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_15_4_0",
+        "all_numbers": "32578",
+        "image": [
+            "real-world/math/image_15_4_left.jpg",
+            "real-world/math/image_15_4_right.jpg",
+            "real-world/math/image_15_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 3+2 on the gray foam pad, first resolve the mathematical operation to compute the target value 5. Scan the three-number display below: 7 (left), 8 (middle), and 5 (right) arranged in a straight line. The correct solution 5 aligns with the value on the right card. The correct card is the right card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_15_5_0",
+        "all_numbers": "32578",
+        "image": [
+            "real-world/math/image_15_5_left.jpg",
+            "real-world/math/image_15_5_right.jpg",
+            "real-world/math/image_15_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 3+2 found on the gray foam pad to generate the required value 5. Scan the three-number display below: 8 (left), 7 (middle), and 5 (right) arranged in a straight line. The calculated value 5 corresponds to the right card's displayed number. The correct card is the right card with 5 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_16_0_0",
+        "all_numbers": "24695",
+        "image": [
+            "real-world/math/image_16_0_left.jpg",
+            "real-world/math/image_16_0_right.jpg",
+            "real-world/math/image_16_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 2+4 on the gray foam pad, first resolve the mathematical operation to compute the target value 6. Inspect the trio of number cards positioned directly under the equation: left (6), middle (9), and right (5) positions. 6 matches exactly with the left card's numerical value. The correct card is the left card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_16_1_0",
+        "all_numbers": "24695",
+        "image": [
+            "real-world/math/image_16_1_left.jpg",
+            "real-world/math/image_16_1_right.jpg",
+            "real-world/math/image_16_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 2+4 on the gray foam surface, prioritize evaluating the equation to obtain the target value 6. Scan the three-number display below: 6 (left), 5 (middle), and 9 (right) arranged in a straight line. 6 matches exactly with the left card's numerical value. The correct card is the left card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_16_2_0",
+        "all_numbers": "24695",
+        "image": [
+            "real-world/math/image_16_2_left.jpg",
+            "real-world/math/image_16_2_right.jpg",
+            "real-world/math/image_16_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 2+4 on the gray foam surface, prioritize evaluating the equation to obtain the target value 6. Scan the three-number display below: 9 (left), 6 (middle), and 5 (right) arranged in a straight line. The calculated value 6 corresponds to the middle card's displayed number. The correct card is the middle card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_16_3_0",
+        "all_numbers": "24695",
+        "image": [
+            "real-world/math/image_16_3_left.jpg",
+            "real-world/math/image_16_3_right.jpg",
+            "real-world/math/image_16_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 6 by resolving the equation 2+4 identified on the gray foam pad. Inspect the trio of number cards positioned directly under the equation: left (5), middle (6), and right (9) positions. The correct solution 6 aligns with the value on the middle card. The correct card is the middle card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_16_4_0",
+        "all_numbers": "24695",
+        "image": [
+            "real-world/math/image_16_4_left.jpg",
+            "real-world/math/image_16_4_right.jpg",
+            "real-world/math/image_16_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 2+4 on the gray foam pad, start by computing the mathematical operation to derive the target value 6. Below the equation, observe three number cards placed in a horizontal row: the left card displays 9, the middle card shows 5, and the right card exhibits 6. 6 matches exactly with the right card's numerical value. The correct card is the right card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_16_5_0",
+        "all_numbers": "24695",
+        "image": [
+            "real-world/math/image_16_5_left.jpg",
+            "real-world/math/image_16_5_right.jpg",
+            "real-world/math/image_16_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 2+4 on the gray foam surface, prioritize evaluating the equation to obtain the target value 6. Verify the horizontally arranged answer options beneath: starting with 5 on the left, followed by 9 on the middle, and ending with 6 on the right. The correct solution 6 aligns with the value on the right card. The correct card is the right card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_17_0_0",
+        "all_numbers": "42613",
+        "image": [
+            "real-world/math/image_17_0_left.jpg",
+            "real-world/math/image_17_0_right.jpg",
+            "real-world/math/image_17_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 4+2 on the gray foam surface, prioritize evaluating the equation to obtain the target value 6. Check the three number cards arranged horizontally below the equation: leftmost (6), middle (1), and rightmost (3). The calculated value 6 corresponds to the left card's displayed number. The correct card is the left card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_17_1_0",
+        "all_numbers": "42613",
+        "image": [
+            "real-world/math/image_17_1_left.jpg",
+            "real-world/math/image_17_1_right.jpg",
+            "real-world/math/image_17_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 4+2 found on the gray foam pad to generate the required value 6. Scan the three-number display below: 6 (left), 3 (middle), and 1 (right) arranged in a straight line. The correct solution 6 aligns with the value on the left card. The correct card is the left card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_17_2_0",
+        "all_numbers": "42613",
+        "image": [
+            "real-world/math/image_17_2_left.jpg",
+            "real-world/math/image_17_2_right.jpg",
+            "real-world/math/image_17_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 4+2 to establish the target result 6. Note the three horizontally aligned number cards beneath the equation: 1 appears on the left card, 6 is shown in the middle, and 3 is visible on the right card. 6 matches exactly with the middle card's numerical value. The correct card is the middle card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_17_3_0",
+        "all_numbers": "42613",
+        "image": [
+            "real-world/math/image_17_3_left.jpg",
+            "real-world/math/image_17_3_right.jpg",
+            "real-world/math/image_17_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 4+2 on the gray foam surface, prioritize evaluating the equation to obtain the target value 6. Below the equation, observe three number cards placed in a horizontal row: the left card displays 3, the middle card shows 6, and the right card exhibits 1. The correct solution 6 aligns with the value on the middle card. The correct card is the middle card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_17_4_0",
+        "all_numbers": "42613",
+        "image": [
+            "real-world/math/image_17_4_left.jpg",
+            "real-world/math/image_17_4_right.jpg",
+            "real-world/math/image_17_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 4+2 on the gray foam pad, start by computing the mathematical operation to derive the target value 6. Check the three number cards arranged horizontally below the equation: leftmost (1), middle (3), and rightmost (6). The calculated value 6 corresponds to the right card's displayed number. The correct card is the right card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_17_5_0",
+        "all_numbers": "42613",
+        "image": [
+            "real-world/math/image_17_5_left.jpg",
+            "real-world/math/image_17_5_right.jpg",
+            "real-world/math/image_17_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 6 by resolving the equation 4+2 identified on the gray foam pad. Note the three horizontally aligned number cards beneath the equation: 3 appears on the left card, 1 is shown in the middle, and 6 is visible on the right card. The calculated value 6 corresponds to the right card's displayed number. The correct card is the right card with 6 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_18_0_0",
+        "all_numbers": "25739",
+        "image": [
+            "real-world/math/image_18_0_left.jpg",
+            "real-world/math/image_18_0_right.jpg",
+            "real-world/math/image_18_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 2+5 on the gray foam pad, start by computing the mathematical operation to derive the target value 7. Note the three horizontally aligned number cards beneath the equation: 7 appears on the left card, 3 is shown in the middle, and 9 is visible on the right card. The computed result 7 matches the value on the left card. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_18_1_0",
+        "all_numbers": "25739",
+        "image": [
+            "real-world/math/image_18_1_left.jpg",
+            "real-world/math/image_18_1_right.jpg",
+            "real-world/math/image_18_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 7 by resolving the equation 2+5 identified on the gray foam pad. Check the three number cards arranged horizontally below the equation: leftmost (7), middle (9), and rightmost (3). 7 matches exactly with the left card's numerical value. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_18_2_0",
+        "all_numbers": "25739",
+        "image": [
+            "real-world/math/image_18_2_left.jpg",
+            "real-world/math/image_18_2_right.jpg",
+            "real-world/math/image_18_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 2+5 found on the gray foam pad to generate the required value 7. Note the three horizontally aligned number cards beneath the equation: 3 appears on the left card, 7 is shown in the middle, and 9 is visible on the right card. The computed result 7 matches the value on the middle card. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_18_3_0",
+        "all_numbers": "25739",
+        "image": [
+            "real-world/math/image_18_3_left.jpg",
+            "real-world/math/image_18_3_right.jpg",
+            "real-world/math/image_18_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 2+5 on the gray foam pad, first resolve the mathematical operation to compute the target value 7. Inspect the trio of number cards positioned directly under the equation: left (9), middle (7), and right (3) positions. The computed result 7 matches the value on the middle card. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_18_4_0",
+        "all_numbers": "25739",
+        "image": [
+            "real-world/math/image_18_4_left.jpg",
+            "real-world/math/image_18_4_right.jpg",
+            "real-world/math/image_18_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 7 by resolving the equation 2+5 identified on the gray foam pad. Verify the horizontally arranged answer options beneath: starting with 3 on the left, followed by 9 on the middle, and ending with 7 on the right. The correct solution 7 aligns with the value on the right card. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_18_5_0",
+        "all_numbers": "25739",
+        "image": [
+            "real-world/math/image_18_5_left.jpg",
+            "real-world/math/image_18_5_right.jpg",
+            "real-world/math/image_18_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 2+5 on the gray foam surface, prioritize evaluating the equation to obtain the target value 7. Inspect the trio of number cards positioned directly under the equation: left (9), middle (3), and right (7) positions. The correct solution 7 aligns with the value on the right card. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_19_0_0",
+        "all_numbers": "52714",
+        "image": [
+            "real-world/math/image_19_0_left.jpg",
+            "real-world/math/image_19_0_right.jpg",
+            "real-world/math/image_19_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 7 by resolving the equation 5+2 identified on the gray foam pad. Scan the three-number display below: 7 (left), 1 (middle), and 4 (right) arranged in a straight line. The computed result 7 matches the value on the left card. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_19_1_0",
+        "all_numbers": "52714",
+        "image": [
+            "real-world/math/image_19_1_left.jpg",
+            "real-world/math/image_19_1_right.jpg",
+            "real-world/math/image_19_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 7 by resolving the equation 5+2 identified on the gray foam pad. Note the three horizontally aligned number cards beneath the equation: 7 appears on the left card, 4 is shown in the middle, and 1 is visible on the right card. The calculated value 7 corresponds to the left card's displayed number. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_19_2_0",
+        "all_numbers": "52714",
+        "image": [
+            "real-world/math/image_19_2_left.jpg",
+            "real-world/math/image_19_2_right.jpg",
+            "real-world/math/image_19_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 7 by resolving the equation 5+2 identified on the gray foam pad. Check the three number cards arranged horizontally below the equation: leftmost (1), middle (7), and rightmost (4). The computed result 7 matches the value on the middle card. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_19_3_0",
+        "all_numbers": "52714",
+        "image": [
+            "real-world/math/image_19_3_left.jpg",
+            "real-world/math/image_19_3_right.jpg",
+            "real-world/math/image_19_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 5+2 on the gray foam pad, first resolve the mathematical operation to compute the target value 7. Note the three horizontally aligned number cards beneath the equation: 4 appears on the left card, 7 is shown in the middle, and 1 is visible on the right card. 7 matches exactly with the middle card's numerical value. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_19_4_0",
+        "all_numbers": "52714",
+        "image": [
+            "real-world/math/image_19_4_left.jpg",
+            "real-world/math/image_19_4_right.jpg",
+            "real-world/math/image_19_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 5+2 to establish the target result 7. Note the three horizontally aligned number cards beneath the equation: 1 appears on the left card, 4 is shown in the middle, and 7 is visible on the right card. The computed result 7 matches the value on the right card. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_19_5_0",
+        "all_numbers": "52714",
+        "image": [
+            "real-world/math/image_19_5_left.jpg",
+            "real-world/math/image_19_5_right.jpg",
+            "real-world/math/image_19_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 5+2 found on the gray foam pad to generate the required value 7. Below the equation, observe three number cards placed in a horizontal row: the left card displays 4, the middle card shows 1, and the right card exhibits 7. The correct solution 7 aligns with the value on the right card. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_20_0_0",
+        "all_numbers": "26819",
+        "image": [
+            "real-world/math/image_20_0_left.jpg",
+            "real-world/math/image_20_0_right.jpg",
+            "real-world/math/image_20_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 2+6 on the gray foam pad, first resolve the mathematical operation to compute the target value 8. Check the three number cards arranged horizontally below the equation: leftmost (8), middle (1), and rightmost (9). The calculated value 8 corresponds to the left card's displayed number. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_20_1_0",
+        "all_numbers": "26819",
+        "image": [
+            "real-world/math/image_20_1_left.jpg",
+            "real-world/math/image_20_1_right.jpg",
+            "real-world/math/image_20_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 2+6 on the gray foam pad, start by computing the mathematical operation to derive the target value 8. Scan the three-number display below: 8 (left), 9 (middle), and 1 (right) arranged in a straight line. The correct solution 8 aligns with the value on the left card. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_20_2_0",
+        "all_numbers": "26819",
+        "image": [
+            "real-world/math/image_20_2_left.jpg",
+            "real-world/math/image_20_2_right.jpg",
+            "real-world/math/image_20_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 2+6 found on the gray foam pad to generate the required value 8. Scan the three-number display below: 1 (left), 8 (middle), and 9 (right) arranged in a straight line. The computed result 8 matches the value on the middle card. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_20_3_0",
+        "all_numbers": "26819",
+        "image": [
+            "real-world/math/image_20_3_left.jpg",
+            "real-world/math/image_20_3_right.jpg",
+            "real-world/math/image_20_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 2+6 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Inspect the trio of number cards positioned directly under the equation: left (9), middle (8), and right (1) positions. The calculated value 8 corresponds to the middle card's displayed number. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_20_4_0",
+        "all_numbers": "26819",
+        "image": [
+            "real-world/math/image_20_4_left.jpg",
+            "real-world/math/image_20_4_right.jpg",
+            "real-world/math/image_20_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 2+6 on the gray foam pad, first resolve the mathematical operation to compute the target value 8. Note the three horizontally aligned number cards beneath the equation: 1 appears on the left card, 9 is shown in the middle, and 8 is visible on the right card. The correct solution 8 aligns with the value on the right card. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_20_5_0",
+        "all_numbers": "26819",
+        "image": [
+            "real-world/math/image_20_5_left.jpg",
+            "real-world/math/image_20_5_right.jpg",
+            "real-world/math/image_20_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 2+6 on the gray foam pad, start by computing the mathematical operation to derive the target value 8. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 1 is shown in the middle, and 8 is visible on the right card. The calculated value 8 corresponds to the right card's displayed number. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_21_0_0",
+        "all_numbers": "62874",
+        "image": [
+            "real-world/math/image_21_0_left.jpg",
+            "real-world/math/image_21_0_right.jpg",
+            "real-world/math/image_21_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 8 by resolving the equation 6+2 identified on the gray foam pad. Below the equation, observe three number cards placed in a horizontal row: the left card displays 8, the middle card shows 7, and the right card exhibits 4. The computed result 8 matches the value on the left card. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_21_1_0",
+        "all_numbers": "62874",
+        "image": [
+            "real-world/math/image_21_1_left.jpg",
+            "real-world/math/image_21_1_right.jpg",
+            "real-world/math/image_21_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 6+2 on the gray foam pad, first resolve the mathematical operation to compute the target value 8. Verify the horizontally arranged answer options beneath: starting with 8 on the left, followed by 4 on the middle, and ending with 7 on the right. 8 matches exactly with the left card's numerical value. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_21_2_0",
+        "all_numbers": "62874",
+        "image": [
+            "real-world/math/image_21_2_left.jpg",
+            "real-world/math/image_21_2_right.jpg",
+            "real-world/math/image_21_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 6+2 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Check the three number cards arranged horizontally below the equation: leftmost (7), middle (8), and rightmost (4). The computed result 8 matches the value on the middle card. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_21_3_0",
+        "all_numbers": "62874",
+        "image": [
+            "real-world/math/image_21_3_left.jpg",
+            "real-world/math/image_21_3_right.jpg",
+            "real-world/math/image_21_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 6+2 on the gray foam pad, start by computing the mathematical operation to derive the target value 8. Inspect the trio of number cards positioned directly under the equation: left (4), middle (8), and right (7) positions. The calculated value 8 corresponds to the middle card's displayed number. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_21_4_0",
+        "all_numbers": "62874",
+        "image": [
+            "real-world/math/image_21_4_left.jpg",
+            "real-world/math/image_21_4_right.jpg",
+            "real-world/math/image_21_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 6+2 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Note the three horizontally aligned number cards beneath the equation: 7 appears on the left card, 4 is shown in the middle, and 8 is visible on the right card. The calculated value 8 corresponds to the right card's displayed number. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_21_5_0",
+        "all_numbers": "62874",
+        "image": [
+            "real-world/math/image_21_5_left.jpg",
+            "real-world/math/image_21_5_right.jpg",
+            "real-world/math/image_21_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 6+2 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Note the three horizontally aligned number cards beneath the equation: 4 appears on the left card, 7 is shown in the middle, and 8 is visible on the right card. 8 matches exactly with the right card's numerical value. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_22_0_0",
+        "all_numbers": "27945",
+        "image": [
+            "real-world/math/image_22_0_left.jpg",
+            "real-world/math/image_22_0_right.jpg",
+            "real-world/math/image_22_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 2+7 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 4 is shown in the middle, and 5 is visible on the right card. The correct solution 9 aligns with the value on the left card. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_22_1_0",
+        "all_numbers": "27945",
+        "image": [
+            "real-world/math/image_22_1_left.jpg",
+            "real-world/math/image_22_1_right.jpg",
+            "real-world/math/image_22_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 2+7 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 5 is shown in the middle, and 4 is visible on the right card. The calculated value 9 corresponds to the left card's displayed number. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_22_2_0",
+        "all_numbers": "27945",
+        "image": [
+            "real-world/math/image_22_2_left.jpg",
+            "real-world/math/image_22_2_right.jpg",
+            "real-world/math/image_22_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 2+7 found on the gray foam pad to generate the required value 9. Verify the horizontally arranged answer options beneath: starting with 4 on the left, followed by 9 on the middle, and ending with 5 on the right. 9 matches exactly with the middle card's numerical value. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_22_3_0",
+        "all_numbers": "27945",
+        "image": [
+            "real-world/math/image_22_3_left.jpg",
+            "real-world/math/image_22_3_right.jpg",
+            "real-world/math/image_22_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 2+7 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Below the equation, observe three number cards placed in a horizontal row: the left card displays 5, the middle card shows 9, and the right card exhibits 4. The computed result 9 matches the value on the middle card. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_22_4_0",
+        "all_numbers": "27945",
+        "image": [
+            "real-world/math/image_22_4_left.jpg",
+            "real-world/math/image_22_4_right.jpg",
+            "real-world/math/image_22_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 2+7 on the gray foam surface, prioritize evaluating the equation to obtain the target value 9. Note the three horizontally aligned number cards beneath the equation: 4 appears on the left card, 5 is shown in the middle, and 9 is visible on the right card. The calculated value 9 corresponds to the right card's displayed number. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_22_5_0",
+        "all_numbers": "27945",
+        "image": [
+            "real-world/math/image_22_5_left.jpg",
+            "real-world/math/image_22_5_right.jpg",
+            "real-world/math/image_22_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 2+7 found on the gray foam pad to generate the required value 9. Verify the horizontally arranged answer options beneath: starting with 5 on the left, followed by 4 on the middle, and ending with 9 on the right. The calculated value 9 corresponds to the right card's displayed number. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_23_0_0",
+        "all_numbers": "72913",
+        "image": [
+            "real-world/math/image_23_0_left.jpg",
+            "real-world/math/image_23_0_right.jpg",
+            "real-world/math/image_23_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 7+2 to establish the target result 9. Check the three number cards arranged horizontally below the equation: leftmost (9), middle (1), and rightmost (3). The calculated value 9 corresponds to the left card's displayed number. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_23_1_0",
+        "all_numbers": "72913",
+        "image": [
+            "real-world/math/image_23_1_left.jpg",
+            "real-world/math/image_23_1_right.jpg",
+            "real-world/math/image_23_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 7+2 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Scan the three-number display below: 9 (left), 3 (middle), and 1 (right) arranged in a straight line. The computed result 9 matches the value on the left card. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_23_2_0",
+        "all_numbers": "72913",
+        "image": [
+            "real-world/math/image_23_2_left.jpg",
+            "real-world/math/image_23_2_right.jpg",
+            "real-world/math/image_23_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 7+2 to establish the target result 9. Note the three horizontally aligned number cards beneath the equation: 1 appears on the left card, 9 is shown in the middle, and 3 is visible on the right card. 9 matches exactly with the middle card's numerical value. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_23_3_0",
+        "all_numbers": "72913",
+        "image": [
+            "real-world/math/image_23_3_left.jpg",
+            "real-world/math/image_23_3_right.jpg",
+            "real-world/math/image_23_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 7+2 found on the gray foam pad to generate the required value 9. Note the three horizontally aligned number cards beneath the equation: 3 appears on the left card, 9 is shown in the middle, and 1 is visible on the right card. The correct solution 9 aligns with the value on the middle card. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_23_4_0",
+        "all_numbers": "72913",
+        "image": [
+            "real-world/math/image_23_4_left.jpg",
+            "real-world/math/image_23_4_right.jpg",
+            "real-world/math/image_23_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 7+2 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Inspect the trio of number cards positioned directly under the equation: left (1), middle (3), and right (9) positions. 9 matches exactly with the right card's numerical value. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_23_5_0",
+        "all_numbers": "72913",
+        "image": [
+            "real-world/math/image_23_5_left.jpg",
+            "real-world/math/image_23_5_right.jpg",
+            "real-world/math/image_23_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 7+2 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Inspect the trio of number cards positioned directly under the equation: left (3), middle (1), and right (9) positions. The calculated value 9 corresponds to the right card's displayed number. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_24_0_0",
+        "all_numbers": "34769",
+        "image": [
+            "real-world/math/image_24_0_left.jpg",
+            "real-world/math/image_24_0_right.jpg",
+            "real-world/math/image_24_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 3+4 found on the gray foam pad to generate the required value 7. Scan the three-number display below: 7 (left), 6 (middle), and 9 (right) arranged in a straight line. The calculated value 7 corresponds to the left card's displayed number. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_24_1_0",
+        "all_numbers": "34769",
+        "image": [
+            "real-world/math/image_24_1_left.jpg",
+            "real-world/math/image_24_1_right.jpg",
+            "real-world/math/image_24_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 3+4 to establish the target result 7. Verify the horizontally arranged answer options beneath: starting with 7 on the left, followed by 9 on the middle, and ending with 6 on the right. The computed result 7 matches the value on the left card. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_24_2_0",
+        "all_numbers": "34769",
+        "image": [
+            "real-world/math/image_24_2_left.jpg",
+            "real-world/math/image_24_2_right.jpg",
+            "real-world/math/image_24_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 3+4 found on the gray foam pad to generate the required value 7. Below the equation, observe three number cards placed in a horizontal row: the left card displays 6, the middle card shows 7, and the right card exhibits 9. The computed result 7 matches the value on the middle card. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_24_3_0",
+        "all_numbers": "34769",
+        "image": [
+            "real-world/math/image_24_3_left.jpg",
+            "real-world/math/image_24_3_right.jpg",
+            "real-world/math/image_24_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 7 by resolving the equation 3+4 identified on the gray foam pad. Check the three number cards arranged horizontally below the equation: leftmost (9), middle (7), and rightmost (6). 7 matches exactly with the middle card's numerical value. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_24_4_0",
+        "all_numbers": "34769",
+        "image": [
+            "real-world/math/image_24_4_left.jpg",
+            "real-world/math/image_24_4_right.jpg",
+            "real-world/math/image_24_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 3+4 on the gray foam surface, prioritize evaluating the equation to obtain the target value 7. Note the three horizontally aligned number cards beneath the equation: 6 appears on the left card, 9 is shown in the middle, and 7 is visible on the right card. The correct solution 7 aligns with the value on the right card. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_24_5_0",
+        "all_numbers": "34769",
+        "image": [
+            "real-world/math/image_24_5_left.jpg",
+            "real-world/math/image_24_5_right.jpg",
+            "real-world/math/image_24_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 3+4 on the gray foam pad, start by computing the mathematical operation to derive the target value 7. Scan the three-number display below: 9 (left), 6 (middle), and 7 (right) arranged in a straight line. The calculated value 7 corresponds to the right card's displayed number. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_25_0_0",
+        "all_numbers": "43751",
+        "image": [
+            "real-world/math/image_25_0_left.jpg",
+            "real-world/math/image_25_0_right.jpg",
+            "real-world/math/image_25_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 4+3 to establish the target result 7. Note the three horizontally aligned number cards beneath the equation: 7 appears on the left card, 5 is shown in the middle, and 1 is visible on the right card. The calculated value 7 corresponds to the left card's displayed number. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_25_1_0",
+        "all_numbers": "43751",
+        "image": [
+            "real-world/math/image_25_1_left.jpg",
+            "real-world/math/image_25_1_right.jpg",
+            "real-world/math/image_25_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 4+3 on the gray foam pad, start by computing the mathematical operation to derive the target value 7. Note the three horizontally aligned number cards beneath the equation: 7 appears on the left card, 1 is shown in the middle, and 5 is visible on the right card. The computed result 7 matches the value on the left card. The correct card is the left card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_25_2_0",
+        "all_numbers": "43751",
+        "image": [
+            "real-world/math/image_25_2_left.jpg",
+            "real-world/math/image_25_2_right.jpg",
+            "real-world/math/image_25_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 4+3 on the gray foam surface, prioritize evaluating the equation to obtain the target value 7. Scan the three-number display below: 5 (left), 7 (middle), and 1 (right) arranged in a straight line. The computed result 7 matches the value on the middle card. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_25_3_0",
+        "all_numbers": "43751",
+        "image": [
+            "real-world/math/image_25_3_left.jpg",
+            "real-world/math/image_25_3_right.jpg",
+            "real-world/math/image_25_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 4+3 found on the gray foam pad to generate the required value 7. Below the equation, observe three number cards placed in a horizontal row: the left card displays 1, the middle card shows 7, and the right card exhibits 5. The correct solution 7 aligns with the value on the middle card. The correct card is the middle card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_25_4_0",
+        "all_numbers": "43751",
+        "image": [
+            "real-world/math/image_25_4_left.jpg",
+            "real-world/math/image_25_4_right.jpg",
+            "real-world/math/image_25_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 7 by resolving the equation 4+3 identified on the gray foam pad. Inspect the trio of number cards positioned directly under the equation: left (5), middle (1), and right (7) positions. The calculated value 7 corresponds to the right card's displayed number. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_25_5_0",
+        "all_numbers": "43751",
+        "image": [
+            "real-world/math/image_25_5_left.jpg",
+            "real-world/math/image_25_5_right.jpg",
+            "real-world/math/image_25_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 4+3 on the gray foam surface, prioritize evaluating the equation to obtain the target value 7. Note the three horizontally aligned number cards beneath the equation: 1 appears on the left card, 5 is shown in the middle, and 7 is visible on the right card. The calculated value 7 corresponds to the right card's displayed number. The correct card is the right card with 7 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_26_0_0",
+        "all_numbers": "35826",
+        "image": [
+            "real-world/math/image_26_0_left.jpg",
+            "real-world/math/image_26_0_right.jpg",
+            "real-world/math/image_26_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 3+5 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Verify the horizontally arranged answer options beneath: starting with 8 on the left, followed by 2 on the middle, and ending with 6 on the right. 8 matches exactly with the left card's numerical value. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_26_1_0",
+        "all_numbers": "35826",
+        "image": [
+            "real-world/math/image_26_1_left.jpg",
+            "real-world/math/image_26_1_right.jpg",
+            "real-world/math/image_26_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 3+5 on the gray foam pad, first resolve the mathematical operation to compute the target value 8. Check the three number cards arranged horizontally below the equation: leftmost (8), middle (6), and rightmost (2). The computed result 8 matches the value on the left card. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_26_2_0",
+        "all_numbers": "35826",
+        "image": [
+            "real-world/math/image_26_2_left.jpg",
+            "real-world/math/image_26_2_right.jpg",
+            "real-world/math/image_26_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 3+5 found on the gray foam pad to generate the required value 8. Scan the three-number display below: 2 (left), 8 (middle), and 6 (right) arranged in a straight line. The correct solution 8 aligns with the value on the middle card. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_26_3_0",
+        "all_numbers": "35826",
+        "image": [
+            "real-world/math/image_26_3_left.jpg",
+            "real-world/math/image_26_3_right.jpg",
+            "real-world/math/image_26_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 3+5 on the gray foam pad, first resolve the mathematical operation to compute the target value 8. Check the three number cards arranged horizontally below the equation: leftmost (6), middle (8), and rightmost (2). The computed result 8 matches the value on the middle card. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_26_4_0",
+        "all_numbers": "35826",
+        "image": [
+            "real-world/math/image_26_4_left.jpg",
+            "real-world/math/image_26_4_right.jpg",
+            "real-world/math/image_26_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 3+5 to establish the target result 8. Inspect the trio of number cards positioned directly under the equation: left (2), middle (6), and right (8) positions. The computed result 8 matches the value on the right card. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_26_5_0",
+        "all_numbers": "35826",
+        "image": [
+            "real-world/math/image_26_5_left.jpg",
+            "real-world/math/image_26_5_right.jpg",
+            "real-world/math/image_26_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 3+5 on the gray foam pad, start by computing the mathematical operation to derive the target value 8. Verify the horizontally arranged answer options beneath: starting with 6 on the left, followed by 2 on the middle, and ending with 8 on the right. The computed result 8 matches the value on the right card. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_27_0_0",
+        "all_numbers": "53819",
+        "image": [
+            "real-world/math/image_27_0_left.jpg",
+            "real-world/math/image_27_0_right.jpg",
+            "real-world/math/image_27_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 5+3 found on the gray foam pad to generate the required value 8. Below the equation, observe three number cards placed in a horizontal row: the left card displays 8, the middle card shows 1, and the right card exhibits 9. 8 matches exactly with the left card's numerical value. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_27_1_0",
+        "all_numbers": "53819",
+        "image": [
+            "real-world/math/image_27_1_left.jpg",
+            "real-world/math/image_27_1_right.jpg",
+            "real-world/math/image_27_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 5+3 on the gray foam surface, prioritize evaluating the equation to obtain the target value 8. Verify the horizontally arranged answer options beneath: starting with 8 on the left, followed by 9 on the middle, and ending with 1 on the right. 8 matches exactly with the left card's numerical value. The correct card is the left card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_27_2_0",
+        "all_numbers": "53819",
+        "image": [
+            "real-world/math/image_27_2_left.jpg",
+            "real-world/math/image_27_2_right.jpg",
+            "real-world/math/image_27_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 5+3 on the gray foam pad, start by computing the mathematical operation to derive the target value 8. Scan the three-number display below: 1 (left), 8 (middle), and 9 (right) arranged in a straight line. The correct solution 8 aligns with the value on the middle card. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_27_3_0",
+        "all_numbers": "53819",
+        "image": [
+            "real-world/math/image_27_3_left.jpg",
+            "real-world/math/image_27_3_right.jpg",
+            "real-world/math/image_27_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 5+3 on the gray foam pad, start by computing the mathematical operation to derive the target value 8. Below the equation, observe three number cards placed in a horizontal row: the left card displays 9, the middle card shows 8, and the right card exhibits 1. The calculated value 8 corresponds to the middle card's displayed number. The correct card is the middle card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_27_4_0",
+        "all_numbers": "53819",
+        "image": [
+            "real-world/math/image_27_4_left.jpg",
+            "real-world/math/image_27_4_right.jpg",
+            "real-world/math/image_27_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 5+3 found on the gray foam pad to generate the required value 8. Inspect the trio of number cards positioned directly under the equation: left (1), middle (9), and right (8) positions. The computed result 8 matches the value on the right card. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_27_5_0",
+        "all_numbers": "53819",
+        "image": [
+            "real-world/math/image_27_5_left.jpg",
+            "real-world/math/image_27_5_right.jpg",
+            "real-world/math/image_27_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 5+3 to establish the target result 8. Inspect the trio of number cards positioned directly under the equation: left (9), middle (1), and right (8) positions. The calculated value 8 corresponds to the right card's displayed number. The correct card is the right card with 8 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_28_0_0",
+        "all_numbers": "36921",
+        "image": [
+            "real-world/math/image_28_0_left.jpg",
+            "real-world/math/image_28_0_right.jpg",
+            "real-world/math/image_28_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 3+6 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Below the equation, observe three number cards placed in a horizontal row: the left card displays 9, the middle card shows 2, and the right card exhibits 1. The correct solution 9 aligns with the value on the left card. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_28_1_0",
+        "all_numbers": "36921",
+        "image": [
+            "real-world/math/image_28_1_left.jpg",
+            "real-world/math/image_28_1_right.jpg",
+            "real-world/math/image_28_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 3+6 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Inspect the trio of number cards positioned directly under the equation: left (9), middle (1), and right (2) positions. The calculated value 9 corresponds to the left card's displayed number. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_28_2_0",
+        "all_numbers": "36921",
+        "image": [
+            "real-world/math/image_28_2_left.jpg",
+            "real-world/math/image_28_2_right.jpg",
+            "real-world/math/image_28_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 3+6 found on the gray foam pad to generate the required value 9. Note the three horizontally aligned number cards beneath the equation: 2 appears on the left card, 9 is shown in the middle, and 1 is visible on the right card. The computed result 9 matches the value on the middle card. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_28_3_0",
+        "all_numbers": "36921",
+        "image": [
+            "real-world/math/image_28_3_left.jpg",
+            "real-world/math/image_28_3_right.jpg",
+            "real-world/math/image_28_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 3+6 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Below the equation, observe three number cards placed in a horizontal row: the left card displays 1, the middle card shows 9, and the right card exhibits 2. The computed result 9 matches the value on the middle card. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_28_4_0",
+        "all_numbers": "36921",
+        "image": [
+            "real-world/math/image_28_4_left.jpg",
+            "real-world/math/image_28_4_right.jpg",
+            "real-world/math/image_28_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 3+6 found on the gray foam pad to generate the required value 9. Check the three number cards arranged horizontally below the equation: leftmost (2), middle (1), and rightmost (9). The correct solution 9 aligns with the value on the right card. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_28_5_0",
+        "all_numbers": "36921",
+        "image": [
+            "real-world/math/image_28_5_left.jpg",
+            "real-world/math/image_28_5_right.jpg",
+            "real-world/math/image_28_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 9 by resolving the equation 3+6 identified on the gray foam pad. Scan the three-number display below: 1 (left), 2 (middle), and 9 (right) arranged in a straight line. 9 matches exactly with the right card's numerical value. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_29_0_0",
+        "all_numbers": "63985",
+        "image": [
+            "real-world/math/image_29_0_left.jpg",
+            "real-world/math/image_29_0_right.jpg",
+            "real-world/math/image_29_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 6+3 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Scan the three-number display below: 9 (left), 8 (middle), and 5 (right) arranged in a straight line. The calculated value 9 corresponds to the left card's displayed number. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_29_1_0",
+        "all_numbers": "63985",
+        "image": [
+            "real-world/math/image_29_1_left.jpg",
+            "real-world/math/image_29_1_right.jpg",
+            "real-world/math/image_29_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 6+3 to establish the target result 9. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 5 is shown in the middle, and 8 is visible on the right card. 9 matches exactly with the left card's numerical value. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_29_2_0",
+        "all_numbers": "63985",
+        "image": [
+            "real-world/math/image_29_2_left.jpg",
+            "real-world/math/image_29_2_right.jpg",
+            "real-world/math/image_29_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 6+3 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Below the equation, observe three number cards placed in a horizontal row: the left card displays 8, the middle card shows 9, and the right card exhibits 5. The correct solution 9 aligns with the value on the middle card. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_29_3_0",
+        "all_numbers": "63985",
+        "image": [
+            "real-world/math/image_29_3_left.jpg",
+            "real-world/math/image_29_3_right.jpg",
+            "real-world/math/image_29_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 9 by resolving the equation 6+3 identified on the gray foam pad. Note the three horizontally aligned number cards beneath the equation: 5 appears on the left card, 9 is shown in the middle, and 8 is visible on the right card. 9 matches exactly with the middle card's numerical value. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_29_4_0",
+        "all_numbers": "63985",
+        "image": [
+            "real-world/math/image_29_4_left.jpg",
+            "real-world/math/image_29_4_right.jpg",
+            "real-world/math/image_29_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 9 by resolving the equation 6+3 identified on the gray foam pad. Verify the horizontally arranged answer options beneath: starting with 8 on the left, followed by 5 on the middle, and ending with 9 on the right. 9 matches exactly with the right card's numerical value. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_29_5_0",
+        "all_numbers": "63985",
+        "image": [
+            "real-world/math/image_29_5_left.jpg",
+            "real-world/math/image_29_5_right.jpg",
+            "real-world/math/image_29_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 9 by resolving the equation 6+3 identified on the gray foam pad. Inspect the trio of number cards positioned directly under the equation: left (5), middle (8), and right (9) positions. The computed result 9 matches the value on the right card. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_30_0_0",
+        "all_numbers": "45923",
+        "image": [
+            "real-world/math/image_30_0_left.jpg",
+            "real-world/math/image_30_0_right.jpg",
+            "real-world/math/image_30_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 4+5 found on the gray foam pad to generate the required value 9. Scan the three-number display below: 9 (left), 2 (middle), and 3 (right) arranged in a straight line. The correct solution 9 aligns with the value on the left card. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_30_1_0",
+        "all_numbers": "45923",
+        "image": [
+            "real-world/math/image_30_1_left.jpg",
+            "real-world/math/image_30_1_right.jpg",
+            "real-world/math/image_30_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 4+5 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Note the three horizontally aligned number cards beneath the equation: 9 appears on the left card, 3 is shown in the middle, and 2 is visible on the right card. The correct solution 9 aligns with the value on the left card. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_30_2_0",
+        "all_numbers": "45923",
+        "image": [
+            "real-world/math/image_30_2_left.jpg",
+            "real-world/math/image_30_2_right.jpg",
+            "real-world/math/image_30_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon identifying the equation 4+5 on the gray foam pad, start by computing the mathematical operation to derive the target value 9. Below the equation, observe three number cards placed in a horizontal row: the left card displays 2, the middle card shows 9, and the right card exhibits 3. 9 matches exactly with the middle card's numerical value. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_30_3_0",
+        "all_numbers": "45923",
+        "image": [
+            "real-world/math/image_30_3_left.jpg",
+            "real-world/math/image_30_3_right.jpg",
+            "real-world/math/image_30_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 4+5 on the gray foam surface, prioritize evaluating the equation to obtain the target value 9. Inspect the trio of number cards positioned directly under the equation: left (3), middle (9), and right (2) positions. The calculated value 9 corresponds to the middle card's displayed number. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_30_4_0",
+        "all_numbers": "45923",
+        "image": [
+            "real-world/math/image_30_4_left.jpg",
+            "real-world/math/image_30_4_right.jpg",
+            "real-world/math/image_30_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 4+5 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Below the equation, observe three number cards placed in a horizontal row: the left card displays 2, the middle card shows 3, and the right card exhibits 9. The computed result 9 matches the value on the right card. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_30_5_0",
+        "all_numbers": "45923",
+        "image": [
+            "real-world/math/image_30_5_left.jpg",
+            "real-world/math/image_30_5_right.jpg",
+            "real-world/math/image_30_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "After detecting 4+5 on the gray foam surface, prioritize evaluating the equation to obtain the target value 9. Note the three horizontally aligned number cards beneath the equation: 3 appears on the left card, 2 is shown in the middle, and 9 is visible on the right card. The calculated value 9 corresponds to the right card's displayed number. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_31_0_0",
+        "all_numbers": "54967",
+        "image": [
+            "real-world/math/image_31_0_left.jpg",
+            "real-world/math/image_31_0_right.jpg",
+            "real-world/math/image_31_0_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "The initial step involves processing the equation 5+4 found on the gray foam pad to generate the required value 9. Verify the horizontally arranged answer options beneath: starting with 9 on the left, followed by 6 on the middle, and ending with 7 on the right. The calculated value 9 corresponds to the left card's displayed number. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_31_1_0",
+        "all_numbers": "54967",
+        "image": [
+            "real-world/math/image_31_1_left.jpg",
+            "real-world/math/image_31_1_right.jpg",
+            "real-world/math/image_31_1_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 9 by resolving the equation 5+4 identified on the gray foam pad. Below the equation, observe three number cards placed in a horizontal row: the left card displays 9, the middle card shows 7, and the right card exhibits 6. The computed result 9 matches the value on the left card. The correct card is the left card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_31_2_0",
+        "all_numbers": "54967",
+        "image": [
+            "real-world/math/image_31_2_left.jpg",
+            "real-world/math/image_31_2_right.jpg",
+            "real-world/math/image_31_2_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 5+4 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Scan the three-number display below: 6 (left), 9 (middle), and 7 (right) arranged in a straight line. The calculated value 9 corresponds to the middle card's displayed number. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_31_3_0",
+        "all_numbers": "54967",
+        "image": [
+            "real-world/math/image_31_3_left.jpg",
+            "real-world/math/image_31_3_right.jpg",
+            "real-world/math/image_31_3_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "First, calculate the target value 9 by resolving the equation 5+4 identified on the gray foam pad. Verify the horizontally arranged answer options beneath: starting with 7 on the left, followed by 9 on the middle, and ending with 6 on the right. The computed result 9 matches the value on the middle card. The correct card is the middle card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_31_4_0",
+        "all_numbers": "54967",
+        "image": [
+            "real-world/math/image_31_4_left.jpg",
+            "real-world/math/image_31_4_right.jpg",
+            "real-world/math/image_31_4_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Upon detecting the equation 5+4 on the gray foam pad, first resolve the mathematical operation to compute the target value 9. Below the equation, observe three number cards placed in a horizontal row: the left card displays 6, the middle card shows 7, and the right card exhibits 9. The computed result 9 matches the value on the right card. The correct card is the right card with 9 on it."
+            }
+        ]
+    },
+    {
+        "id": "image_31_5_0",
+        "all_numbers": "54967",
+        "image": [
+            "real-world/math/image_31_5_left.jpg",
+            "real-world/math/image_31_5_right.jpg",
+            "real-world/math/image_31_5_wrist.jpg"
+        ],
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nSolve the equation and point out the which card is the correct answer."
+            },
+            {
+                "from": "gpt",
+                "value": "Begin the procedure by mathematically analyzing the detected equation 5+4 to establish the target result 9. Check the three number cards arranged horizontally below the equation: leftmost (7), middle (6), and rightmost (9). The correct solution 9 aligns with the value on the right card. The correct card is the right card with 9 on it."
+            }
+        ]
+    }
+]
