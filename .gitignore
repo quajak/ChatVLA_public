@@ -1,2 +1,3 @@
-/loglog/
-/scripts/
+.idea/
+__pycache__/
+*.pyc
