@@ -1803,8 +1803,6 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             output_hidden_states if output_hidden_states is not None else self.config.output_hidden_states
         )
 
-        output_hidden_states = output_hidden_states
-
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
         if inputs_embeds is None:
@@ -2019,7 +2017,6 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
 
         torch.cuda.empty_cache()
         gc.collect()
-        # print(">>>>>>>>>>>>>>>>>> ready to delete >>>>>>>>>>>>>>>>>>>>>")
         del input_ids
         del attention_mask
         del position_ids
@@ -2031,7 +2028,7 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         del actions
         del states
         del vl_data_mask
-        # print(">>>>>>>>>>>>>>>>>> loss ok >>>>>>>>>>>>>>>>>>>>>")
+
         return Qwen2VLCausalLMOutputWithPast(
             loss=loss,
             logits=logits,
