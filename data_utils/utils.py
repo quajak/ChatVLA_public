@@ -46,7 +46,7 @@ import gc
 class EpisodicDataset(torch.utils.data.Dataset):
     def __init__(self, dataset_path_list, camera_names, norm_stats, episode_ids, episode_len, chunk_size, policy_class,
                  llava_pythia_process=None, imsize=480, data_args=None, vl_file=None, vl_image_dir=None,
-                 template_path=None, vl_ratio=0, is_local_debug=False, robot=None):
+                 vl_ratio=0, is_local_debug=False, robot=None):
         super(EpisodicDataset).__init__()
         self.episode_ids = episode_ids
         self.dataset_path_list = dataset_path_list
@@ -60,10 +60,9 @@ class EpisodicDataset(torch.utils.data.Dataset):
         self.llava_pythia_process = llava_pythia_process
         self.imsize = imsize
         self.data_args = data_args
-        self.vl_max_len = 300
         self.robot = robot
         self.is_local_debug = is_local_debug
-        if 'diffusion' in self.policy_class:
+        if 'diffusion' in self.policy_class.lower() or 'scale_dp' in self.policy_class.lower():
             self.augment_images = True
         else:
             self.augment_images = False
@@ -84,7 +83,6 @@ class EpisodicDataset(torch.utils.data.Dataset):
                 vl_data_list = json.load(open(vl_file, 'r'))
                 vl_data_list_lens.append(len(vl_data_list))
 
-            # vl_data_list = [vl_data for vl_data in vl_data_list if vl_data['conversations'][0]['value'].find('<image>') != -1]
             x = self.cumulative_len[-1] if len(self.cumulative_len) > 0 else 0
             print(
                 f"######################## Ori {colors['red']}{'ROBOTICS DATA Length'}{colors['reset']} is {x}###################################")
@@ -98,7 +96,6 @@ class EpisodicDataset(torch.utils.data.Dataset):
                 if target_len < len_vl:
                     indices = random.sample(range(vl_data_list_lens[0],len_vl), target_len-vl_data_list_lens[0])
                     indices.extend([i for i in range(vl_data_list_lens[0])])
-                    # indices = random.sample(range(len_vl), target_len)
                     vl_data_list = [vl_data_list_temp[i] for i in indices]
                 else:
                     vl_data_list = [vl_data_list_temp[i % len_vl]for i in range(target_len)]
@@ -117,10 +114,6 @@ class EpisodicDataset(torch.utils.data.Dataset):
         self.vl_image_dir = vl_image_dir
 
 
-        if template_path is not None:
-            self.chat_template_all = json.load(open(template_path, 'r'))
-        else:
-            self.chat_template_all = None
 
         self.transformations = None
         if self.imsize == 320:
@@ -203,10 +196,6 @@ class EpisodicDataset(torch.utils.data.Dataset):
                 action_data = torch.ones((16, 10)).float()
                 is_pad = torch.ones((16, )).bool()
 
-            if self.chat_template_all is not None:
-                chat_template = self.chat_template_all['chat_template_vl']
-
-
         else:
             dataset_path = self.dataset_path_list[episode_id]
             with h5py.File(dataset_path, 'r') as root:
@@ -250,15 +239,6 @@ class EpisodicDataset(torch.utils.data.Dataset):
                     if self.imsize[0] != image_dict[cam_name].shape[1]:
                         image_dict[cam_name] = cv2.resize(image_dict[cam_name], self.imsize)
 
-                # if compressed:
-                #     for cam_name in image_dict.keys():
-                #         decompressed_image = cv2.imdecode(image_dict[cam_name], 1)
-                #         image_dict[cam_name] = np.array(decompressed_image)
-                #         image_dict[cam_name] = cv2.resize(image_dict[cam_name], self.imsize)
-                #         # if self.imsize[0] != image_dict[cam_name].shape[1]:
-                #         #     image_dict[cam_name] = cv2.resize(image_dict[cam_name], self.imsize)
-
-
                 # get all actions after and including start_ts
                 if is_sim:
                     action = action[start_ts:]
@@ -290,9 +270,6 @@ class EpisodicDataset(torch.utils.data.Dataset):
             action_data = torch.from_numpy(padded_action).float()
             is_pad = torch.from_numpy(is_pad).bool()
 
-            # if 'top' in self.camera_names or 'cam_high' in self.camera_names:  # denote for data collect via bimanual UR5
-            #     image_data = torch.stack(
-            #         [torch.from_numpy(cv2.cvtColor(img.numpy(), cv2.COLOR_BGR2RGB)) for img in image_data], dim=0)
             if self.robot == 'franka':
                 assert image_data.ndim == 4, f"image_data's shape is {image_data.shape}, maybe the reason of adding historical images"
                 image_data = torch.stack(
@@ -426,7 +403,6 @@ class Qwen2VLAProcess:
         if text_data_only:
             image_data = None
         else:
-            # TODO
             image_data = torch.chunk(sample['image'], sample['image'].shape[0], 0)
             images_list = []
             for i, each in enumerate(image_data):

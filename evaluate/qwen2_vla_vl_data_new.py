@@ -334,7 +334,7 @@ if __name__ == '__main__':
     sys.path.insert(0, "/home/eai/Dev-Code/droid")
     from droid.robot_env import RobotEnv
 
-    action_head = 'dit_diffusion_policy'  # 'droid_diffusion'
+    action_head = 'scale_dp_policy'
     model_size = '2B'
     policy_config = {
         ### qwen2 vla 2b with vl data

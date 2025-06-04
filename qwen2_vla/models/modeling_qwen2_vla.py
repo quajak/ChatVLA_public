@@ -40,7 +40,7 @@ from transformers.modeling_outputs import (
     ModelOutput,
 )
 from ..utils.fusion_modules import *
-from ..utils.expert_modules import StaticMoE, SparseMoE, SharedRoutedMoE, DeepSeekMoE
+from ..utils.expert_modules import StaticMoE
 from types import SimpleNamespace
 
 from transformers.modeling_rope_utils import ROPE_INIT_FUNCTIONS
@@ -69,7 +69,6 @@ logger = logging.get_logger(__name__)
 
 _CONFIG_FOR_DOC = "Qwen2VLConfig"
 
-from deepspeed.moe.layer import MoE as DeepSpeedMoE
 
 @dataclass
 class Qwen2VLCausalLMOutputWithPast(ModelOutput):
@@ -894,32 +893,11 @@ class Qwen2VLDecoderLayer(nn.Module):
             )
         self.self_attn = QWEN2_VL_ATTENTION_CLASSES[config._attn_implementation](config, layer_idx)
         self.use_expert = hasattr(config, "using_moe") and config.using_moe
-        self.use_shared_routed_expert = hasattr(config, "using_shared_routed_expert") and config.using_shared_routed_expert
         self.use_static_expert = hasattr(config, "using_static_expert") and config.using_static_expert
-        self.use_deepseek_moe = hasattr(config, "using_deepseek_moe") and config.using_deepseek_moe
-        self.use_deepspeed_moe = hasattr(config, "using_deepspeed_moe") and config.using_deepspeed_moe
-        assert not config.output_expert_traffic or not self.use_deepspeed_moe, "When use deepspeed moe, expert_traffic should not exist!!"
 
         if not self.use_expert:
             self.mlp = Qwen2MLP(config)
-        elif self.use_deepseek_moe:
-            self.deepseek_expert = DeepSeekMoE(config)
-        elif self.use_deepspeed_moe:
-            self.deepspeed_expert = DeepSpeedMoE(
-                config.hidden_size,
-                expert=Qwen2MLP(config),
-                num_experts=config.routed_expert_num,
-                ep_size=1,
-                k=config.routed_expert_num//2,
-                # capacity_factor=self.config.moe['capacity_factor'],
-                # eval_capacity_factor=self.config.moe['eval_capacity_factor'],
-                min_capacity=1,
-                use_residual=False,### if use_residual, then have 1 share expert
-            )
         else:
-            #### can use them at the same time
-            if self.use_shared_routed_expert:
-                self.share_moe_expert = SharedRoutedMoE(config, expert_module_class=Qwen2MLP)
             if self.use_static_expert:
                 self.static_expert = StaticMoE(config, expert_module_class=Qwen2MLP)
 
@@ -984,24 +962,10 @@ class Qwen2VLDecoderLayer(nn.Module):
         hidden_states = self.post_attention_layernorm(hidden_states)
         # hidden_states = self.mlp(hidden_states)
 
-        expert_traffic = None
-        ############# only for deepspeed moe #############
-        l_aux = None
-        exp_counts = None
+
         ##################################################
         if not self.use_expert:
             hidden_states = self.mlp(hidden_states)
-        elif self.use_deepseek_moe:
-            hidden_states = self.deepseek_expert(hidden_states)
-        elif self.use_deepspeed_moe:
-            hidden_states, l_aux, exp_counts = self.deepspeed_expert(hidden_states)
-        elif self.use_shared_routed_expert and self.use_static_expert:
-            routed_hidden, expert_traffic = self.share_moe_expert(hidden_states)
-            eval_in_vqa = eval_in_vqa and not self.training
-            static_hidden = self.static_expert(hidden_states, vl_data_mask=vl_data_mask, eval_in_vqa=eval_in_vqa)
-            hidden_states = (routed_hidden + static_hidden)*0.5
-        elif self.use_shared_routed_expert:
-            hidden_states, expert_traffic = self.share_moe_expert(hidden_states)
         elif self.use_static_expert:
             eval_in_vqa = eval_in_vqa and not self.training
             hidden_states = self.static_expert(hidden_states, vl_data_mask=vl_data_mask, eval_in_vqa=eval_in_vqa)
@@ -1018,10 +982,6 @@ class Qwen2VLDecoderLayer(nn.Module):
         if use_cache:
             outputs += (present_key_value,)
 
-        if expert_traffic is not None:
-            outputs += (expert_traffic,)
-        if self.use_deepspeed_moe:
-            outputs += ([l_aux],)
 
 
 
@@ -1173,9 +1133,7 @@ class Qwen2VLModel(Qwen2VLPreTrainedModel):
         self.using_expert = config.using_moe
 
         self.gradient_checkpointing = False
-        # Initialize weights and apply final processing
-        self.output_expert_traffic = config.output_expert_traffic
-        self.using_deepspeed_moe = config.using_deepspeed_moe
+
         self.post_init()
 
     def get_input_embeddings(self):
@@ -1245,8 +1203,7 @@ class Qwen2VLModel(Qwen2VLPreTrainedModel):
         # decoder layers
         all_hidden_states = () if output_hidden_states else None
         all_self_attns = () if output_attentions else None
-        all_expert_traffic = [] if self.output_expert_traffic else None
-        all_moe_loss = [] if self.using_deepspeed_moe else None
+
         next_decoder_cache = None
 
         for decoder_layer in self.layers:
@@ -1255,7 +1212,6 @@ class Qwen2VLModel(Qwen2VLPreTrainedModel):
 
             if self.gradient_checkpointing and self.training:
                 if self.using_expert:
-                    #### zzy ####
                     def create_custom_forward(module):
                         def custom_forward(*inputs):
                             return module(*inputs[:-2], output_attentions, use_cache, cache_position,
@@ -1308,10 +1264,6 @@ class Qwen2VLModel(Qwen2VLPreTrainedModel):
             if output_attentions:
                 all_self_attns += (layer_outputs[1],)
 
-            if self.output_expert_traffic:
-                all_expert_traffic.append(layer_outputs[-1])
-            if self.using_deepspeed_moe:
-                all_moe_loss.extend(layer_outputs[-1])
 
 
         hidden_states = self.norm(hidden_states)
@@ -1320,25 +1272,6 @@ class Qwen2VLModel(Qwen2VLPreTrainedModel):
         if output_hidden_states:
             all_hidden_states += (hidden_states,)
         next_cache = next_decoder_cache if use_cache else None
-
-        if self.output_expert_traffic:
-            return tuple([
-                BaseModelOutputWithPast(
-                    last_hidden_state=hidden_states,
-                    past_key_values=next_cache,
-                    hidden_states=all_hidden_states,
-                    attentions=all_self_attns,
-                ),
-                all_expert_traffic])
-        if self.using_deepspeed_moe:
-            return tuple([
-                BaseModelOutputWithPast(
-                    last_hidden_state=hidden_states,
-                    past_key_values=next_cache,
-                    hidden_states=all_hidden_states,
-                    attentions=all_self_attns,
-                ),
-                all_moe_loss])
 
         if not return_dict:
             return tuple(v for v in [hidden_states, next_cache, all_hidden_states, all_self_attns] if v is not None)
@@ -1585,33 +1518,20 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         self.lm_head = nn.Linear(config.hidden_size, config.vocab_size, bias=False)
         self.padding_side = "left"  # set it to left by default, user can use setter to change padding_sides
         self.with_llm_head = config.with_llm_head if hasattr(config, "with_llm_head") else False
-        self.using_film = config.using_film if hasattr(config, "using_film") else False
         self.llm_loss_weight = config.llm_loss_weight if hasattr(config, "llm_loss_weight") else 1.0
-        self.close_head_forward = config.close_head_forward if hasattr(config, 'close_head_forward') else False
-        self.saving_kv_cache = config.saving_kv_cache if hasattr(config, 'saving_kv_cache') else False
-        self.train_head_only = getattr(config, 'train_head_only', None)
-        if not self.close_head_forward:
-            if isinstance(config.policy_head_config, dict):
-                config.policy_head_config = AutoConfig.for_model(**config.policy_head_config)
+
+        if isinstance(config.policy_head_config, dict):
+            config.policy_head_config = AutoConfig.for_model(**config.policy_head_config)
 
         # Initialize weights and apply final processing
         self.post_init()
-        if not self.close_head_forward:
-            self.policy_head = AutoModel.from_config(config=config.policy_head_config)
-            if config.policy_head_config.model_type == "dit_diffusion_policy":
-                self.policy_head.init_weights()
-            self.input_action_proj = ActionProjector(config.hidden_size, config.hidden_size)
-            self.reasoning_action_proj = ActionProjector(config.hidden_size, config.hidden_size)
-        if self.using_film:
-            self.reasoning_film = FiLM(feature_dim=config.hidden_size, condition_dim=config.hidden_size)
-        self.output_expert_traffic = config.output_expert_traffic
-        if self.output_expert_traffic:
-            expert_traffic = torch.zeros((28,config.routed_expert_num))
-            self.register_buffer('expert_traffic', expert_traffic)
-        self.using_deepspeed_moe = config.using_deepspeed_moe
-        self.using_groot_like_attn = config.using_groot_like_attn if hasattr(config,'using_groot_like_attn') else False
-        # if self.using_groot_like_attn:
-        #     self.vl_embed_action_proj = ActionProjector(config.hidden_size, config.hidden_size)
+        self.policy_head = AutoModel.from_config(config=config.policy_head_config)
+        if config.policy_head_config.model_type == "scale_dp_policy":
+            self.policy_head.init_weights()
+        self.input_action_proj = ActionProjector(config.hidden_size, config.hidden_size)
+        self.reasoning_action_proj = ActionProjector(config.hidden_size, config.hidden_size)
+        self.reasoning_film = FiLM(feature_dim=config.hidden_size, condition_dim=config.hidden_size)
+
 
 
 
@@ -1825,7 +1745,6 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             text_only_mask: Optional[torch.Tensor] = None,
             is_pad: bool = False,
             is_eval: bool = False,
-            tinyvla: bool = False,
             eval_in_vqa: bool = False,
     ) -> Union[Tuple, Qwen2VLCausalLMOutputWithPast]:
         r"""
@@ -1885,9 +1804,8 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         output_hidden_states = (
             output_hidden_states if output_hidden_states is not None else self.config.output_hidden_states
         )
-        # if using groot-like attention to merge vlm attention into action head,
-        # output_hidden_states SHOULD be set to True
-        output_hidden_states = True if self.using_groot_like_attn else output_hidden_states
+
+        output_hidden_states = output_hidden_states
 
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
@@ -1936,8 +1854,6 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         # assert image_mask is not None, "Inputs: pixel values must be provided."
         else:
             image_mask = None
-        if self.saving_kv_cache:
-            past_key_values = DynamicCache()
         outputs = self.model(
             input_ids=None,
             position_ids=position_ids,
@@ -1953,21 +1869,8 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             eval_in_vqa=eval_in_vqa
         )
 
-        if self.output_expert_traffic:
-            with torch.no_grad():
-                expert_traffic_data = torch.stack(outputs[-1], dim=0)
-                self.expert_traffic.data = expert_traffic_data.to(self.expert_traffic.device)
-            # print(expert_traffic_data)
-            outputs = outputs[0]
 
-        moe_aux_loss = None
-        if self.using_deepspeed_moe:
-            moe_loss_list = outputs[-1]
-            moe_aux_loss = torch.sum(torch.stack(moe_loss_list), dim=0)
-            outputs = outputs[0]
-        vl_layer_embed = None
-        if self.using_groot_like_attn:
-            vl_layer_embed = outputs['hidden_states'][14]
+
 
         hidden_states = outputs[0]
         if self.with_llm_head:
@@ -2014,40 +1917,6 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             vl_data_loss = (llm_loss * vl_expanded_mask).sum() / valid_elements
             del vl_expanded_mask
 
-        if self.close_head_forward:
-            loss = {
-                'loss': text_loss + vl_data_loss + reasoning_loss,
-                'llm_loss': text_loss + vl_data_loss + reasoning_loss,
-                'text_loss': text_loss,
-                'vl_data_loss': vl_data_loss,
-                'reasoning_loss': reasoning_loss
-            }
-            if not return_dict:
-                output = (logits,) + outputs[1:]
-                return (loss,) + output if loss is not None else output
-
-            torch.cuda.empty_cache()
-            gc.collect()
-            del input_ids
-            del attention_mask
-            del position_ids
-            del past_key_values
-            del inputs_embeds
-            del labels
-            del pixel_values
-            del image_grid_thw
-            del actions
-            del states
-            del vl_data_mask
-            return Qwen2VLCausalLMOutputWithPast(
-                loss=loss,
-                logits=logits,
-                past_key_values=outputs.past_key_values,
-                hidden_states=outputs.hidden_states,
-                attentions=outputs.attentions,
-                rope_deltas=rope_deltas,
-            )
-
 
         if eval_in_vqa:
             return Qwen2VLCausalLMOutputWithPast(
@@ -2060,9 +1929,7 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             )
         if is_eval:
             loss = None
-            if tinyvla:
-                return hidden_states
-            elif not return_dict:
+            if not return_dict:
                 # print(f"!@#@#@#@#@#$#$#####$$$$$$$@#@##@##@#@#@###############@#@#@#@@@@@@@@@@@@@@{return_dict}@@@@@@@@@@@@")
                 output = (logits,) + outputs[1:]
                 return (loss,) + output if loss is not None else output
@@ -2085,7 +1952,7 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
                 actions = actions[~vl_data_mask]
                 states = states[~vl_data_mask]
                 is_pad = is_pad[~vl_data_mask]
-                vl_layer_embed = vl_layer_embed[~vl_data_mask] if vl_layer_embed is not None else None
+
             else:
                 input_ids = input_ids[0].unsqueeze(0)
                 labels = labels[0].unsqueeze(0)
@@ -2093,9 +1960,7 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
                 actions = actions[0].unsqueeze(0)
                 states = states[0].unsqueeze(0)
                 is_pad = is_pad[0].unsqueeze(0)
-                vl_layer_embed = vl_layer_embed[0].unsqueeze(0) if vl_layer_embed is not None else None
 
-        # if self.using_film:
         inputs_index = labels[:, :] == -100
         inputs_index = inputs_index.int()
         xor_array = torch.bitwise_xor(inputs_index[:, :-1], inputs_index[:, 1:])
@@ -2104,57 +1969,30 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         input_embeddings = []
         reasoning_embeddings = []
         identity = []
-        vl_layer_embeddings = []
 
         for i in range(indexs.shape[0]):
-            end = indexs[i] + 1
-            # temp = input_ids[i] == 151643 # pad token id
+            start = indexs[i] + 1
             temp = input_ids[i] != 151643  # pad token id
-            start = sum(temp.int())
-            ## left padding
-            # input_embeddings.append(self.input_action_proj(hidden_states[i, start:end, :]))
-            # identity.append(torch.mean(hidden_states[i, start:end, :], dim=0))
-            # reasoning_embeddings.append(self.reasoning_action_proj(hidden_states[i, end:-1, :]))
+            end = sum(temp.int())
+            input_embeddings.append(self.input_action_proj(hidden_states[i, 0:start, :]))
+            identity.append(torch.mean(hidden_states[i, 0:start, :], dim=0))
+            reasoning_embeddings.append(self.reasoning_action_proj(hidden_states[i, start:end, :]))
 
-            ## right padding
-            input_embeddings.append(self.input_action_proj(hidden_states[i, 0:end, :]))
-            identity.append(torch.mean(hidden_states[i, 0:end, :], dim=0))
-            reasoning_embeddings.append(self.reasoning_action_proj(hidden_states[i, end:start, :]))
-            if self.using_groot_like_attn:
-                vl_layer_embeddings.append(vl_layer_embed[i, :, :])
-
-        # print(">>>>>>>>>>>>>>>>>>> ready to action head >>>>>>>>>>>>>")
         input_embeddings = torch.cat(input_embeddings, dim=0)
         reasoning_embeddings = torch.cat(reasoning_embeddings, dim=0)
 
-        vl_layer_embeddings = torch.stack(vl_layer_embeddings) if self.using_groot_like_attn else None
         vl_layer_attention_mask = None
 
         identity = torch.stack(identity)
-        if self.using_film:
-            action_hidden_states = self.reasoning_film(input_embeddings, reasoning_embeddings).unsqueeze(1)
-            action_hidden_states = action_hidden_states + identity.unsqueeze(1)
-        else:
-            action_hidden_states = reasoning_embeddings.unsqueeze(1) + input_embeddings.unsqueeze(1)
-        # else:
-        #     input_embeddings = []
-        #     for i in range(labels.shape[0]):
-        #         # left pad
-        #         # temp = input_ids[i] == 151643  # pad token id
-        #         # start = sum(temp.int())
-        #         # input_embeddings.append(torch.mean(hidden_states[i, start:, :], dim=0))
-        #         # right pad
-        #         temp = input_ids[i] != 151643  # pad token id
-        #         start = sum(temp.int())
-        #         input_embeddings.append(torch.mean(hidden_states[i, :start, :], dim=0))
-        #     action_hidden_states = torch.stack(input_embeddings).unsqueeze(1)
+        action_hidden_states = self.reasoning_film(input_embeddings, reasoning_embeddings).unsqueeze(1)
+        action_hidden_states = action_hidden_states + identity.unsqueeze(1)
+
         ret = self.policy_head(
             actions=actions,
             hidden_states=action_hidden_states,
             states=states,
             is_pad=is_pad,
             reasoning=reasoning_embeddings.unsqueeze(1),
-            encoder_hidden_states=vl_layer_embeddings,
             attention_mask=vl_layer_attention_mask  
         )
         action_loss = (ret['loss'] * ~is_pad.unsqueeze(-1)).sum()
@@ -2164,43 +2002,20 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             else:
                 action_loss = action_loss * 0.0
 
-        # if not False in vl_data_mask:
-        #     ret["loss"] = ret["loss"] * 0.0
         if self.with_llm_head:
-            if self.train_head_only:
-                # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>train head only!")
-                loss = {'loss': action_loss,
-                        'llm_loss': (torch.ones(1) * (-100)).to(action_loss.dtype).squeeze(0),
-                        'action_loss': action_loss}
-            else:
-                if moe_aux_loss is not None:
-                    loss = {
-                        'loss': action_loss / self.llm_loss_weight + reasoning_loss + text_loss + vl_data_loss +  moe_aux_loss * 0.01,
-                        'llm_loss': reasoning_loss + text_loss + vl_data_loss,
-                        'action_loss': action_loss,
-                        'moe_aux_loss': moe_aux_loss * 0.01,
-                        'reasoning_loss': reasoning_loss,
-                        'text_loss': text_loss,
-                        'vl_data_loss': vl_data_loss
-                    }
-                else:
-                    loss = {
-                        'loss': action_loss/self.llm_loss_weight + reasoning_loss + text_loss + vl_data_loss,
-                        'llm_loss': reasoning_loss + text_loss + vl_data_loss,
-                        'action_loss': action_loss,
-                        'reasoning_loss': reasoning_loss,
-                        'text_loss': text_loss,
-                        'vl_data_loss': vl_data_loss
-                    }
+            loss = {
+                'loss': action_loss/self.llm_loss_weight + reasoning_loss + text_loss + vl_data_loss,
+                'llm_loss': reasoning_loss + text_loss + vl_data_loss,
+                'action_loss': action_loss,
+                'reasoning_loss': reasoning_loss,
+                'text_loss': text_loss,
+                'vl_data_loss': vl_data_loss
+            }
         else:
             loss = {'loss': action_loss,
                     'llm_loss': (torch.ones(1) * (-100)).to(action_loss.dtype).squeeze(0),
                     'action_loss': action_loss}
 
-        # if self.output_expert_traffic:
-        #     expert_traffic = torch.stack(expert_traffic, dim=0)
-        #     output = (loss, expert_traffic)
-        #     return output
 
         if not return_dict:
             output = (logits,) + outputs[1:]
@@ -2357,50 +2172,20 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         outputs_text = outputs_text.strip()
         last_hidden_states = [each[-1] for each in outputs.hidden_states]  # all hidden states
         # all_hidden_states = torch.cat(last_hidden_states, dim=1)
-        # if self.using_film:
+
         input_embeddings = torch.cat(last_hidden_states[0:1], dim=1)
         identity = torch.mean(input_embeddings, dim=1)
 
         reasoning_embeddings = torch.cat(last_hidden_states[1:], dim=1)
         input_embeddings = self.input_action_proj(input_embeddings.squeeze(0))
         reasoning_embeddings = self.reasoning_action_proj(reasoning_embeddings.squeeze(0))
-        if self.using_film:
-            all_hidden_states = self.reasoning_film(input_embeddings, reasoning_embeddings).unsqueeze(1)
-            all_hidden_states = all_hidden_states + identity.unsqueeze(1)
-        else:
-            all_hidden_states = reasoning_embeddings.unsqueeze(1)+input_embeddings.unsqueeze(1)
-        # else:
-        #     raise "please chosen correct mode for inference"
+        all_hidden_states = self.reasoning_film(input_embeddings, reasoning_embeddings).unsqueeze(1)
+        all_hidden_states = all_hidden_states + identity.unsqueeze(1)
 
         action_hidden_states = all_hidden_states
         action = self.policy_head(actions, action_hidden_states, states.to(all_hidden_states.dtype), is_pad, reasoning=reasoning_embeddings.unsqueeze(1))
         return action, outputs_text
 
-    def evaluate_tinyvla(self,
-                         input_ids: torch.LongTensor = None,
-                         actions=None,
-                         states=None,
-                         is_pad=None,
-                         tokenizer=None,
-                         is_eval=True,
-                         pixel_values=None,
-                         attention_mask=None,
-                         image_grid_thw=None,
-                         ):
-        input_ids = input_ids.to('cuda')
-        with torch.inference_mode():
-            all_hidden_states = self.forward(input_ids,
-                                             pixel_values=pixel_values,
-                                             attention_mask=attention_mask,
-                                             image_grid_thw=image_grid_thw,
-                                             is_eval=is_eval,
-                                             tinyvla=True)
-
-        all_hidden_states = torch.mean(all_hidden_states, dim=1).unsqueeze(1)
-
-        # print(outputs)
-        action = self.policy_head(actions, all_hidden_states, states.to(all_hidden_states.dtype), is_pad)
-        return action, "tinyvla no output"
 
 from transformers import AutoModelForCausalLM
 

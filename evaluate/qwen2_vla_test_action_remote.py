@@ -276,7 +276,7 @@ def eval_bc(policy, policy_config, raw_lang=None, views=[0], eval_in_vqa=False, 
 if __name__ == '__main__':
     # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>hyper parameters<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    action_head = 'dit_diffusion_policy'  # 'droid_diffusion'
+    action_head = 'scale_dp_policy'  # 'droid_diffusion'
     model_size = '2B'
     policy_config = {
         # "model_path": "/media/eai/ADDS-4/zhouzy/model_Param/franka_math_vl/0416_Qwen2_lora_no_filmlayer_w_reasoningaction_share1_route2_top_1/checkpoint-25000",

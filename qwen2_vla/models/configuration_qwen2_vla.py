@@ -204,8 +204,8 @@ class Qwen2VLAConfig(PretrainedConfig):
         vision_config=None,
         rope_scaling=None,
         # For loading policy head
-        policy_head_type='dit_diffusion_policy',  # dit_diffusion_policy
-        policy_head_size='DiT_L',
+        policy_head_type='scale_dp_policy',  # dit_diffusion_policy
+        policy_head_size='DiT_L', # TODO
         action_dim=10,
         state_dim=7,
         **kwargs,
@@ -227,7 +227,7 @@ class Qwen2VLAConfig(PretrainedConfig):
 
         # for loading policy head
         self.policy_head_type = policy_head_type
-        if policy_head_type == 'dit_diffusion_policy':
+        if policy_head_type == 'scale_dp_policy':
             self.policy_head_size = policy_head_size
             self.policy_head_config = AutoConfig.for_model(model_type=self.policy_head_type,
                                                            model_size=self.policy_head_size,
@@ -254,7 +254,6 @@ class Qwen2VLAConfig(PretrainedConfig):
         # BC: if there is a 'type' field, move it to 'rope_type'.
         # and change type from 'mrope' to 'default' because `mrope` does defeault RoPE calculations
         # one can set it to "linear"/"dynamic" etc. to have scaled RoPE
-        # TODO: @raushan update config in the hub
         if self.rope_scaling is not None and "type" in self.rope_scaling:
             if self.rope_scaling["type"] == "mrope":
                 self.rope_scaling["type"] = "default"

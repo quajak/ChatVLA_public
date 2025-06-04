@@ -25,7 +25,7 @@ from data_utils.dataset import *
 import IPython
 
 e = IPython.embed
-from data_utils.dataset import DataCollatorForSupervisedDataset
+from data_utils.data_collator import DataCollatorForSupervisedDataset
 from qwen2_vla import model_load_utils as ml_utils
 import torch
 
@@ -35,11 +35,10 @@ local_rank = None
 #  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>parameters<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 @dataclass
 class ActionHeadArguments:
-    policy_head_size: str = field(default="DiT_L")  # DiT_L, DiT_XL, DiT_B, DiT_S
-    state_dim: int = 7
-    action_dim: int = 10
-    policy_class: str = field(default="unet_diffusion_policy")
-    reasoning_layer_id: int = field(default=-1)
+    policy_head_type: str = field(default="scale_dp_policy") # or unet_diffusion_policy
+    policy_head_size: str = field(default="ScaleDP_H") # ScaleDP_XL, ScaleDP_L, ScaleDP_B, ScaleDP_S
+    state_dim: int = 7 # state dimension
+    action_dim: int = 10 # action dimension
 
 @dataclass
 class ModelArguments:
@@ -47,25 +46,14 @@ class ModelArguments:
     model_pretrain: Optional[str] = field(default="")  # pretrained model weights path
 
     with_llm_head: bool = field(default=False)
-    using_film: bool = field(default=False)
-    ##### moe setting
-    # moe in llm
-    using_moe: bool = field(default=False)
-    using_shared_routed_expert: bool = field(default=False)
-    shared_expert_num: int = field(default=0)
-    routed_expert_num: int = field(default=0)
-    routed_top_k: int = field(default=0)
-    using_static_expert: bool = field(default=False)
-    using_deepseek_moe: bool = field(default=False)
-    using_deepspeed_moe: bool = field(default=False)
-    ### cross attention
-    using_groot_like_attn: bool = field(default=False)
-    saving_kv_cache: bool = field(default=False)
 
-    output_expert_traffic: bool = field(default=False)
+    ##### moe setting
+    using_moe: bool = field(default=False)
+    using_static_expert: bool = field(default=False)
+
 
     pretrain_dit_path: Optional[str] = field(default=None)
-    close_head_forward: bool = field(default=False)
+
 
 @dataclass
 class DataArguments:
@@ -75,7 +63,7 @@ class DataArguments:
     skip_mirrored_data: bool = field(default=False)
     chunk_size: int = field(default=16)
     delta_control: bool = field(default=False)
-    vl_ratio: float = field(default=-1)
+    vl_ratio: float = field(default=-1) # -1 represents use ALL VL DATA
 
 
 @dataclass
@@ -96,8 +84,6 @@ class TrainingArguments(transformers.TrainingArguments):
     freeze_vision_tower: bool = field(default=False)
     freeze_backbone: bool = field(default=False)
 
-    freeze_action_head: bool = field(default=False)
-    train_head_only: bool = field(default=False)
     head_lr: Optional[float] = None
     resume_from_checkpoint: bool = field(default=False)
     llm_loss_weight: float = field(default=1.0)
@@ -106,9 +92,7 @@ class TrainingArguments(transformers.TrainingArguments):
 
     # moe
     init_moe: bool = field(default=False)
-    init_moe_from_selected : bool = field(default=False)
     freeze_vl_expert: bool = field(default=False)
-    using_deepspeed_moe_training: bool = field(default=False)
 
     # logger
     logging_dir: str = field(default='./logs')  # TensorBoard日志的保存目录
@@ -177,7 +161,7 @@ def parse_param():
     local_rank = training_args.local_rank
 
     config = AutoConfig.from_pretrained(model_args.model_name_or_path, **asdict(action_head_args))
-    if action_head_args.policy_class == 'dit_diffusion_policy':
+    if action_head_args.policy_head_type == 'scale_dp_policy': # scaledp, using dit block
         config.policy_head_size = action_head_args.policy_head_size
         config.policy_head_config = AutoConfig.for_model(model_type=action_head_args.policy_class,
                                                        model_size=action_head_args.policy_head_size,
@@ -193,20 +177,12 @@ def parse_param():
         raise NotImplementedError(f"Unsupported policy head type {action_head_args.policy_class}.")
     setattr(config.policy_head_config, "input_dim", asdict(action_head_args)['action_dim'])
     setattr(config.policy_head_config, "state_dim", asdict(action_head_args)['state_dim'])
-    setattr(config.policy_head_config, "reasoning_layer_id", asdict(action_head_args)['reasoning_layer_id'])
 
-    training_args.using_deepspeed_moe_training = model_args.using_deepspeed_moe
     model_args.routed_top_k = int(model_args.routed_expert_num/2) if model_args.routed_top_k == 0 else model_args.routed_top_k
 
-    for k in ['with_llm_head', 'using_film', 'using_moe', 'using_static_expert',
-              'using_shared_routed_expert','shared_expert_num', 'routed_expert_num', 'routed_top_k',
-              'using_deepseek_moe',
-              'output_expert_traffic', 'using_deepspeed_moe', 'using_groot_like_attn','close_head_forward',
-                'saving_kv_cache'
-              ]:
+    for k in ['with_llm_head', 'using_moe', 'using_static_expert']:
         setattr(config, k, asdict(model_args)[k])
     config.llm_loss_weight = training_args.llm_loss_weight
-    config.train_head_only = training_args.train_head_only
     config.with_flash_attention = training_args.with_flash_attention
     if training_args.lr_scheduler_type == 'cosine_with_min_lr':
         training_args.lr_scheduler_kwargs['min_lr'] = training_args.min_lr
@@ -268,13 +244,11 @@ def main(all_config=None, model_config=None):
     dataset_dir = task_config['dataset_dir']
     vl_file = task_config.get('vl_file', None)
     vl_image_dir = task_config.get('vl_image_dir', None)
-    template_path = task_config.get('template_path', None)
 
     episode_len = task_config['episode_len']
     camera_names = task_config['camera_names']
     stats_dir = task_config.get('stats_dir', None)
     sample_weights = task_config.get('sample_weights', None)
-    # train_ratio = task_config.get('train_ratio', 1)
     name_filter = task_config.get('name_filter', lambda n: True)
 
     all_config['camera_names'] = camera_names
@@ -301,7 +275,6 @@ def main(all_config=None, model_config=None):
                                                                   stats_dir_l=stats_dir,
                                                                   policy_class=all_config['action_head_args'].policy_class,
                                                                   llava_pythia_process=vla_process,
-                                                                  template_path=template_path,
                                                                   vl_ratio=all_config['data_args'].vl_ratio,
                                                                   is_local_debug=all_config['training_args'].is_local_debug
                                                                   )
@@ -329,7 +302,6 @@ if __name__ == '__main__':
     config_dict = {k: asdict(v) if not isinstance(v, dict) else v for k, v in config.items()}
 
     ckpt = os.path.join(config['training_args'].output_dir, f"checkpoint-{config['training_args'].save_steps}")
-    # try_resume_ckpt = os.path.join(config['training_args'].output_dir, f"checkpoint-{config['training_args'].resume_steps}")
     if os.path.exists(ckpt):
         config['training_args'].resume_from_checkpoint = True
         print("Resuming Training............")

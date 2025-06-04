@@ -131,44 +131,6 @@ def get_length_grouped_indices(lengths, batch_size, world_size, generator=None, 
     return [i for megabatch in megabatches for batch in megabatch for i in batch]
 
 
-class LengthGroupedSampler(Sampler):
-    r"""
-    Sampler that samples indices in a way that groups together features of the dataset of roughly the same length while
-    keeping a bit of randomness.
-    """
-
-    def __init__(
-            self,
-            batch_size: int,
-            world_size: int,
-            lengths: Optional[List[int]] = None,
-            generator=None,
-            group_by_modality: bool = False,
-            sample_weights: List[float] = None,
-    ):
-        if lengths is None:
-            raise ValueError("Lengths must be provided.")
-
-        self.batch_size = batch_size
-        self.world_size = world_size
-        self.lengths = lengths
-        self.generator = generator
-        self.group_by_modality = group_by_modality
-        self.sample_weights = sample_weights
-
-    def __len__(self):
-        return len(self.lengths)
-
-    def __iter__(self):
-        if self.group_by_modality:
-            indices = get_modality_length_grouped_indices(self.lengths, self.batch_size, self.world_size,
-                                                          sample_weights=self.sample_weights, generator=self.generator)
-        else:
-            indices = get_length_grouped_indices(self.lengths, self.batch_size, self.world_size,
-                                                 generator=self.generator)
-        return iter(indices)
-
-
 def _is_peft_model(model):
     if is_peft_available():
         classes_to_check = (PeftModel,) if is_peft_available() else ()
@@ -247,17 +209,7 @@ class QWen2VLATrainer(Trainer):
         if self.train_dataset is None or not has_length(self.train_dataset):
             return None
 
-        if self.args.group_by_modality_length:
-            lengths = self.train_dataset.modality_lengths
-            return LengthGroupedSampler(
-                self.args.train_batch_size,
-                world_size=self.args.world_size * self.args.gradient_accumulation_steps,
-                lengths=lengths,
-                group_by_modality=True,
-                sample_weights=self.sampler_params["train"]["sample_weights"]
-            )
-        else:
-            return super()._get_train_sampler()
+        return super()._get_train_sampler()
 
     def create_optimizer(self):
         """
@@ -767,7 +719,6 @@ class QWen2VLATrainer(Trainer):
         custom_loss = {
             'llm_loss': torch.tensor(0.0).to(args.device),
             'action_loss': torch.tensor(0.0).to(args.device),
-            'moe_aux_loss': torch.tensor(0.0).to(args.device),
             'reasoning_loss': torch.tensor(0.0).to(args.device),
             'text_loss': torch.tensor(0.0).to(args.device),
             'vl_data_loss': torch.tensor(0.0).to(args.device)
@@ -1071,7 +1022,6 @@ class QWen2VLATrainer(Trainer):
             custom_loss = {
                 'llm_loss': torch.tensor(0.0).to(tr_loss.device),
                 'action_loss': torch.tensor(0.0).to(tr_loss.device),
-                'moe_aux_loss': torch.tensor(0.0).to(tr_loss.device),
                 'reasoning_loss': torch.tensor(0.0).to(tr_loss.device),
                 'text_loss': torch.tensor(0.0).to(tr_loss.device),
                 'vl_data_loss': torch.tensor(0.0).to(tr_loss.device)

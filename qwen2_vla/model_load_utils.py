@@ -131,52 +131,20 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
                 not config['model_args'].model_pretrain and config['model_args'].using_moe):
             rank0_print(
                 ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Initializing MOE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-            if config['training_args'].init_moe_from_selected:
-                rank0_print(
-                    "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Initializing MOE from selected ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-                mlp_weights_path = os.path.join(config['model_args'].model_name_or_path, "share_mlp.bin")
-                assert os.path.isfile(mlp_weights_path), "No SHARE MLP params found at {}".format(
-                    config['model_args'].model_name_or_path)
-                params = torch.load(mlp_weights_path)
-                loaded = {}
-                for k, v in params.items():
-                    if config['model_args'].using_shared_routed_expert:
-                        if 'shared_experts.0' in k:
-                            loaded[k] = v
-                        else:
-                            assert 'shared_experts.1' in k, "Unexpected param {} in mlp.bin".format(k)
-                            for i in range(config['model_args'].routed_expert_num):
-                                loaded[k.replace('share_moe_expert.shared_experts.1', 'share_moe_expert.routed_experts.experts.'+str(i))] = v
-
-            else:
-                mlp_weights_path = os.path.join(config['model_args'].model_name_or_path, "mlp.bin")
-                assert os.path.isfile(mlp_weights_path), "No MLP params found at {}".format(config['model_args'].model_name_or_path)
-                params = torch.load(mlp_weights_path)
-                loaded = {}
-                for k, v in params.items():
-                    if config['model_args'].using_deepspeed_moe:
-                        for i in range(config['model_args'].routed_expert_num):
-                            loaded[k.replace('mlp', 'deepspeed_expert.deepspeed_moe.experts.deepspeed_experts.'+str(i))] = v
-                    elif config['model_args'].using_deepseek_moe:
-                        ########## only support shared expert num=1
-                        loaded[k.replace('mlp', 'deepseek_expert.shared_experts')] = v
-                        for i in range(config['model_args'].routed_expert_num):
-                            loaded[k.replace('mlp', 'deepseek_expert.experts.'+str(i))] = v
-                    else:
-                        if config['model_args'].using_shared_routed_expert:
-                            for i in range(config['model_args'].shared_expert_num):
-                                loaded[k.replace('mlp', 'share_moe_expert.shared_experts.'+str(i))] = v
-                            for i in range(config['model_args'].routed_expert_num):
-                                loaded[k.replace('mlp', 'share_moe_expert.routed_experts.experts.'+str(i))] = v
-                    if config['model_args'].using_static_expert:
-                        for i in range(2):
-                            loaded[k.replace('mlp', 'static_expert.experts.' + str(i))] = v
+            mlp_weights_path = os.path.join(config['model_args'].model_name_or_path, "mlp.bin")
+            assert os.path.isfile(mlp_weights_path), "No MLP params found at {}".format(config['model_args'].model_name_or_path)
+            params = torch.load(mlp_weights_path)
+            loaded = {}
+            for k, v in params.items():
+                if config['model_args'].using_static_expert:
+                    for i in range(2):
+                        loaded[k.replace('mlp', 'static_expert.experts.' + str(i))] = v
             del params
             model.load_state_dict(loaded, strict=False)
             rank0_print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>MOE adapter initialized.<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
         ############################################ setting pretrained dit ####################################################
-        if not model_args.close_head_forward and config['model_args'].pretrain_dit_path is not None and config['action_head_args'].policy_class == 'dit_diffusion_policy':
+        if config['model_args'].pretrain_dit_path is not None and config['action_head_args'].policy_class == 'scale_dp_policy':
             assert config['model_args'].pretrain_dit_path is not None, "please specify a pretrained dit path when setting load_pretrain_dit==True"
             rank0_print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Loading pretrained dit weights...<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
             pretrain_dit_weights = torch.load(config['model_args'].pretrain_dit_path, map_location='cpu')['nets']['ema']
@@ -270,19 +238,10 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
 
     #  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> activate action head <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
-    if training_args.freeze_action_head or model_args.close_head_forward:
-        pass
-        # model.policy_head.requires_grad_(False)
-        # if model_args.close_head_forward:
-        #     model.input_action_proj.requires_grad_(False)
-        #     model.reasoning_action_proj.requires_grad_(False)
-    else:
-        model.policy_head.requires_grad_(True)
-        model.input_action_proj.requires_grad_(True)
-        model.reasoning_action_proj.requires_grad_(True)
-        if config['model_args'].using_film:
-            model.reasoning_film.requires_grad_(True)
+    model.policy_head.requires_grad_(True)
+    model.input_action_proj.requires_grad_(True)
+    model.reasoning_action_proj.requires_grad_(True)
+    model.reasoning_film.requires_grad_(True)
 
     if training_args.train_head_only:
         for name, param in model.named_parameters():
@@ -295,9 +254,6 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
     vision_tower.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
     model.model.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
     model.to(torch.bfloat16)
-    # if config['model_args'].using_moe and config['model_args'].using_shared_routed_expert and config['model_args'].routed_expert_num>0:
-    #     for layer_id in range(28):
-    #         model.model.model.layers[layer_id].share_moe_expert.routed_experts.router.to(torch.float32)
 
     for k, v in model.named_parameters():
         if v.requires_grad:

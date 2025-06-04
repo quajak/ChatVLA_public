@@ -38,7 +38,7 @@ deepspeed --master_port 29604 --num_gpus=2 --num_nodes=1 ./train_vla.py \
   --delta_control False\
   --group_by_modality_length False\
   --using_moe True\
-  --policy_class dit_diffusion_policy\
+  --policy_class scale_dp_policy\
   --lora_enable True\
   --with_flash_attention False\
   --vl_ratio -1\

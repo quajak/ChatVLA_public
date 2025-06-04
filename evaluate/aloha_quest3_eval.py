@@ -264,7 +264,7 @@ if __name__ == '__main__':
     sys.path.insert(0, "/home/eai/Dev-Code/mirocs")
     from run.agilex_robot_env import AgilexRobot
 
-    action_head = 'dit_diffusion_policy'  # 'unet_diffusion_policy'
+    action_head = 'scale_dp_policy'  # 'unet_diffusion_policy'
     model_size = '2B'
     policy_config = {
 
