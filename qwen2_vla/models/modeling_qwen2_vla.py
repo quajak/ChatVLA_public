@@ -1521,7 +1521,7 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         self.llm_loss_weight = config.llm_loss_weight if hasattr(config, "llm_loss_weight") else 1.0
 
         if isinstance(config.policy_head_config, dict):
-            config.policy_head_config = AutoConfig.for_model(**config.policy_head_config)
+            config.policy_head_config = AutoConfig.for_model(**config.policy_head_config, model_size=config.policy_head_size)
 
         # Initialize weights and apply final processing
         self.post_init()
@@ -1981,7 +1981,6 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         input_embeddings = torch.cat(input_embeddings, dim=0)
         reasoning_embeddings = torch.cat(reasoning_embeddings, dim=0)
 
-        vl_layer_attention_mask = None
 
         identity = torch.stack(identity)
         action_hidden_states = self.reasoning_film(input_embeddings, reasoning_embeddings).unsqueeze(1)
@@ -1991,9 +1990,7 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             actions=actions,
             hidden_states=action_hidden_states,
             states=states,
-            is_pad=is_pad,
-            reasoning=reasoning_embeddings.unsqueeze(1),
-            attention_mask=vl_layer_attention_mask  
+            is_pad=is_pad
         )
         action_loss = (ret['loss'] * ~is_pad.unsqueeze(-1)).sum()
         if vl_data_mask is not None:

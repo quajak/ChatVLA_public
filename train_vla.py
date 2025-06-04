@@ -21,7 +21,7 @@ from aloha_scripts.constants import TASK_CONFIGS
 from data_utils.utils import Qwen2VLAProcess
 from transformers import AutoConfig, AutoModel, AutoProcessor
 from qwen2_vla import QWen2VLATrainer
-from data_utils.dataset import *
+from data_utils.data_collator import *
 import IPython
 
 e = IPython.embed
@@ -163,22 +163,21 @@ def parse_param():
     config = AutoConfig.from_pretrained(model_args.model_name_or_path, **asdict(action_head_args))
     if action_head_args.policy_head_type == 'scale_dp_policy': # scaledp, using dit block
         config.policy_head_size = action_head_args.policy_head_size
-        config.policy_head_config = AutoConfig.for_model(model_type=action_head_args.policy_class,
+        config.policy_head_config = AutoConfig.for_model(model_type=action_head_args.policy_head_type,
                                                        model_size=action_head_args.policy_head_size,
                                                        cond_dim=config.hidden_size, action_dim=action_head_args.action_dim,
                                                         prediction_horizon=data_args.chunk_size,
                                                        state_dim=action_head_args.state_dim)
-    elif action_head_args.policy_class == 'unet_diffusion_policy':
-        config.policy_head_config = AutoConfig.for_model(model_type=action_head_args.policy_class,
+    elif action_head_args.policy_head_type == 'unet_diffusion_policy':
+        config.policy_head_config = AutoConfig.for_model(model_type=action_head_args.policy_head_type,
                                                        global_cond_dim=config.hidden_size, action_dim=action_head_args.action_dim,
                                                          prediction_horizon=data_args.chunk_size,
                                                        state_dim=action_head_args.state_dim)
     else:
-        raise NotImplementedError(f"Unsupported policy head type {action_head_args.policy_class}.")
+        raise NotImplementedError(f"Unsupported policy head type {action_head_args.policy_head_type}.")
     setattr(config.policy_head_config, "input_dim", asdict(action_head_args)['action_dim'])
     setattr(config.policy_head_config, "state_dim", asdict(action_head_args)['state_dim'])
 
-    model_args.routed_top_k = int(model_args.routed_expert_num/2) if model_args.routed_top_k == 0 else model_args.routed_top_k
 
     for k in ['with_llm_head', 'using_moe', 'using_static_expert']:
         setattr(config, k, asdict(model_args)[k])
@@ -273,7 +272,7 @@ def main(all_config=None, model_config=None):
                                                                   skip_mirrored_data=all_config['data_args'].skip_mirrored_data,
                                                                   config=all_config,
                                                                   stats_dir_l=stats_dir,
-                                                                  policy_class=all_config['action_head_args'].policy_class,
+                                                                  policy_head_type=all_config['action_head_args'].policy_head_type,
                                                                   llava_pythia_process=vla_process,
                                                                   vl_ratio=all_config['data_args'].vl_ratio,
                                                                   is_local_debug=all_config['training_args'].is_local_debug

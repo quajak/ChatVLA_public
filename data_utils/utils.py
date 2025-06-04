@@ -154,7 +154,6 @@ class EpisodicDataset(torch.utils.data.Dataset):
     def __getitem__(self, index):
         episode_id, start_ts = self._locate_transition(index)
         vl_data_only = not self.dataset_path_list or (self.vl_data_list is not None and self.episode_ids.shape[0] != 1 and episode_id == self.episode_ids[-1])
-        chat_template = None
         text_data_only = False
 
         if vl_data_only:  # vl data only
@@ -301,10 +300,6 @@ class EpisodicDataset(torch.utils.data.Dataset):
                 for transform in self.transformations:
                     image_data = transform(image_data)
 
-            if self.chat_template_all is not None:
-                chat_template = self.chat_template_all['chat_template_robot']
-
-
 
         sample = {
             'image': image_data,
@@ -325,7 +320,7 @@ class EpisodicDataset(torch.utils.data.Dataset):
         torch.cuda.empty_cache()
 
         return self.llava_pythia_process.forward_process(sample, use_reasoning=self.data_args.use_reasoning,
-                                                         vl_data_only= vl_data_only,text_data_only=text_data_only,chat_template=chat_template)
+                                                         vl_data_only= vl_data_only,text_data_only=text_data_only)
 
 
 class Qwen2VLAProcess:
@@ -395,10 +390,10 @@ class Qwen2VLAProcess:
         data["attention_mask"] = torch.ones_like(data["input_ids"])
         return data
 
-    def forward_process(self, sample, use_reasoning=True, vl_data_only=False, text_data_only=False, chat_template=None):
+    def forward_process(self, sample, use_reasoning=True, vl_data_only=False, text_data_only=False):
         messages = self.datastruct_droid2llava(sample, text_data_only)
         text = self.multimodal_processor.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True, chat_template=chat_template
+            messages, tokenize=False, add_generation_prompt=True
         )[:-23]
         if text_data_only:
             image_data = None
@@ -417,11 +412,7 @@ class Qwen2VLAProcess:
                     ele['resized_height'] = 240
                     ele['resized_width'] = 320
                 each = fetch_image(ele)
-                # if not vl_data_only:
-                #     import cv2
-                #     # cv2.imwrite("/home/jovyan/tzb/zhouzy/data/2.jpg", np.array(each))
-                #     cv2.imwrite("/home/jz08/zhouzy/data/2.jpg", np.array(each))
-                #     exit(0)
+
                 images_list.append(torch.from_numpy(np.array(each)))
             image_data = images_list
         video_inputs = None
@@ -562,7 +553,7 @@ def BatchSampler(batch_size, episode_len_l, sample_weights):
 
 
 def load_data(dataset_dir_l, name_filter, camera_names,  chunk_size, config,
-              skip_mirrored_data=False, policy_class=None, stats_dir_l=None,
+              skip_mirrored_data=False, stats_dir_l=None, policy_head_type=None,
               llava_pythia_process=None, vl_file=None, vl_image_dir=None, template_path=None, vl_ratio=0, is_local_debug=False):
     if type(dataset_dir_l) == str:
         dataset_dir_l = [dataset_dir_l]
@@ -613,10 +604,10 @@ def load_data(dataset_dir_l, name_filter, camera_names,  chunk_size, config,
             'aloha' in config['training_args'].output_dir) else 'franka'
     # construct dataset and dataloader
     train_dataset = EpisodicDataset(dataset_path_list, camera_names, norm_stats, train_episode_ids, train_episode_len,
-                                    chunk_size, policy_class, llava_pythia_process=llava_pythia_process, vl_file=vl_file,
+                                    chunk_size, policy_head_type, llava_pythia_process=llava_pythia_process, vl_file=vl_file,
                                     vl_image_dir=vl_image_dir,
                                     imsize=config['training_args'].pretrain_image_size, data_args=config['data_args'],
-                                    template_path=template_path, vl_ratio=vl_ratio, is_local_debug=is_local_debug,
+                                    vl_ratio=vl_ratio, is_local_debug=is_local_debug,
                                     robot=robot
                                     )
 

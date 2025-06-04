@@ -201,7 +201,7 @@ class ScaleDP(PreTrainedModel):
             config: ScaleDPPolicyConfig,
     ):
         super().__init__(config)
-        # compute number of tokens for main trunk and conScaleDPion encoder
+        # compute number of tokens for main trunk and condition encoder
         if config.n_obs_steps is None:
             config.n_obs_steps = config.prediction_horizon
         T = config.prediction_horizon
@@ -224,7 +224,7 @@ class ScaleDP(PreTrainedModel):
         self.t_embedder = TimestepEmbedder(config.n_emb)
         self.cond_obs_emb = None
         if obs_as_cond:
-            self.cond_obs_emb = nn.Linear(config.cond_dim, config.n_emb)
+            self.cond_obs_emb = nn.Linear(config.cond_dim+config.state_dim, config.n_emb)
 
         # Will use fixed sin-cos embedding:
         self.pos_embed = nn.Parameter(torch.zeros(1, config.prediction_horizon, config.n_emb))
@@ -241,6 +241,8 @@ class ScaleDP(PreTrainedModel):
         self.time_as_cond = config.time_as_cond
         self.action_dim = config.output_dim
         self.obs_as_cond = obs_as_cond
+        self.global_1d_pool = nn.AdaptiveAvgPool1d(1)
+        self.norm_after_pool = nn.LayerNorm(config.cond_dim)
         logger.info(
             "number of parameters in ScaleDP: %e", sum(p.numel() for p in self.parameters())
         )
@@ -409,7 +411,7 @@ class ScaleDP(PreTrainedModel):
             )
             noise = noise.view(noise.size(0) * noise.size(1), *noise.size()[2:])
             loss = torch.nn.functional.mse_loss(noise_pred, noise, reduction='none')
-            loss = (loss * ~is_pad.unsqueeze(-1)).mean()
+            # loss = (loss * ~is_pad.unsqueeze(-1)).mean()
 
             return {'loss': loss}
 

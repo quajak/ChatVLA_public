@@ -385,11 +385,7 @@ class QWen2VLATrainer(Trainer):
                     },
                 ]
             # for each in optimizer_grouped_parameters:
-            ################# check moe here #####################
-            if self.args.using_deepspeed_moe_training:
-                from deepspeed.moe.utils import split_params_into_different_moe_groups_for_optimizer
-                optimizer_grouped_parameters = split_params_into_different_moe_groups_for_optimizer(optimizer_grouped_parameters)
-            #####################################################
+
             optimizer_cls, optimizer_kwargs = Trainer.get_optimizer_cls_and_kwargs(self.args)
 
 
@@ -439,13 +435,13 @@ class QWen2VLATrainer(Trainer):
 
         with self.compute_loss_context_manager():
             ###############################modified##################################
-            loss = self.compute_loss(model, inputs, return_outputs=False) # change return_outputs to True
+            loss = self.compute_loss(model, inputs, return_outputs=False)
 
             #########################################################################
 
         if self.args.n_gpu > 1:
             loss = loss.mean()  # mean() to average on multi-gpu parallel training
-        # print("<<<<<<<<<<<<< loss <<<<<<<<<<           ",loss)
+
         ###############################modified##################################
         if self.use_apex:
             with amp.scale_loss(loss, self.optimizer) as scaled_loss:
@@ -763,16 +759,8 @@ class QWen2VLATrainer(Trainer):
                 rng_to_sync = True
 
             step = -1
-            ##############
-            # print("first save open")
-            for g in self.callback_handler.optimizer.param_groups:
-                print(f"<<<<<<<<<<<<<<< Group {g['name']}>>>>>>>>>>>>>>>>>>>>>>>")
-                print(g['names'])
-                print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-            # self._save_checkpoint(model, trial, metrics=None)
 
-            #############
             for step, inputs in enumerate(epoch_iterator):
                 total_batched_samples += 1
 
@@ -1070,19 +1058,6 @@ class QWen2VLATrainer(Trainer):
                 self.lr_scheduler.step(metrics[metric_to_check])
 
         if self.control.should_save:
-            #################################
-            if hasattr(model, 'module') or hasattr(model, 'expert_traffic') or hasattr(model, 'base_model'):
-                try:
-                    expert_traffic = self._find_expert_traffic(model)
-                    if expert_traffic is not None:
-                        save_path = os.path.join(self.output_dir, f'model_traffic_{self.state.global_step}.pt')
-                        torch.save(expert_traffic.detach().cpu(), save_path)
-                        logger.info(f"Successfully saved expert traffic to {save_path}")
-                    else:
-                        logger.warning("Could not find expert_traffic in model or its submodules")
-                except Exception as e:
-                    logger.error(f"Failed to save expert traffic: {str(e)}")
-            #################################
             self._save_checkpoint(model, trial, metrics=metrics)
             self.control = self.callback_handler.on_save(self.args, self.state, self.control)
 
@@ -1236,24 +1211,3 @@ class QWen2VLATrainer(Trainer):
 
     def _save(self, output_dir: Optional[str] = None, state_dict=None):
         super(QWen2VLATrainer, self)._save(output_dir, state_dict)
-
-    def _find_expert_traffic(self, model, max_depth=5, visited=None):
-        if max_depth <= 0:
-            return None
-            
-        if visited is None:
-            visited = set()
-            
-        # Check if we've seen this module before
-        module_id = id(model)
-        if module_id in visited:
-            return None
-        visited.add(module_id)
-        
-        if hasattr(model, 'expert_traffic'):
-            return model.expert_traffic
-        elif hasattr(model, 'module'):
-            return self._find_expert_traffic(model.module, max_depth - 1, visited)
-        elif hasattr(model, 'base_model'):
-            return self._find_expert_traffic(model.base_model, max_depth - 1, visited)
-        return None

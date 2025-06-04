@@ -14,6 +14,20 @@ TASK_CONFIGS = {
         'episode_len': 1000,
         'camera_names': ['left', 'right', 'wrist'],
     },
+    "local_debug_data_zzy": {
+        'dataset_dir': [
+            '/home/jz08/zhouzy/data' + '/aloha_compressed',
+        ],
+        'vl_file':"/home/jz08/zhouzy/data/vl_data/verification_code_0402.json",
+        # 'vl_file':"/home/jz08/zhouzy/data/vl_data/0402_math_2k_text_2k_single_ocr_180_verification_2k.json",
+        'vl_image_dir': '/home/jz08/zhouzy/data/vl_data',
+        'episode_len': 1000,  # 1000,
+        # 'camera_names': ['wrist'],
+        'camera_names': ['cam_high'],
+        "sample_weights": [1, 1],
+        # 'template_path': "/home/jz08/zhouzy/data/vl_data/chat_template_vl_and_robot.json"
+    },
+
 
 }
 

@@ -15,7 +15,7 @@ import numpy as np
 import os
 from qwen_vl_utils import process_vision_info
 from qwen_vl_utils import fetch_image, fetch_video
-from aloha_scripts.constants import LOCAL_DATA_DIR, REMOTE_VL_IMAGE_DIR
+
 
 @dataclass
 class DataCollatorForSupervisedDataset(object):

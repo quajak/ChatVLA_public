@@ -40,7 +40,6 @@ deepspeed --master_port 29607 --num_gpus=8 --num_nodes=1 ./train_vla.py \
   --pretrain_image_size 320 \
   --task_name ${TASK} \
   --model_name_or_path $mnop \
-  --version v0 \
   --freeze_vision_tower False \
   --freeze_backbone False \
   --bf16 True \
@@ -69,13 +68,7 @@ deepspeed --master_port 29607 --num_gpus=8 --num_nodes=1 ./train_vla.py \
   --vl_ratio 0.33 \
   --using_moe True \
   --init_moe True \
-  --using_static_expert False \
-  --using_shared_routed_expert True \
-  --shared_expert_num 1 \
-  --routed_expert_num 2 \
-  --routed_top_k 1 \
-  --reasoning_layer_id 16 \
-  --output_expert_traffic False | tee $OUTPUT/log.log
+  --using_static_expert False | tee $OUTPUT/log.log
 
 #  --freeze_action_head True \
 #  --close_head_forward True

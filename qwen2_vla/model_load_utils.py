@@ -76,8 +76,7 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
             raise raise_error
         non_lora_trainables = {(k[11:] if k.startswith('base_model.') else k): v for k, v in
                                non_lora_trainables.items()}
-        # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< non lora keys >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-        # print(non_lora_trainables.keys())
+
         if any(k.startswith('model.policy') for k in non_lora_trainables):
             non_lora_trainables = {(k[6:] if k.startswith('model.') else k): v for k, v in non_lora_trainables.items()}
 
@@ -93,9 +92,6 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
                 keys_to_del.append(k)
         for key in keys_to_del:
             del non_lora_trainables[key]
-        # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< keys to delete >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-        # print(keys_to_del)
-        # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< error message >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
         model.load_state_dict(non_lora_trainables, strict=False)
 
@@ -233,7 +229,7 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
 
 
 
-    if config['model_args'].with_llm_head and not training_args.train_head_only:
+    if config['model_args'].with_llm_head:
         model.lm_head.requires_grad_(True)
 
     #  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> activate action head <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -243,13 +239,7 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
     model.reasoning_action_proj.requires_grad_(True)
     model.reasoning_film.requires_grad_(True)
 
-    if training_args.train_head_only:
-        for name, param in model.named_parameters():
-            if any(head_name in name for head_name in ['policy_head', 'input_action_proj', 'reasoning_action_proj']):
-                param.requires_grad_(True)
-            else:
-                param.requires_grad_(False)
-                
+
     vision_tower = model.visual
     vision_tower.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
     model.model.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
