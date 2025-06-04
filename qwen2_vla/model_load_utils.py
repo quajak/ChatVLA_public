@@ -41,8 +41,6 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
     training_args = config['training_args']
     data_args = config['data_args']
     if training_args.load_pretrain:
-        rank0_print("!!!!!!!!!!!!!! This should not happen !!!!!!!!!!")
-        pass
         kwargs = {"device_map": "cuda", "torch_dtype": torch.bfloat16}
         rank0_print("@@@@@@@Loading pretrain weights...@@@@@@@@@@")
         assert config[
@@ -71,9 +69,8 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
         if os.path.exists(os.path.join(model_path, 'non_lora_trainables.bin')):
             non_lora_trainables = torch.load(os.path.join(model_path, 'non_lora_trainables.bin'), map_location='cpu')
         else:
-            raise_error = f"there is no non_lora_trainables.bin in {model_path}"
-            print(raise_error)
-            raise raise_error
+            print(model_path)
+            raise f"there is no non_lora_trainables.bin in {model_path}"
         non_lora_trainables = {(k[11:] if k.startswith('base_model.') else k): v for k, v in
                                non_lora_trainables.items()}
 
@@ -81,12 +78,6 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
             non_lora_trainables = {(k[6:] if k.startswith('model.') else k): v for k, v in non_lora_trainables.items()}
 
         keys_to_del = []
-        if config['action_head_args'].action_dim == 14:
-            print("Deleting some modules to adapt for bimanual setting....")
-            for name in ['policy_head.combine.weight', 'policy_head.down_modules.0.0.blocks.0.block.0.weight',
-                         'policy_head.down_modules.0.0.residual_conv.weight', 'policy_head.final_conv.1.weight',
-                         'policy_head.final_conv.1.bias']:
-                keys_to_del.append(name)
         for k, v in non_lora_trainables.items():
             if 'lora' in k:
                 keys_to_del.append(k)
@@ -121,10 +112,10 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
             _fast_init=False,
         )
 
-    #  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> initialize weights <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    #  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> initialize weights if needed <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     if not config['training_args'].resume_from_checkpoint:
-        if ( config['training_args'].init_moe and
-                not config['model_args'].model_pretrain and config['model_args'].using_moe):
+        if (not config['model_args'].model_pretrain and config['model_args'].using_moe
+                and config['training_args'].init_moe):
             rank0_print(
                 ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Initializing MOE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
             mlp_weights_path = os.path.join(config['model_args'].model_name_or_path, "mlp.bin")
@@ -132,31 +123,12 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
             params = torch.load(mlp_weights_path)
             loaded = {}
             for k, v in params.items():
-                if config['model_args'].using_static_expert:
-                    for i in range(2):
-                        loaded[k.replace('mlp', 'static_expert.experts.' + str(i))] = v
+                for i in range(2):
+                    loaded[k.replace('mlp', 'static_expert.experts.' + str(i))] = v
             del params
             model.load_state_dict(loaded, strict=False)
             rank0_print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>MOE adapter initialized.<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-        ############################################ setting pretrained dit ####################################################
-        if config['model_args'].pretrain_dit_path is not None and config['action_head_args'].policy_class == 'scale_dp_policy':
-            assert config['model_args'].pretrain_dit_path is not None, "please specify a pretrained dit path when setting load_pretrain_dit==True"
-            rank0_print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Loading pretrained dit weights...<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-            pretrain_dit_weights = torch.load(config['model_args'].pretrain_dit_path, map_location='cpu')['nets']['ema']
-            keys_to_del_dit = []
-            pretrain_dit_weights = {k[7:] if k.startswith('policy.') else k: v for k, v in pretrain_dit_weights.items()}
-            for k in pretrain_dit_weights.keys():
-                if 'noise_pred' not in k:
-                    keys_to_del_dit.append(k)
-                if 'cond_obs_emb' in k:
-                    keys_to_del_dit.append(k)
-
-            for k in keys_to_del_dit:
-                del pretrain_dit_weights[k]
-            pretrain_dit_weights = {k[15:] if k.startswith('noise_pred_net.') else k: v for k, v in pretrain_dit_weights.items()}
-
-            model.policy_head.load_state_dict(pretrain_dit_weights, strict=False)
     #  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> setting training weights <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     model.config.use_cache = False
     model_args.freeze_backbone = training_args.freeze_backbone

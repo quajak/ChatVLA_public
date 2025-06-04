@@ -893,13 +893,11 @@ class Qwen2VLDecoderLayer(nn.Module):
             )
         self.self_attn = QWEN2_VL_ATTENTION_CLASSES[config._attn_implementation](config, layer_idx)
         self.use_expert = hasattr(config, "using_moe") and config.using_moe
-        self.use_static_expert = hasattr(config, "using_static_expert") and config.using_static_expert
 
         if not self.use_expert:
             self.mlp = Qwen2MLP(config)
         else:
-            if self.use_static_expert:
-                self.static_expert = StaticMoE(config, expert_module_class=Qwen2MLP)
+            self.static_expert = StaticMoE(config, expert_module_class=Qwen2MLP)
 
         self.input_layernorm = Qwen2RMSNorm(config.hidden_size, eps=config.rms_norm_eps)
         self.post_attention_layernorm = Qwen2RMSNorm(config.hidden_size, eps=config.rms_norm_eps)
@@ -966,7 +964,7 @@ class Qwen2VLDecoderLayer(nn.Module):
         ##################################################
         if not self.use_expert:
             hidden_states = self.mlp(hidden_states)
-        elif self.use_static_expert:
+        else:
             eval_in_vqa = eval_in_vqa and not self.training
             hidden_states = self.static_expert(hidden_states, vl_data_mask=vl_data_mask, eval_in_vqa=eval_in_vqa)
 

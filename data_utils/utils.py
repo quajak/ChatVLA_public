@@ -188,12 +188,11 @@ class EpisodicDataset(torch.utils.data.Dataset):
                 image_data = torch.einsum('k h w c -> k c h w', image_data)
             if self.robot == 'aloha':
                 qpos_data = torch.ones((14,)).float()
-                action_data = torch.ones((50, 14)).float()
-                is_pad = torch.ones((50,)).bool()
+                action_data = torch.ones((self.chunk_size, 14)).float()
             else:
                 qpos_data = torch.ones((7, )).float()
-                action_data = torch.ones((16, 10)).float()
-                is_pad = torch.ones((16, )).bool()
+                action_data = torch.ones((self.chunk_size, 10)).float()
+            is_pad = torch.ones((self.chunk_size, )).bool()
 
         else:
             dataset_path = self.dataset_path_list[episode_id]

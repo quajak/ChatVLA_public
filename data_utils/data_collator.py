@@ -41,7 +41,7 @@ class DataCollatorForSupervisedDataset(object):
         input_ids = torch.nn.utils.rnn.pad_sequence(input_ids,
                                                     batch_first=True,
                                                     padding_value=self.tokenizer.pad_token_id)
-        # suppose model has maximal model length of 2048
+
         input_ids = input_ids[:, :2048]
         labels = labels[:, :2048]
 

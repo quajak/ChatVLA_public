@@ -36,7 +36,7 @@ local_rank = None
 @dataclass
 class ActionHeadArguments:
     policy_head_type: str = field(default="scale_dp_policy") # or unet_diffusion_policy
-    policy_head_size: str = field(default="ScaleDP_H") # ScaleDP_XL, ScaleDP_L, ScaleDP_B, ScaleDP_S
+    policy_head_size: str = field(default="ScaleDP_L") # ScaleDP_XL, ScaleDP_L, ScaleDP_B, ScaleDP_S
     state_dim: int = 7 # state dimension
     action_dim: int = 10 # action dimension
 
@@ -47,12 +47,8 @@ class ModelArguments:
 
     with_llm_head: bool = field(default=False)
 
-    ##### moe setting
     using_moe: bool = field(default=False)
-    using_static_expert: bool = field(default=False)
 
-
-    pretrain_dit_path: Optional[str] = field(default=None)
 
 
 @dataclass
@@ -116,7 +112,7 @@ class TrainingArguments(transformers.TrainingArguments):
     dataloader_pin_memory: bool = False
     # lora
     lora_enable: bool = False
-    lora_module: str = "vit"
+    lora_module: str = "vit llm"
     lora_task_type: str = 'CAUSAL_LM'
     lora_r: int = 64
     lora_alpha: int = 256
@@ -126,13 +122,6 @@ class TrainingArguments(transformers.TrainingArguments):
     non_lora_lr: Optional[float] = None
     group_by_modality_length: bool = field(default=False)
 
-    model_max_length: int = field(
-        default=2048,
-        metadata={
-            "help":
-                "Maximum sequence length. Sequences will be right padded (and possibly truncated)."
-        },
-    )
     double_quant: bool = field(
         default=True,
         metadata={"help": "Compress the quantization statistics through double quantization."}
@@ -179,7 +168,7 @@ def parse_param():
     setattr(config.policy_head_config, "state_dim", asdict(action_head_args)['state_dim'])
 
 
-    for k in ['with_llm_head', 'using_moe', 'using_static_expert']:
+    for k in ['with_llm_head', 'using_moe']:
         setattr(config, k, asdict(model_args)[k])
     config.llm_loss_weight = training_args.llm_loss_weight
     config.with_flash_attention = training_args.with_flash_attention

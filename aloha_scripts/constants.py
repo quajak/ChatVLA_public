@@ -4,7 +4,15 @@ import os
 ROBOT_DATA_DIR = '' # PATH TO ROBOT DATA
 VL_IMAGE_DIR = '' # PATH TO VL DATA
 TASK_CONFIGS = {
-    "example_tasks": {
+    "example_tasks_stage_1": {
+        'dataset_dir': [
+            ROBOT_DATA_DIR + '/your_task_1',
+            ROBOT_DATA_DIR + '/your_task_2',
+        ],
+        'episode_len': 1000,
+        'camera_names': ['left', 'right', 'wrist'],
+    },
+    "example_tasks_stage_2": {
         'dataset_dir': [
             ROBOT_DATA_DIR + '/your_task_1',
             ROBOT_DATA_DIR + '/your_task_2',
@@ -18,9 +26,9 @@ TASK_CONFIGS = {
         'dataset_dir': [
             '/home/jz08/zhouzy/data' + '/aloha_compressed',
         ],
-        'vl_file':"/home/jz08/zhouzy/data/vl_data/verification_code_0402.json",
-        # 'vl_file':"/home/jz08/zhouzy/data/vl_data/0402_math_2k_text_2k_single_ocr_180_verification_2k.json",
-        'vl_image_dir': '/home/jz08/zhouzy/data/vl_data',
+        # 'vl_file':"/home/jz08/zhouzy/data/vl_data/verification_code_0402.json",
+        # # 'vl_file':"/home/jz08/zhouzy/data/vl_data/0402_math_2k_text_2k_single_ocr_180_verification_2k.json",
+        # 'vl_image_dir': '/home/jz08/zhouzy/data/vl_data',
         'episode_len': 1000,  # 1000,
         # 'camera_names': ['wrist'],
         'camera_names': ['cam_high'],
