@@ -4,8 +4,8 @@ LLM=qwen2_vl
 LLM_MODEL_SIZE=2B
 ACTION_HEAD="scale_dp_policy" # unet_diffusion_policy or scale_dp_policy
 MNOP= /path/to/origin/qwen2_vl # official qwen2_vl weights
-OUTPUT=/path/to/save/stage_2_lora # you should contain the name 'lora' in it !!!
-PRETRAIN=/path/to/save/stage_1_lora/checkpoint-5000 # your stage-1 weights
+OUTPUT=/path/to/save/ChatVLA_qwen2_vl_stage_2_lora # you should contain the name 'lora' in it !!!
+PRETRAIN=/path/to/save/ChatVLA_qwen2_vl_stage_1_lora/checkpoint-5000 # your stage-1 weights
 
 mkdir -p $OUTPUT/src
 cp -r ./scripts $OUTPUT/
@@ -32,8 +32,8 @@ deepspeed --master_port 29607 --num_gpus=8 --num_nodes=1 ./train_vla.py \
   --per_device_train_batch_size 16 \
   --gradient_accumulation_steps 1 \
   --save_strategy "steps" \
-  --save_steps 5000 \
-  --max_steps 50000 \
+  --save_steps 2000 \
+  --max_steps 10000 \
   --save_total_limit 100 \
   --learning_rate 2e-5 \
   --weight_decay 0. \
