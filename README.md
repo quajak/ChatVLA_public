@@ -12,8 +12,8 @@ with Vision-Language-Action Model
 
 
 ## 📰 News
-* **`May. 29th, 2025`**: **ChatVLA-2** is out! **Paper** can be found [here](https://arxiv.org/abs/2505.21906). The **project web** can be found [here](https://chatvla-2.github.io/).
-* **`Feb. 20th, 2025`**: **ChatVLA** is out! **Paper** can be found [here](https://arxiv.org/pdf/2502.14420). The **project web** can be found [here](https://chatvla.github.io/).
+* **`May 29, 2025`**: We are excited to announce the release of **ChatVLA-2**! The **paper** is available [here](https://arxiv.org/abs/2505.21906) and the **project website** can be accessed [here](https://chatvla-2.github.io/).
+* **`Feb 20, 2025`**: We are excited to announce the release of **ChatVLA**! The **paper** is available [here](https://arxiv.org/pdf/2502.14420) and the **project website** can be accessed [here](https://chatvla.github.io/).
 
 ## Contents
 - [Install](#install)
@@ -160,8 +160,9 @@ You can refer to our evaluation script [evaluate_robot.py](https://github.com/tu
 
 
 ### Evaluation on Multi-modal Understanding Tasks
-We utilize the amazing work to evaluate our ChatVLA - [VLMEvalKit](https://arxiv.org/abs/2407.11691). The code is included in this project as we modified a little on VLMEvalKit to support the evaluation of ChatVLA.
+We leverage the excellent [VLMEvalKit](https://arxiv.org/abs/2407.11691) for evaluating ChatVLA. The toolkit has been integrated into our project with minor modifications to support ChatVLA's evaluation framework.
 
+To evaluate on multi-modal understanding tasks, you should:
 1. Modify the config [config_vla.json](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/evaluate/VLMEvalKit/config_vla.json) to decide the model path and the benchmarks you want to evaluate on. 
 2. Run the evaluation script [evaluate_vqa.sh](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/evaluate/evaluate_vqa.sh) to evaluate ChatVLA on multi-modal understanding tasks.
 
