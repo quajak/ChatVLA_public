@@ -70,8 +70,7 @@ pip install flash-attn --no-build-isolation
 ```
 
 
-3. Add one entry in [constants.py](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/aloha_scripts/constants.py) to specify the path of your data as follows. 
-For 
+3. Add entries in [constants.py](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/aloha_scripts/constants.py) to specify the path of your data as follows. 
 ```python
     "example_tasks_stage_1": { # for Stage 1 w/o Vision-Language Data
         'dataset_dir': [
