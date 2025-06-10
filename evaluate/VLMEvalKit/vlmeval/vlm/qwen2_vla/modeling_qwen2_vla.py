@@ -43,8 +43,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from ......qwen2_vla.utils.fusion_modules import *
-from ......qwen2_vla.utils.expert_modules import StaticMoE
+
 from types import SimpleNamespace
 
 from transformers.modeling_rope_utils import ROPE_INIT_FUNCTIONS
@@ -1829,7 +1828,8 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
                 )
                 image_embeds = image_embeds.to(inputs_embeds.device, inputs_embeds.dtype)
                 inputs_embeds = inputs_embeds.masked_scatter(image_mask, image_embeds)
-
+            else:
+                image_mask = None
 
             if pixel_values_videos is not None:
                 pixel_values_videos = pixel_values_videos.type(self.visual.get_dtype())
@@ -2227,6 +2227,27 @@ class FiLM(nn.Module):
 
         # 应用 FiLM 调制
         return x * (1 + scale) + shift
+
+from typing import Tuple, Type, Optional
+
+class StaticMoE(nn.Module):
+    def __init__(self, config, expert_module_class: Type[nn.Module]):
+        super(StaticMoE, self).__init__()
+        self.experts = nn.ModuleList([expert_module_class(config) for _ in range(2)])
+    def forward(self, x, vl_data_mask, eval_in_vqa=False):
+        if self.training:
+            vl_data_mask = vl_data_mask.type_as(x)
+            mask_dim = x.shape[-2:]
+            vl_data_mask = vl_data_mask.repeat(mask_dim[1], mask_dim[0], 1).transpose(0, 2)
+            output = self.experts[0](x) * vl_data_mask \
+                                + self.experts[1](x) * (1. - vl_data_mask)
+        else:
+            dim = x.shape[-1]
+            if eval_in_vqa:
+                output = self.experts[0](x.reshape(-1, dim)).unsqueeze(0)
+            else:
+                output = self.experts[1](x.reshape(-1, dim)).unsqueeze(0)
+        return output
 
 from transformers import AutoModelForCausalLM
 
