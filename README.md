@@ -145,7 +145,7 @@ vl_ratio contols the ratio of VL Data and Robot Data, you can change it as you l
 You can download weights of ChatVLA from this link:
 | Model               | Link                                                           |
 |---------------------|----------------------------------------------------------------|
-| ChatVLA | [huggingface]() |
+| ChatVLA | [huggingface](https://huggingface.co/zzymeow/ChatVLA) |
 
 ## Evaluation
 **❗❗** Make sure your trained checkpoint dir has two files: "preprocessor_config.json" and "chat_template.json".
