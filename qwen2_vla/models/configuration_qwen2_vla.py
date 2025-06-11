@@ -205,9 +205,6 @@ class Qwen2VLAConfig(PretrainedConfig):
         rope_scaling=None,
         # For loading policy head
         policy_head_type='scale_dp_policy',  # dit_diffusion_policy
-        policy_head_size='ScaleDP_L',
-        action_dim=10,
-        state_dim=7,
         **kwargs,
     ):
         if isinstance(vision_config, dict):

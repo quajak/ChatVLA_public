@@ -162,8 +162,17 @@ You can refer to our evaluation script [evaluate_robot.py](https://github.com/tu
 We leverage the excellent [VLMEvalKit](https://arxiv.org/abs/2407.11691) for evaluating ChatVLA. The toolkit has been integrated into our project with minor modifications to support ChatVLA's evaluation framework.
 
 To evaluate on multi-modal understanding tasks, you should:
-1. Modify the config [config_vla.json](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/evaluate/VLMEvalKit/config_vla.json) to decide the model path and the benchmarks you want to evaluate on. 
-2. Run the evaluation script [evaluate_vqa.sh](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/evaluate/evaluate_vqa.sh) to evaluate ChatVLA on multi-modal understanding tasks.
+1. Set a path "LMUData" to download datasets (default path is '~'). Your LMUData folder should looks like:
+```shell
+LMUData
+├── images/
+│   ├── MMMU/
+│   └── MMStar/
+├── MMStar.tsv
+└── MMMU_DEV_VAL.tsv
+``` 
+2. Modify the config [config_vla.json](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/evaluate/VLMEvalKit/config_vla.json) to decide the model path and the benchmarks you want to evaluate on. 
+3. Run the evaluation script [evaluate_vqa.sh](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/evaluate/evaluate_vqa.sh) to evaluate ChatVLA on multi-modal understanding tasks.
 
 Note: To evalutae our ChatVLA on more benchmarks, you should modify the config following the original [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) setting. You can refer to it for more details.
 
