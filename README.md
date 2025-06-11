@@ -17,8 +17,8 @@ with Vision-Language-Action Model
 
 ## Contents
 - [Install](#install)
-- [Data Preparation](#data-preparation)
 - [Download Pretrained VLM](#Download-Pretrained-VLM)
+- [Data Preparation](#data-preparation)
 - [Training](#train)
 - [Evaluation](#evaluation)
 - [ChatVLA Weights](#chatvla-weights)
@@ -45,6 +45,20 @@ pip install flash-attn --no-build-isolation
 ```
 
 3. For evaluation on multimodal understanding task, you should install other packages in [here](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/evaluate/VLMEvalKit/requirements.txt). 
+
+## Download  Qwen2_VL Weights
+
+We construct the VLM backbone by integrating Qwen2-VL-2B, a powerful and efficient model, into our framework. 
+The Qwen2-VL 2B serves as the core of our architecture, providing robust capabilities 
+for vision-language tasks. We use off-the-shelf Qwen2-VL model proposed 
+in [Qwen2-VL](https://arxiv.org/pdf/2409.12191) without any post training on VLM itself. You can download the official weights from this link:
+
+| Model               | Link                                                           |
+|---------------------|----------------------------------------------------------------|
+| Qwen2-VL (~2B)      | [huggingface](https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct) |
+
+**❗❗** After downloading the standard weights, you have to replace the official "config.json"
+with our "docs/config.json" designed for VLA.
 
 ## Data Preparation
 1. Our data format is the same as [DexVLA](https://github.com/juruobenruo/DexVLA), you should transfer your data into h5py format. More example data and preparation detail can refer to it.
@@ -92,19 +106,9 @@ pip install flash-attn --no-build-isolation
     },
 ```
 
-## 🤗Download  Qwen2_VL Weights
+4. Save original Qwen2_VL weights to init MoE. 
 
-We construct the VLM backbone by integrating Qwen2-VL-2B, a powerful and efficient model, into our framework. 
-The Qwen2-VL 2B serves as the core of our architecture, providing robust capabilities 
-for vision-language tasks. We use off-the-shelf Qwen2-VL model proposed 
-in [Qwen2-VL](https://arxiv.org/pdf/2409.12191) without any post training on VLM itself. You can download the official weights from this link:
-
-| Model               | Link                                                           |
-|---------------------|----------------------------------------------------------------|
-| Qwen2-VL (~2B)      | [huggingface](https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct) |
-
-**❗❗** After downloading the standard weights, you have to replace the official "config.json"
-with our "docs/config.json" designed for VLA.
+    You can refer to [save_mlp_weights_for_init_moe.py](https://github.com/tutujingyugang1/ChatVLA_public/blob/main/save_mlp_weights_for_init_moe.py)
 
 
 
