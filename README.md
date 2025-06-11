@@ -58,7 +58,7 @@ in [Qwen2-VL](https://arxiv.org/pdf/2409.12191) without any post training on VLM
 | Qwen2-VL (~2B)      | [huggingface](https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct) |
 
 **❗❗** After downloading the standard weights, you have to replace the official "config.json"
-with our "docs/config.json" designed for VLA.
+with our "doc/config.json" designed for VLA.
 
 ## Data Preparation
 1. Our data format is the same as [DexVLA](https://github.com/juruobenruo/DexVLA), you should transfer your data into h5py format. More example data and preparation detail can refer to it.
