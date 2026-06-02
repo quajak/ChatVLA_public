@@ -6,7 +6,7 @@ import os
 
 from qwen2_vla import Qwen2VLForConditionalGenerationForVLA
 
-p = '/path/to/origin/qwen2_vl' # official qwen2_vl weights
+p = '/root/ChatVLA_public/weights' # official qwen2_vl weights
 pattern_weights = r"model\.layers\.(\d+)\.mlp\.(.*)"
 save_filename = os.path.join(p, "mlp.bin")
 model = Qwen2VLForConditionalGenerationForVLA.from_pretrained(p, torch_dtype=torch.bfloat16)

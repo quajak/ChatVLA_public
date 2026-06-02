@@ -17,7 +17,8 @@ from typing import Dict, Optional, Sequence, List
 from policy_heads import *
 from qwen2_vla.models.configuration_qwen2_vla import Qwen2VLAConfig
 from qwen2_vla.models.modeling_qwen2_vla import Qwen2VLForConditionalGenerationForVLA
-from aloha_scripts.constants import TASK_CONFIGS
+from aloha_scripts.constants import TASK_CONFIGS, LIBERO_CONFIGS
+from data_utils.libero_dataset import load_data_libero
 from data_utils.utils import Qwen2VLAProcess
 from transformers import AutoConfig, AutoModel, AutoProcessor
 from qwen2_vla import QWen2VLATrainer
@@ -60,6 +61,8 @@ class DataArguments:
     chunk_size: int = field(default=16)
     delta_control: bool = field(default=False)
     vl_ratio: float = field(default=-1) # -1 represents use ALL VL DATA
+    use_lerobot: bool = field(default=False)
+    lerobot_repo_id: str = field(default="")  # if empty, uses repo_id from LIBERO_CONFIGS
 
 
 @dataclass
@@ -173,6 +176,8 @@ def parse_param():
     config.llm_loss_weight = training_args.llm_loss_weight
     config.with_flash_attention = training_args.with_flash_attention
     if training_args.lr_scheduler_type == 'cosine_with_min_lr':
+        if training_args.lr_scheduler_kwargs is None:
+            training_args.lr_scheduler_kwargs = {}
         training_args.lr_scheduler_kwargs['min_lr'] = training_args.min_lr
         training_args.lr_scheduler_kwargs['min_lr_rate'] = training_args.min_lr_rate
 
@@ -196,7 +201,7 @@ def train_bc(train_dataset=None, val_dataset=None, model=None, config=None, samp
                        eval_dataset=val_dataset
                        )
     trainer = QWen2VLATrainer(model=model,
-                              tokenizer=tokenizer,
+                              processing_class=tokenizer,
                               args=config['training_args'],
                               sampler_params=sampler_params,
                               **data_module)
@@ -227,45 +232,87 @@ def train_bc(train_dataset=None, val_dataset=None, model=None, config=None, samp
 
 def main(all_config=None, model_config=None):
     set_seed(1)
-    # get task parameters
-    task_config = TASK_CONFIGS[all_config['data_args'].task_name]
-    dataset_dir = task_config['dataset_dir']
-    vl_file = task_config.get('vl_file', None)
-    vl_image_dir = task_config.get('vl_image_dir', None)
 
-    episode_len = task_config['episode_len']
-    camera_names = task_config['camera_names']
-    stats_dir = task_config.get('stats_dir', None)
-    sample_weights = task_config.get('sample_weights', None)
-    name_filter = task_config.get('name_filter', lambda n: True)
+    if all_config['data_args'].use_lerobot:
+        # ---- LeRobot / LIBERO data path ----
+        lerobot_cfg  = LIBERO_CONFIGS[all_config['data_args'].task_name]
+        repo_id      = all_config['data_args'].lerobot_repo_id or lerobot_cfg['repo_id']
+        camera_names = lerobot_cfg['camera_names']
+        episode_len  = lerobot_cfg['episode_len']
+        vl_file      = lerobot_cfg.get('vl_file', None)
+        vl_image_dir = lerobot_cfg.get('vl_image_dir', None)
 
-    all_config['camera_names'] = camera_names
-    all_config['episode_len'] = episode_len
+        all_config['camera_names'] = camera_names
+        all_config['episode_len']  = episode_len
 
-    # load model and processor
-    tokenizer = transformers.AutoTokenizer.from_pretrained(
-        all_config['model_args'].model_name_or_path,
-    )
+        tokenizer = transformers.AutoTokenizer.from_pretrained(
+            all_config['model_args'].model_name_or_path,
+        )
+        multimodal_processor = AutoProcessor.from_pretrained(
+            all_config['model_args'].model_name_or_path
+        )
+        model, data_args = ml_utils.load_model(
+            config=all_config, qwen2_vla_config=model_config,
+            rank0_print=rank0_print, tokenizer=tokenizer,
+        )
+        vla_process = Qwen2VLAProcess(
+            tokenizer=tokenizer,
+            multimodal_processor=multimodal_processor,
+            camera_names=camera_names,
+        )
+        train_dataset, val_dataset, stats = load_data_libero(
+            repo_id=repo_id,
+            camera_names=camera_names,
+            chunk_size=all_config['data_args'].chunk_size,
+            config=all_config,
+            llava_pythia_process=vla_process,
+            vl_file=vl_file,
+            vl_image_dir=vl_image_dir,
+            vl_ratio=all_config['data_args'].vl_ratio,
+            is_local_debug=all_config['training_args'].is_local_debug,
+        )
+    else:
+        # ---- Original HDF5 data path ----
+        task_config  = TASK_CONFIGS[all_config['data_args'].task_name]
+        dataset_dir  = task_config['dataset_dir']
+        vl_file      = task_config.get('vl_file', None)
+        vl_image_dir = task_config.get('vl_image_dir', None)
+        episode_len  = task_config['episode_len']
+        camera_names = task_config['camera_names']
+        stats_dir    = task_config.get('stats_dir', None)
+        name_filter  = task_config.get('name_filter', lambda n: True)
 
-    multimodal_processor = AutoProcessor.from_pretrained(all_config['model_args'].model_name_or_path)
-    model, data_args = ml_utils.load_model(config=all_config, qwen2_vla_config=model_config, rank0_print=rank0_print,
-                                           tokenizer=tokenizer)
-    vla_process = Qwen2VLAProcess(tokenizer=tokenizer, multimodal_processor=multimodal_processor,
-                                  camera_names=camera_names)
+        all_config['camera_names'] = camera_names
+        all_config['episode_len']  = episode_len
 
-    # load dataset (containing both robotic data with h5 format and vl data with json format)
-    train_dataset, val_dataset, stats = load_data(dataset_dir, name_filter, camera_names,
-                                                                  all_config['data_args'].chunk_size,
-                                                                  vl_file=vl_file,
-                                                                  vl_image_dir=vl_image_dir,
-                                                                  skip_mirrored_data=all_config['data_args'].skip_mirrored_data,
-                                                                  config=all_config,
-                                                                  stats_dir_l=stats_dir,
-                                                                  policy_head_type=all_config['action_head_args'].policy_head_type,
-                                                                  llava_pythia_process=vla_process,
-                                                                  vl_ratio=all_config['data_args'].vl_ratio,
-                                                                  is_local_debug=all_config['training_args'].is_local_debug
-                                                                  )
+        tokenizer = transformers.AutoTokenizer.from_pretrained(
+            all_config['model_args'].model_name_or_path,
+        )
+        multimodal_processor = AutoProcessor.from_pretrained(
+            all_config['model_args'].model_name_or_path
+        )
+        model, data_args = ml_utils.load_model(
+            config=all_config, qwen2_vla_config=model_config,
+            rank0_print=rank0_print, tokenizer=tokenizer,
+        )
+        vla_process = Qwen2VLAProcess(
+            tokenizer=tokenizer,
+            multimodal_processor=multimodal_processor,
+            camera_names=camera_names,
+        )
+        train_dataset, val_dataset, stats = load_data(
+            dataset_dir, name_filter, camera_names,
+            all_config['data_args'].chunk_size,
+            vl_file=vl_file,
+            vl_image_dir=vl_image_dir,
+            skip_mirrored_data=all_config['data_args'].skip_mirrored_data,
+            config=all_config,
+            stats_dir_l=stats_dir,
+            policy_head_type=all_config['action_head_args'].policy_head_type,
+            llava_pythia_process=vla_process,
+            vl_ratio=all_config['data_args'].vl_ratio,
+            is_local_debug=all_config['training_args'].is_local_debug,
+        )
 
     os.makedirs(all_config['training_args'].output_dir, exist_ok=True)
     stats_path = os.path.join(all_config['training_args'].output_dir, f'dataset_stats.pkl')

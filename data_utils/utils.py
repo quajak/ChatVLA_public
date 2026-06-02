@@ -20,7 +20,6 @@ from torch.utils.data import TensorDataset, DataLoader
 import torchvision.transforms as transforms
 from torchvision.transforms.functional import to_pil_image, to_tensor
 import IPython
-from transformers.models.llava_onevision.convert_llava_onevision_weights_to_hf import chat_template
 
 e = IPython.embed
 from qwen_vl_utils import *

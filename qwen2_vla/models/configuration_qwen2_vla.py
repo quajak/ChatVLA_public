@@ -18,7 +18,6 @@ import os
 from typing import Union
 
 from transformers.configuration_utils import PretrainedConfig
-from transformers.modeling_rope_utils import rope_config_validation
 from transformers.utils import logging
 from transformers import AutoModel, AutoConfig
 
@@ -255,7 +254,7 @@ class Qwen2VLAConfig(PretrainedConfig):
             if self.rope_scaling["type"] == "mrope":
                 self.rope_scaling["type"] = "default"
             self.rope_scaling["rope_type"] = self.rope_scaling["type"]
-        rope_config_validation(self, ignore_keys={"mrope_section"})
+        self.validate_rope()
 
         super().__init__(tie_word_embeddings=tie_word_embeddings, **kwargs)
 

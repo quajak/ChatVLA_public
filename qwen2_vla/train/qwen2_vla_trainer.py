@@ -11,15 +11,15 @@ from transformers.trainer import *
 import math
 import sys
 from transformers import Trainer
+from transformers.pytorch_utils import ALL_LAYERNORM_LAYERS
 from transformers.trainer import (
     is_sagemaker_mp_enabled,
     get_parameter_names,
     has_length,
-    ALL_LAYERNORM_LAYERS,
     logger,
 )
-from typing import List, Optional
-from transformers.utils import is_torch_tpu_available
+from typing import List, Optional, Dict, Union
+from transformers.utils import is_torch_xla_available
 from transformers.trainer_pt_utils import get_dataloader_sampler
 mega_batch_mult = 1
 def maybe_zero_3(param, ignore_status=False, name=None):
@@ -173,11 +173,14 @@ class QWen2VLATrainer(Trainer):
             "pin_memory": self.args.dataloader_pin_memory,
             "persistent_workers": self.args.dataloader_persistent_workers,
         }
+        from functools import partial
         from transformers.trainer_utils import seed_worker
         if not isinstance(train_dataset, torch.utils.data.IterableDataset):
             dataloader_params["sampler"] = self._get_train_sampler()
             dataloader_params["drop_last"] = self.args.dataloader_drop_last
-            dataloader_params["worker_init_fn"] = seed_worker
+            dataloader_params["worker_init_fn"] = partial(
+                seed_worker, num_workers=self.args.dataloader_num_workers, rank=self.args.process_index
+            )
             # dataloader_params["shuffle"] = True
             dataloader_params["prefetch_factor"] = self.args.dataloader_prefetch_factor
         return self.accelerator.prepare(DataLoader(train_dataset, **dataloader_params))
@@ -443,7 +446,7 @@ class QWen2VLATrainer(Trainer):
             loss = loss.mean()  # mean() to average on multi-gpu parallel training
 
         ###############################modified##################################
-        if self.use_apex:
+        if getattr(self, 'use_apex', False):
             with amp.scale_loss(loss, self.optimizer) as scaled_loss:
                 scaled_loss.backward()
         else:
@@ -510,7 +513,7 @@ class QWen2VLATrainer(Trainer):
                 # May be slightly incorrect if the last batch in the training dataloader has a smaller size but it's
                 # the best we can do.
                 num_train_samples = args.max_steps * total_train_batch_size
-                if args.include_tokens_per_second:
+                if getattr(args, 'include_tokens_per_second', False):
                     num_train_tokens = (
                             self.num_tokens(train_dataloader, args.max_steps) * args.gradient_accumulation_steps
                     )
@@ -518,7 +521,7 @@ class QWen2VLATrainer(Trainer):
                 max_steps = math.ceil(args.num_train_epochs * num_update_steps_per_epoch)
                 num_train_epochs = math.ceil(args.num_train_epochs)
                 num_train_samples = self.num_examples(train_dataloader) * args.num_train_epochs
-                if args.include_tokens_per_second:
+                if getattr(args, 'include_tokens_per_second', False):
                     num_train_tokens = self.num_tokens(train_dataloader) * args.num_train_epochs
         elif args.max_steps > 0:  # Rely on max_steps when dataloader does not have a working size
             max_steps = args.max_steps
@@ -527,7 +530,7 @@ class QWen2VLATrainer(Trainer):
             num_update_steps_per_epoch = max_steps
             num_examples = total_train_batch_size * args.max_steps
             num_train_samples = args.max_steps * total_train_batch_size
-            if args.include_tokens_per_second:
+            if getattr(args, 'include_tokens_per_second', False):
                 num_train_tokens = self.num_tokens(train_dataloader, args.max_steps) * args.gradient_accumulation_steps
         else:
             raise ValueError(
@@ -606,7 +609,7 @@ class QWen2VLATrainer(Trainer):
         if use_accelerator_prepare:
             self.model.train()
             if hasattr(self.lr_scheduler, "step"):
-                if self.use_apex:
+                if getattr(self, 'use_apex', False):
                     model = self.accelerator.prepare(self.model)
                 else:
                     model, self.optimizer = self.accelerator.prepare(self.model, self.optimizer)
@@ -737,7 +740,7 @@ class QWen2VLATrainer(Trainer):
                 epoch_iterator.set_epoch(epoch)
 
             # Reset the past mems state at the beginning of each epoch if necessary.
-            if args.past_index >= 0:
+            if getattr(args, 'past_index', -1) >= 0:
                 self._past = None
 
             steps_in_epoch = (
@@ -856,7 +859,7 @@ class QWen2VLATrainer(Trainer):
 
                         if is_sagemaker_mp_enabled() and args.fp16:
                             _grad_norm = self.optimizer.clip_master_grads(args.max_grad_norm)
-                        elif self.use_apex:
+                        elif getattr(self, 'use_apex', False):
                             # Revert to normal clipping otherwise, handling Apex or full precision
                             _grad_norm = nn.utils.clip_grad_norm_(
                                 amp.master_params(self.optimizer),
@@ -936,7 +939,7 @@ class QWen2VLATrainer(Trainer):
             if self.control.should_training_stop:
                 break
 
-        if args.past_index and hasattr(self, "_past"):
+        if getattr(args, 'past_index', -1) and hasattr(self, "_past"):
             # Clean the state at the end of training
             delattr(self, "_past")
 
@@ -998,7 +1001,7 @@ class QWen2VLATrainer(Trainer):
 
     def _maybe_log_save_evaluate(self, tr_loss, model, trial, epoch, ignore_keys_for_eval, all_loss=None):
         if self.control.should_log and self.state.global_step > self._globalstep_last_logged:
-            if is_torch_tpu_available():
+            if is_torch_xla_available():
                 xm.mark_step()
 
             logs: Dict[str, float] = {}
@@ -1166,7 +1169,7 @@ class QWen2VLATrainer(Trainer):
                 )
             else:
                 # We load the model state dict on the CPU to avoid an OOM error.
-                if self.args.save_safetensors and os.path.isfile(safe_weights_file):
+                if getattr(self.args, 'save_safetensors', True) and os.path.isfile(safe_weights_file):
                     state_dict = safetensors.torch.load_file(safe_weights_file, device="cpu")
                 else:
                     state_dict = torch.load(
@@ -1199,7 +1202,7 @@ class QWen2VLATrainer(Trainer):
         else:
             # We load the sharded checkpoint
             load_result = load_sharded_checkpoint(
-                model, resume_from_checkpoint, strict=is_sagemaker_mp_enabled(), prefer_safe=self.args.save_safetensors
+                model, resume_from_checkpoint, strict=is_sagemaker_mp_enabled(), prefer_safe=getattr(self.args, 'save_safetensors', True)
             )
             if not is_sagemaker_mp_enabled():
                 self._issue_warnings_after_load(load_result)

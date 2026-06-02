@@ -49,6 +49,7 @@ from transformers.utils import (
     add_start_docstrings,
     add_start_docstrings_to_model_forward,
     is_flash_attn_2_available,
+    is_flash_attn_4_available,
     is_flash_attn_greater_or_equal_2_10,
     logging,
     replace_return_docstrings,
@@ -56,10 +57,9 @@ from transformers.utils import (
 from .configuration_qwen2_vla import Qwen2VLAConfig, Qwen2VLAVisionConfig
 import gc
 
-if is_flash_attn_2_available():
-    from flash_attn import flash_attn_varlen_func
-
+if is_flash_attn_4_available() or is_flash_attn_2_available():
     from transformers.modeling_flash_attention_utils import _flash_attention_forward
+    flash_attn_varlen_func = None  # vision tower uses SDPA; only LLM backbone uses FA4
 else:
     flash_attn_varlen_func = None
 
@@ -141,18 +141,42 @@ class Qwen2VLRotaryEmbedding(nn.Module):
         else:
             # BC: "rope_type" was originally "type"
             if config.rope_scaling is not None:
-                self.rope_type = config.rope_scaling.get("rope_type", config.rope_scaling.get("type"))
+                self.rope_type = config.rope_scaling.get("rope_type", config.rope_scaling.get("type", "default"))
             else:
+                self.rope_type = "default"
+            # BC: "mrope" and "qwen_2" were aliases for "default"
+            if self.rope_type in ("mrope", "qwen_2"):
                 self.rope_type = "default"
             self.max_seq_len_cached = config.max_position_embeddings
             self.original_max_seq_len = config.max_position_embeddings
 
         self.config = config
-        self.rope_init_fn = ROPE_INIT_FUNCTIONS[self.rope_type]
+        # "default" was removed from ROPE_INIT_FUNCTIONS in transformers>=5; handle it inline.
+        if self.rope_type == "default":
+            self.rope_init_fn = self.compute_default_rope_parameters
+        else:
+            self.rope_init_fn = ROPE_INIT_FUNCTIONS[self.rope_type]
 
         inv_freq, self.attention_scaling = self.rope_init_fn(self.config, device, **self.rope_kwargs)
         self.register_buffer("inv_freq", inv_freq, persistent=False)
         self.original_inv_freq = self.inv_freq
+
+    @staticmethod
+    def compute_default_rope_parameters(
+            config=None,
+            device=None,
+            seq_len=None,
+            **kwargs,
+    ):
+        base = kwargs.get("base", None) or getattr(config, "rope_theta", 10000.0)
+        dim = kwargs.get("dim", None)
+        if dim is None:
+            head_dim = getattr(config, "head_dim", None)
+            dim = head_dim or config.hidden_size // config.num_attention_heads
+        inv_freq = 1.0 / (
+            base ** (torch.arange(0, dim, 2, dtype=torch.int64).to(device=device, dtype=torch.float) / dim)
+        )
+        return inv_freq, 1.0
 
     def _dynamic_frequency_update(self, position_ids, device):
         """
@@ -416,6 +440,8 @@ class VisionSdpaAttention(nn.Module):
 QWEN2_VL_VISION_ATTENTION_CLASSES = {
     "eager": VisionAttention,
     "flash_attention_2": VisionFlashAttention2,
+    # FA4 varlen kernels don't support head_dim=80 (Qwen2-VL vision tower); use SDPA instead
+    "flash_attention_4": VisionSdpaAttention,
     "sdpa": VisionSdpaAttention,
 }
 
@@ -877,6 +903,7 @@ class Qwen2VLSdpaAttention(Qwen2VLAttention):
 QWEN2_VL_ATTENTION_CLASSES = {
     "eager": Qwen2VLAttention,
     "flash_attention_2": Qwen2VLFlashAttention2,
+    "flash_attention_4": Qwen2VLFlashAttention2,
     "sdpa": Qwen2VLSdpaAttention,
 }
 
@@ -886,7 +913,7 @@ class Qwen2VLDecoderLayer(nn.Module):
         super().__init__()
         self.hidden_size = config.hidden_size
 
-        if config.use_sliding_window and config._attn_implementation != "flash_attention_2":
+        if config.use_sliding_window and config._attn_implementation not in ("flash_attention_2", "flash_attention_4"):
             logger.warning_once(
                 f"Sliding Window Attention is enabled but not implemented for `{config._attn_implementation}`; "
                 "unexpected results may be encountered."
@@ -1013,13 +1040,15 @@ class Qwen2VLPreTrainedModel(PreTrainedModel):
     supports_gradient_checkpointing = True
     _no_split_modules = ["Qwen2VLDecoderLayer", "Qwen2VLVisionBlock"]
     _skip_keys_device_placement = "past_key_values"
-    _supports_flash_attn_2 = True
+    _supports_flash_attn_2 = True  # transformers v4 compat
+    _supports_flash_attn = True    # transformers v5 compat
+    _supports_flash_attn_4 = True
     _supports_sdpa = True
     _supports_cache_class = True
     _supports_static_cache = True
 
     def _init_weights(self, module):
-        std = self.config.initializer_range
+        std = getattr(self.config, "initializer_range", 0.02)
         if isinstance(module, (nn.Linear, nn.Conv3d)):
             module.weight.data.normal_(mean=0.0, std=std)
             if module.bias is not None:
@@ -1128,7 +1157,7 @@ class Qwen2VLModel(Qwen2VLPreTrainedModel):
         self._attn_implementation = config._attn_implementation
         self.norm = Qwen2RMSNorm(config.hidden_size, eps=config.rms_norm_eps)
         self.rotary_emb = Qwen2VLRotaryEmbedding(config=config)
-        self.using_expert = config.using_moe
+        self.using_expert = getattr(config, "using_moe", False)
 
         self.gradient_checkpointing = False
 
@@ -1289,7 +1318,7 @@ class Qwen2VLModel(Qwen2VLPreTrainedModel):
             past_key_values: Cache,
             output_attentions: bool,
     ):
-        if self.config._attn_implementation == "flash_attention_2":
+        if self.config._attn_implementation in ("flash_attention_2", "flash_attention_4"):
             if attention_mask is not None and 0.0 in attention_mask:
                 return attention_mask
             return None
@@ -1504,7 +1533,10 @@ QWEN2_VL_INPUTS_DOCSTRING = r"""
 
 
 class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMixin):
-    _tied_weights_keys = ["lm_head.weight"]
+    _tied_weights_keys = {"lm_head.weight": "model.embed_tokens.weight"}
+    _supports_flash_attn_2 = True  # transformers v4 compat
+    _supports_flash_attn = True    # transformers v5 compat
+    _supports_flash_attn_4 = True
 
     def __init__(self, config):
         super().__init__(config)
@@ -1518,17 +1550,25 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         self.with_llm_head = config.with_llm_head if hasattr(config, "with_llm_head") else False
         self.llm_loss_weight = config.llm_loss_weight if hasattr(config, "llm_loss_weight") else 1.0
 
-        if isinstance(config.policy_head_config, dict):
-            config.policy_head_config = AutoConfig.for_model(**config.policy_head_config, model_size=config.policy_head_size)
+        policy_head_config = getattr(config, "policy_head_config", None)
+        if isinstance(policy_head_config, dict):
+            policy_head_config = AutoConfig.for_model(**policy_head_config, model_size=config.policy_head_size)
+            config.policy_head_config = policy_head_config
 
         # Initialize weights and apply final processing
         self.post_init()
-        self.policy_head = AutoModel.from_config(config=config.policy_head_config)
-        if config.policy_head_config.model_type == "scale_dp_policy":
-            self.policy_head.init_weights()
-        self.input_action_proj = ActionProjector(config.hidden_size, config.hidden_size)
-        self.reasoning_action_proj = ActionProjector(config.hidden_size, config.hidden_size)
-        self.reasoning_film = FiLM(feature_dim=config.hidden_size, condition_dim=config.hidden_size)
+        if policy_head_config is not None:
+            self.policy_head = AutoModel.from_config(config=policy_head_config)
+            if policy_head_config.model_type == "scale_dp_policy":
+                self.policy_head.init_weights()
+            self.input_action_proj = ActionProjector(config.hidden_size, config.hidden_size)
+            self.reasoning_action_proj = ActionProjector(config.hidden_size, config.hidden_size)
+            self.reasoning_film = FiLM(feature_dim=config.hidden_size, condition_dim=config.hidden_size)
+        else:
+            self.policy_head = None
+            self.input_action_proj = None
+            self.reasoning_action_proj = None
+            self.reasoning_film = None
 
 
 

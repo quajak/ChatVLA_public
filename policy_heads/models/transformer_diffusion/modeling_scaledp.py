@@ -373,6 +373,13 @@ class ScaleDP(PreTrainedModel):
         :param states: robot states, shape [B, D]
         :return: loss
         """
+        # DeepSpeed initializes the model under a meta-device context, leaving plain
+        # tensor attributes (like alphas_cumprod) as meta tensors.  Reinitialize the
+        # scheduler from its saved config the first time forward() is called.
+        if self.noise_scheduler.alphas_cumprod.is_meta:
+            from diffusers.schedulers.scheduling_ddim import DDIMScheduler
+            self.noise_scheduler = DDIMScheduler.from_config(self.noise_scheduler.config)
+
         if actions is not None:  # training time
             B = actions.size(0)
             actions = actions[:, :self.num_queries]

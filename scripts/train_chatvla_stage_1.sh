@@ -13,7 +13,7 @@ cp -r ./data_utils $OUTPUT/src/
 cp -r ./qwen2_vla $OUTPUT/src/
 cp -r ./policy_heads $OUTPUT/src/
 
-deepspeed --master_port 29607 --num_gpus=8 --num_nodes=1 ./train_vla.py \
+deepspeed --master_port 29607 --num_gpus=2 --num_nodes=1 ./train_vla.py \
   --deepspeed scripts/zero2.json \
   --use_reasoning True \
   --action_dim 10 \

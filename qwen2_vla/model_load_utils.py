@@ -9,6 +9,27 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig
 import os
 
 
+def _best_attn_implementation():
+    """Return the fastest attention implementation that actually works at runtime.
+
+    FA4 requires CUDA 12.9+ for sm_120 (Blackwell/RTX 5090) JIT compilation.
+    If the probe fails, we fall back to SDPA which works on any CUDA-capable GPU.
+    """
+    from transformers.utils import is_flash_attn_4_available
+    if not is_flash_attn_4_available():
+        return "sdpa"
+    try:
+        import torch
+        from flash_attn.cute import flash_attn_func
+        q = torch.randn(1, 1, 16, 128, dtype=torch.bfloat16, device="cuda")
+        k = torch.randn(1, 1, 16, 128, dtype=torch.bfloat16, device="cuda")
+        v = torch.randn(1, 1, 16, 128, dtype=torch.bfloat16, device="cuda")
+        flash_attn_func(q, k, v)
+        return "flash_attention_4"
+    except Exception:
+        return "sdpa"
+
+
 def find_all_linear_names(model, rank0_print, lora_module=None):
     cls = torch.nn.Linear
     lora_module_names = set()
@@ -55,7 +76,7 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
                 cache_dir=config['training_args'].cache_dir,
                 trust_remote_code=True,
                 _fast_init=False,
-                attn_implementation="flash_attention_2",
+                attn_implementation=_best_attn_implementation(),
             )
         else:
             model = AutoModelForCausalLM.from_pretrained(
@@ -101,7 +122,7 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
             cache_dir=config['training_args'].cache_dir,
             trust_remote_code=True,
             _fast_init=False,
-            attn_implementation="flash_attention_2",
+            attn_implementation=_best_attn_implementation(),
         )
     else:
         model = AutoModelForCausalLM.from_pretrained(

@@ -39,6 +39,36 @@ TASK_CONFIGS = {
 
 }
 
+LIBERO_CONFIGS = {
+    "libero_spatial": {
+        "repo_id": "lerobot/libero_spatial_image",
+        "camera_names": ["image", "wrist_image"],
+        "episode_len": 600,
+    },
+    "libero_object": {
+        "repo_id": "lerobot/libero_object_image",
+        "camera_names": ["image", "wrist_image"],
+        "episode_len": 600,
+    },
+    "libero_goal": {
+        "repo_id": "lerobot/libero_goal_image",
+        "camera_names": ["image", "wrist_image"],
+        "episode_len": 600,
+    },
+    "libero_10": {
+        "repo_id": "lerobot/libero_10_image",
+        "camera_names": ["image", "wrist_image"],
+        "episode_len": 600,
+    },
+    # libero_90 is not available as a standalone LeRobot dataset.
+    # Use "libero" to access the combined 40-task dataset (spatial+object+goal+10).
+    "libero": {
+        "repo_id": "lerobot/libero",
+        "camera_names": ["image", "image2"],
+        "episode_len": 600,
+    },
+}
+
 ### ALOHA fixed constants
 DT = 0.02
 JOINT_NAMES = ["waist", "shoulder", "elbow", "forearm_roll", "wrist_angle", "wrist_rotate"]
