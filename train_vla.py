@@ -50,6 +50,13 @@ class ModelArguments:
 
     using_moe: bool = field(default=False)
 
+    # Wrap the Qwen2-VL backbone (LLM decoder stack + vision tower) in
+    # torch.compile. Compiled with dynamic=True because sequence length and the
+    # number of image tokens vary between robot and VL batches; without it every
+    # new shape triggers a (slow) recompile. Compiles submodules rather than the
+    # top-level model so it coexists with DeepSpeed's module wrapping.
+    torch_compile_model: bool = field(default=False)
+
 
 
 @dataclass
@@ -152,7 +159,7 @@ def parse_param():
     model_args, data_args, training_args, action_head_args = parser.parse_args_into_dataclasses()
     local_rank = training_args.local_rank
 
-    config = AutoConfig.from_pretrained(model_args.model_name_or_path, **asdict(action_head_args))
+    config = Qwen2VLAConfig.from_pretrained(model_args.model_name_or_path, **asdict(action_head_args))
     if action_head_args.policy_head_type == 'scale_dp_policy': # scaledp, using dit block
         config.policy_head_size = action_head_args.policy_head_size
         config.policy_head_config = AutoConfig.for_model(model_type=action_head_args.policy_head_type,
@@ -178,16 +185,78 @@ def parse_param():
     if training_args.lr_scheduler_type == 'cosine_with_min_lr':
         if training_args.lr_scheduler_kwargs is None:
             training_args.lr_scheduler_kwargs = {}
-        training_args.lr_scheduler_kwargs['min_lr'] = training_args.min_lr
-        training_args.lr_scheduler_kwargs['min_lr_rate'] = training_args.min_lr_rate
+        # Always pass `min_lr_rate` (a fraction of the base LR) rather than the
+        # absolute `min_lr`. The scheduler converts `min_lr` -> rate internally via
+        # `optimizer.defaults["lr"]`, which a DeepSpeed-wrapped optimizer does not
+        # expose (AttributeError: 'DeepSpeedZeroOptimizer' object has no attribute
+        # 'defaults'). Computing the rate from the configured LR here avoids that and
+        # scales every param group (e.g. head_lr) proportionally.
+        min_lr_rate = training_args.min_lr_rate
+        if min_lr_rate is None and training_args.min_lr is not None:
+            min_lr_rate = training_args.min_lr / training_args.learning_rate
+        training_args.lr_scheduler_kwargs['min_lr_rate'] = min_lr_rate
 
 
     return model_args, data_args, training_args, action_head_args, config
 
 
+def _install_nan_debug_hooks(model):
+    """Opt-in (CHATVLA_NAN_DEBUG=1): print the first submodule whose forward
+    emits NaN/Inf, and whether its inputs were already bad. Forward hooks fire
+    child-before-parent, so the first report is the most upstream origin."""
+    state = {"fired": False}
+
+    def _bad(t):
+        return (torch.is_tensor(t) and t.is_floating_point()
+                and (torch.isnan(t).any() or torch.isinf(t).any()))
+
+    def _any_bad(obj):
+        if isinstance(obj, (tuple, list)):
+            return any(_any_bad(o) for o in obj)
+        if isinstance(obj, dict):
+            return any(_any_bad(o) for o in obj.values())
+        return _bad(obj)
+
+    def _desc(t):
+        if not torch.is_tensor(t):
+            return f"{type(t).__name__}"
+        fin = t[torch.isfinite(t)] if t.is_floating_point() else t
+        rng = (f"min={fin.min().item():.4g} max={fin.max().item():.4g}"
+               if fin.numel() else "empty")
+        nan = (torch.isnan(t).any().item() if t.is_floating_point() else False)
+        inf = (torch.isinf(t).any().item() if t.is_floating_point() else False)
+        return f"{tuple(t.shape)} {t.dtype} {rng} nan={nan} inf={inf}"
+
+    def make_hook(name, mod):
+        def hook(_m, inp, out):
+            if state["fired"]:
+                return
+            if _any_bad(out):
+                state["fired"] = True
+                print(f"\n[NAN-DEBUG] first NaN/Inf at: {name} "
+                      f"({mod.__class__.__name__})", flush=True)
+                ins = inp if isinstance(inp, (tuple, list)) else (inp,)
+                for i, t in enumerate(ins):
+                    print(f"[NAN-DEBUG]   input[{i}]: {_desc(t)}", flush=True)
+                for bname, buf in mod.named_buffers(recurse=False):
+                    print(f"[NAN-DEBUG]   buffer {bname}: {_desc(buf)}", flush=True)
+                for pname, p in mod.named_parameters(recurse=False):
+                    print(f"[NAN-DEBUG]   param {pname}: {_desc(p.data)}", flush=True)
+        return hook
+
+    n = 0
+    for name, mod in model.named_modules():
+        if name:
+            mod.register_forward_hook(make_hook(name, mod))
+            n += 1
+    print(f"[NAN-DEBUG] installed hooks on {n} submodules", flush=True)
+
+
 def train_bc(train_dataset=None, val_dataset=None, model=None, config=None, sampler_params=None, tokenizer=None,
              processor=None):
     set_seed(config['training_args'].seed)
+    if os.environ.get("CHATVLA_NAN_DEBUG"):
+        _install_nan_debug_hooks(model)
     compute_dtype = (
         torch.float16 if training_args.fp16 else (torch.bfloat16 if config['training_args'].bf16 else torch.float32))
     data_collator = DataCollatorForSupervisedDataset(multimodal_processor=processor, computed_type=compute_dtype,

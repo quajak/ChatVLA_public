@@ -4,8 +4,11 @@
 
 TASK=libero_spatial
 ACTION_HEAD="scale_dp_policy"
-MNOP=/root/ChatVLA_public/weights
+MNOP=/scratch/gerigkja/weights/Qwen2-VL-2B-Instruct
 OUTPUT=/tmp/chatvla_debug
+
+export CPLUS_INCLUDE_PATH=~/fake_python_include:$CPLUS_INCLUDE_PATH
+export C_INCLUDE_PATH=~/fake_python_include:$C_INCLUDE_PATH
 
 mkdir -p $OUTPUT
 

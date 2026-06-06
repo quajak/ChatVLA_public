@@ -233,7 +233,7 @@ class ScaleDP(PreTrainedModel):
             ScaleDPBlock(config.n_emb, config.num_heads, mlp_ratio=config.mlp_ratio) for _ in range(config.depth)
         ])
         self.final_layer = FinalLayer(config.n_emb, output_dim=config.output_dim)
-        # self.initialize_weights()
+        self.initialize_weights()
         # constants
         self.T = T
         self.T_cond = T_cond

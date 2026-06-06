@@ -150,12 +150,13 @@ class LiberoLeRobotDataset(Dataset):
 
         print(f"[LiberoLeRobotDataset] Preloading {num_frames} frames "
               f"(action_dim={action_dim}, state_dim={state_dim})…")
-        self._all_actions = torch.zeros(num_frames, action_dim, dtype=torch.float32)
-        self._all_states  = torch.zeros(num_frames, state_dim,  dtype=torch.float32)
-        for i in range(num_frames):
-            frame = self.lerobot_dataset[i]
-            self._all_actions[i] = frame['action'].float()
-            self._all_states[i]  = frame['observation.state'].float()
+        hf = self.lerobot_dataset.hf_dataset
+        self._all_actions = torch.tensor(
+            np.array(hf['action'], dtype=np.float32), dtype=torch.float32
+        )
+        self._all_states = torch.tensor(
+            np.array(hf['observation.state'], dtype=np.float32), dtype=torch.float32
+        )
         print("[LiberoLeRobotDataset] Preload complete.")
 
         # Build int task_index → task string mapping (meta.tasks is now a DataFrame)
@@ -348,10 +349,6 @@ class LiberoLeRobotDataset(Dataset):
             'is_pad':       is_pad,
             'conversation': source,
         }
-
-        del image_data, qpos_data, action_data, is_pad
-        gc.collect()
-        torch.cuda.empty_cache()
 
         return self.llava_pythia_process.forward_process(
             sample,

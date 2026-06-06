@@ -85,8 +85,6 @@ class DataCollatorForSupervisedDataset(object):
         del is_pad_all
         del vl_data_mask
         del text_only_mask
-        gc.collect()
-        torch.cuda.empty_cache()
         return batch
 
 

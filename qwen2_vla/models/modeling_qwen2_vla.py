@@ -688,7 +688,7 @@ class Qwen2VLFlashAttention2(Qwen2VLAttention):
                     "for auto-regressive decoding with k/v caching, please make sure to initialize the attention class "
                     "with a layer index."
                 )
-            kv_seq_len += past_key_value.get_usable_length(kv_seq_len, self.layer_idx)
+            kv_seq_len += past_key_value.get_seq_length(self.layer_idx)
 
         # Because the input can be padded, the absolute sequence length depends on the max position id.
         if position_embeddings is None:
@@ -845,7 +845,7 @@ class Qwen2VLSdpaAttention(Qwen2VLAttention):
 
         kv_seq_len = key_states.shape[-2]
         if past_key_value is not None:
-            kv_seq_len += past_key_value.get_usable_length(kv_seq_len, self.layer_idx)
+            kv_seq_len += past_key_value.get_seq_length(self.layer_idx)
         if position_embeddings is None:
             logger.warning_once(
                 "The attention layers in this model are transitioning from computing the RoPE embeddings internally "
@@ -1845,6 +1845,11 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
 
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
+        # Default: no visual tokens to scatter/route. This is the correct value on
+        # decode steps (pixel_values is nulled after prefill) and for text-only
+        # inputs; without it `image_mask` would be unbound when `inputs_embeds is
+        # None and pixel_values is None`.
+        image_mask = None
         if inputs_embeds is None:
             inputs_embeds = self.model.embed_tokens(input_ids)
             if pixel_values is not None:
@@ -2055,20 +2060,6 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             return (loss,) + output if loss is not None else output
 
 
-        torch.cuda.empty_cache()
-        gc.collect()
-        del input_ids
-        del attention_mask
-        del position_ids
-        del past_key_values
-        del inputs_embeds
-        del labels
-        del pixel_values
-        del image_grid_thw
-        del actions
-        del states
-        del vl_data_mask
-
         return Qwen2VLCausalLMOutputWithPast(
             loss=loss,
             logits=logits,
@@ -2091,8 +2082,21 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             pixel_values_videos=None,
             image_grid_thw=None,
             video_grid_thw=None,
+            next_sequence_length=None,
+            is_first_iteration=False,
             **kwargs,
     ):
+        # transformers >=5 no longer passes `cache_position` here (it passes
+        # `next_sequence_length`/`is_first_iteration` instead), so reconstruct it
+        # from the cache when absent. `next_sequence_length` and `is_first_iteration`
+        # are captured above so they are not forwarded into `forward()`.
+        if cache_position is None:
+            past_length = past_key_values.get_seq_length() if past_key_values is not None else 0
+            cur_length = next_sequence_length if next_sequence_length is not None else input_ids.shape[1]
+            cache_position = torch.arange(
+                past_length, past_length + cur_length, device=input_ids.device
+            )
+
         # If we have cache: let's slice `input_ids` through `cache_position`, to keep only the unprocessed tokens
         # Exception 1: when passing input_embeds, input_ids may be missing entries
         # Exception 2: some generation methods do special slicing of input_ids, so we don't need to do it here
@@ -2102,8 +2106,13 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
             elif input_ids.shape[1] != cache_position.shape[0]:  # Default case (the "else", a no op, is Exception 2)
                 input_ids = input_ids[:, cache_position]
 
+        # This override owns Qwen2-VL MRoPE position_ids: transformers >=5 now
+        # pre-injects a generic (non-multimodal) 2D `position_ids` into the model
+        # kwargs, so we must recompute here rather than guarding on `position_ids
+        # is None` (the model's forward passes position_ids/rope_deltas through
+        # unchanged at eval and does not recompute them).
         rope_deltas = kwargs.get("rope_deltas", None)
-        if attention_mask is not None and position_ids is None:
+        if attention_mask is not None:
             if cache_position is None or (cache_position is not None and cache_position[0] == 0):
                 position_ids, rope_deltas = self.get_rope_index(
                     input_ids, image_grid_thw, video_grid_thw, attention_mask
@@ -2174,8 +2183,21 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
                  pixel_values=None,
                  attention_mask=None,
                  image_grid_thw=None,
+                 use_reasoning=True,
+                 **kwargs,  # absorb extra processor outputs (e.g. mm_token_type_ids)
                  ):
         input_ids = input_ids.to('cuda')
+
+        # When reasoning is disabled, the policy-head conditioning must be built the
+        # same way it was at training time. With use_reasoning=False the data pipeline
+        # appends no assistant/reasoning turn, so every label is masked and the
+        # train-time split (forward(), ~lines 2014-2028) degenerates to start=1: the
+        # *first prompt token* is the "input" branch and the *rest of the prompt* is
+        # the "reasoning" branch. The text the model would generate here is therefore
+        # unsupervised and out-of-distribution for `reasoning_action_proj`, so we must
+        # NOT feed it to the head. We still run a 1-token generate so the prefill
+        # hidden states are produced by the exact same code path (rope, image merge).
+        max_new_tokens = 256 if use_reasoning else 1
         with torch.inference_mode():
             outputs = self.generate(
                 input_ids,
@@ -2186,7 +2208,7 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
                 num_beams=1,
                 do_sample=False,
                 temperature=0.2,
-                max_new_tokens=256,
+                max_new_tokens=max_new_tokens,
                 eos_token_id=tokenizer.eos_token_id,  # End of sequence token
                 pad_token_id=tokenizer.eos_token_id,  # Pad token
                 use_cache=True,
@@ -2202,20 +2224,36 @@ class Qwen2VLForConditionalGenerationForVLA(Qwen2VLPreTrainedModel, GenerationMi
         outputs_text = tokenizer.batch_decode(output_ids[:, input_token_len:], skip_special_tokens=False)[0]
 
         outputs_text = outputs_text.strip()
-        last_hidden_states = [each[-1] for each in outputs.hidden_states]  # all hidden states
-        # all_hidden_states = torch.cat(last_hidden_states, dim=1)
+        last_hidden_states = [each[-1] for each in outputs.hidden_states]  # per-step last-layer hidden states
 
-        input_embeddings = torch.cat(last_hidden_states[0:1], dim=1)
-        identity = torch.mean(input_embeddings, dim=1)
+        if use_reasoning:
+            # Reasoning models: the prompt is the "input" branch and the generated
+            # reasoning is the "reasoning" branch (matches training, where an
+            # assistant reasoning turn supervises the answer tokens).
+            input_embeddings = torch.cat(last_hidden_states[0:1], dim=1)
+            identity = torch.mean(input_embeddings, dim=1)
 
-        reasoning_embeddings = torch.cat(last_hidden_states[1:], dim=1)
-        input_embeddings = self.input_action_proj(input_embeddings.squeeze(0))
-        reasoning_embeddings = self.reasoning_action_proj(reasoning_embeddings.squeeze(0))
+            reasoning_embeddings = torch.cat(last_hidden_states[1:], dim=1)
+            input_embeddings = self.input_action_proj(input_embeddings.squeeze(0))
+            reasoning_embeddings = self.reasoning_action_proj(reasoning_embeddings.squeeze(0))
+        else:
+            # No-reasoning models: mirror the train-time split over the *prompt*
+            # hidden states (input = first token, reasoning = remaining tokens) and
+            # discard the generated token entirely. `end` drops right padding the
+            # same way training does (pad id 151643).
+            prompt_hidden = last_hidden_states[0]  # (1, prompt_len, D)
+            end = int((input_ids[0] != 151643).sum())
+            input_part = prompt_hidden[:, 0:1, :]
+            reasoning_part = prompt_hidden[:, 1:end, :]
+            identity = torch.mean(input_part, dim=1)
+            input_embeddings = self.input_action_proj(input_part.squeeze(0))
+            reasoning_embeddings = self.reasoning_action_proj(reasoning_part.squeeze(0))
+
         all_hidden_states = self.reasoning_film(input_embeddings, reasoning_embeddings).unsqueeze(1)
         all_hidden_states = all_hidden_states + identity.unsqueeze(1)
 
         action_hidden_states = all_hidden_states
-        action = self.policy_head(actions, action_hidden_states, states.to(all_hidden_states.dtype), is_pad, reasoning=reasoning_embeddings.unsqueeze(1))
+        action = self.policy_head(actions, action_hidden_states, states.to(all_hidden_states.dtype), is_pad)
         return action, outputs_text
 
 

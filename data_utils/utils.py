@@ -1,6 +1,5 @@
 import json
 import random
-from lib2to3.fixer_util import is_list
 from typing import Dict, List
 
 import numpy as np
@@ -314,8 +313,6 @@ class EpisodicDataset(torch.utils.data.Dataset):
         del is_pad
         del raw_lang
         del reasoning
-        gc.collect()
-        torch.cuda.empty_cache()
 
         return self.llava_pythia_process.forward_process(sample, use_reasoning=self.data_args.use_reasoning,
                                                          vl_data_only= vl_data_only,text_data_only=text_data_only)

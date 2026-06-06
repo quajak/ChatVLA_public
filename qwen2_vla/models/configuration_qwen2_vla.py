@@ -202,6 +202,7 @@ class Qwen2VLAConfig(PretrainedConfig):
         attention_dropout=0.0,
         vision_config=None,
         rope_scaling=None,
+        pad_token_id=None,
         # For loading policy head
         policy_head_type='scale_dp_policy',  # dit_diffusion_policy
         **kwargs,
@@ -256,7 +257,7 @@ class Qwen2VLAConfig(PretrainedConfig):
             self.rope_scaling["rope_type"] = self.rope_scaling["type"]
         self.validate_rope()
 
-        super().__init__(tie_word_embeddings=tie_word_embeddings, **kwargs)
+        super().__init__(tie_word_embeddings=tie_word_embeddings, pad_token_id=pad_token_id, **kwargs)
 
 from transformers import AutoConfig
 AutoConfig.register("qwen2_vla", Qwen2VLAConfig)

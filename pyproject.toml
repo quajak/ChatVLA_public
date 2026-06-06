@@ -29,6 +29,10 @@ dependencies = [
     "torchvision>=0.27.0",
     "torch>=2.12.0",
     "nvidia-cudnn-cu13>=9.20.0.48",
+    "deepspeed>=0.19.1",
+    "diffusers>=0.37.1",
+    "lerobot[dataset,libero]",
+    "wandb[media]>=0.27.0",
 ]
 
 [tool.setuptools.packages.find]
@@ -40,13 +44,14 @@ members = [
 ]
 
 [[tool.uv.index]]
-name = "pytorch-cu130"
-url = "https://download.pytorch.org/whl/cu130"
+name = "pytorch-cu132"
+url = "https://download.pytorch.org/whl/cu132"
 
 [tool.uv.sources]
 policy-heads = { workspace = true, editable = true }
-torch = { index = "pytorch-cu130" }
-torchvision = { index = "pytorch-cu130" }
+torch = { index = "pytorch-cu132" }
+torchvision = { index = "pytorch-cu132" }
+lerobot = { path = "../lerobot", editable = true }
 
 [build-system]  
 requires = ["setuptools>=68"]  
@@ -55,4 +60,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.uv.extra-build-dependencies]
 flash-attn = ["torch", "numpy"]
-deepspeed = ["torch"]
+deepspeed = ["torch", "numpy"]

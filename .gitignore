@@ -8,3 +8,4 @@ weights/
 conda_env.yaml.bak
 =
 .claude/settings.local.json
+slurm-*

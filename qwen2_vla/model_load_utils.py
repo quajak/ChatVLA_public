@@ -134,6 +134,19 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
         )
 
     #  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> initialize weights if needed <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    # `from_pretrained(_fast_init=False)` re-applies the *outer* model's `_init_weights`
+    # (normal_(0, 0.02) on every Linear) to all modules missing from the Qwen2-VL
+    # checkpoint, including the action head. For a DiT-style head (ScaleDP) this clobbers
+    # the adaLN-Zero init it set in its own __init__, leaving random gates that overflow
+    # bf16 and produce NaN on the first forward. Re-apply the head's own init here, after
+    # loading, but only when training a fresh head (no pretrain ckpt, not resuming).
+    if (not config['training_args'].resume_from_checkpoint
+            and not config['model_args'].model_pretrain
+            and getattr(model, 'policy_head', None) is not None
+            and hasattr(model.policy_head, 'initialize_weights')):
+        rank0_print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Re-initializing policy head (adaLN-Zero) <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        model.policy_head.initialize_weights()
+
     if not config['training_args'].resume_from_checkpoint:
         if (not config['model_args'].model_pretrain and config['model_args'].using_moe
                 and config['training_args'].init_moe):
@@ -238,11 +251,57 @@ def load_model(config=None, qwen2_vla_config=None, rank0_print=print, tokenizer=
     model.model.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
     model.to(torch.bfloat16)
 
-    for k, v in model.named_parameters():
-        if v.requires_grad:
-            rank0_print(k, v.requires_grad, v.dtype)
+    # >>>>>>>>>>>>>>>>>>>>>>> repair RoPE inv_freq buffers <<<<<<<<<<<<<<<<<<<<<<<
+    # `inv_freq` is a non-persistent buffer (not in the checkpoint). Under
+    # transformers 5.x `from_pretrained`, it can be left uninitialized (garbage),
+    # and the `model.to(bf16)` above then casts it to bf16. With garbage values
+    # (~1e38), `inv_freq * position_ids` overflows bf16 -> inf -> cos/sin = NaN.
+    # Because the memory is uninitialized this is *stochastic*: some runs get
+    # benign values and train fine, others NaN from step 1. Recompute every
+    # rotary embedding's inv_freq in fp32 after the dtype cast to make it
+    # deterministic and correct.
+    _dev = training_args.device
+    n_fixed = 0
+    for _m in model.modules():
+        cls = _m.__class__.__name__
+        if cls == "Qwen2VLRotaryEmbedding" and getattr(_m, "config", None) is not None:
+            _inv, _m.attention_scaling = _m.rope_init_fn(
+                _m.config, _dev, **getattr(_m, "rope_kwargs", {})
+            )
+            _m.register_buffer("inv_freq", _inv.float(), persistent=False)
+            _m.original_inv_freq = _m.inv_freq
+            n_fixed += 1
+        elif cls == "VisionRotaryEmbedding" and hasattr(_m, "inv_freq"):
+            dim = _m.inv_freq.numel() * 2
+            _inv = 1.0 / (10000.0 ** (
+                torch.arange(0, dim, 2, dtype=torch.float, device=_dev) / dim))
+            _m.register_buffer("inv_freq", _inv, persistent=False)
+            n_fixed += 1
+    rank0_print(f">>>>>>>>>>>>>>>>>>>>>>> Repaired {n_fixed} RoPE inv_freq buffers (fp32) <<<<<<<<<<<<<<<<<<<<<<<")
+
+    # for k, v in model.named_parameters():
+    #     if v.requires_grad:
+    #         rank0_print(k, v.requires_grad, v.dtype)
 
     model.config.non_lora_lr = training_args.non_lora_lr
+
+    # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> torch.compile <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    # Compile the heavy backbone submodules (LLM decoder stack + vision tower)
+    # rather than the top-level model: the outer forward does Python-side image
+    # merging / loss bookkeeping that doesn't compile cleanly, and leaving the top
+    # module uncompiled lets DeepSpeed wrap it normally. dynamic=True avoids a
+    # recompile on every new sequence length / image-token count.
+    if getattr(model_args, "torch_compile_model", False):
+        rank0_print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Compiling backbone with torch.compile <<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        if training_args.gradient_checkpointing:
+            # Reentrant checkpointing inserts graph breaks that defeat compile;
+            # force the non-reentrant variant so compiled regions trace through it.
+            model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+        torch._dynamo.config.cache_size_limit = max(
+            torch._dynamo.config.cache_size_limit, 64
+        )
+        model.model = torch.compile(model.model, dynamic=True)
+        model.visual = torch.compile(model.visual, dynamic=True)
 
     print("!" * 100)
     lora_para = sum(p.numel() for n, p in model.named_parameters() if (p.requires_grad and 'lora' in n))
@@ -384,7 +443,15 @@ def load_model_for_eval(model_path, model_base, device_map="cuda",
             device_map = json.load(f)
         kwargs['device_map'] = device_map
 
-    if 'qwen2' in model_path.lower() or 'qwen' in model_path.lower():
+    # Detect a Qwen2-VLA model from its config rather than the path string, so
+    # checkpoints saved under arbitrary names (e.g. ChatVLA_libero_*) still load.
+    model_config = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
+    is_qwen = (
+        getattr(model_config, "model_type", "").lower().startswith("qwen")
+        or 'qwen2' in model_path.lower()
+        or 'qwen' in model_path.lower()
+    )
+    if is_qwen:
         if 'lora' in model_path.lower() and model_base is None:
             warnings.warn(
                 'There is `lora` in model name but no `model_base` is provided. If you are loading a LoRA model, '
@@ -409,7 +476,7 @@ def load_model_for_eval(model_path, model_base, device_map="cuda",
         else:
             assert model_path is not None
             print("load QWen2-VLA!!!")
-            config = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
+            config = model_config
             tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
             model = AutoModelForCausalLM.from_pretrained(
                 model_path,
@@ -441,9 +508,35 @@ def load_model_for_eval(model_path, model_base, device_map="cuda",
                 multi_modal_processor.save_pretrained(save_path)
             exit(0)
     else:
-        raise "do not support this model!"
+        raise ValueError(f"Unsupported model at {model_path!r} (model_type="
+                         f"{getattr(model_config, 'model_type', None)!r})")
 
     multi_modal_processor = AutoProcessor.from_pretrained(model_path, use_fast=False)
+    if getattr(multi_modal_processor, "image_processor", None) is None:
+        # The checkpoint dir lacks `preprocessor_config.json` (training only copies
+        # it into `checkpoint-*` subdirs), so AutoProcessor degraded to a bare
+        # tokenizer that would silently drop images -> pixel_values=None at inference.
+        # Recover a full Qwen2-VL processor from an explicit path, a sibling
+        # checkpoint dir, or the base model.
+        import glob
+        proc_src = (policy_config or {}).get("processor_path")
+        if proc_src is None:
+            ckpts = sorted(glob.glob(os.path.join(model_path, "checkpoint-*")))
+            proc_src = next(
+                (c for c in ckpts if os.path.exists(os.path.join(c, "preprocessor_config.json"))),
+                None,
+            )
+        if proc_src is None:
+            proc_src = model_base
+        if proc_src is None:
+            raise ValueError(
+                f"No image processor found for {model_path!r} and no fallback available. "
+                f"Pass `processor_path` (a Qwen2-VL dir/id with preprocessor_config.json), "
+                f"or copy preprocessor_config.json + chat_template.json into the checkpoint dir."
+            )
+        print(f"[load_model_for_eval] no image processor in checkpoint; "
+              f"loading multimodal processor from {proc_src!r}")
+        multi_modal_processor = AutoProcessor.from_pretrained(proc_src, use_fast=False)
     if hasattr(model.config, "max_sequence_length"):
         context_len = model.config.max_sequence_length
     else:
